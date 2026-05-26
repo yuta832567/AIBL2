@@ -33,7 +33,7 @@
     --sans: 'Noto Sans JP', sans-serif;
     --display: 'Cormorant Garamond', 'Noto Serif JP', serif;
   }
-
+ 
   html { scroll-behavior: smooth; }
   body {
     font-family: var(--sans);
@@ -43,7 +43,7 @@
     font-feature-settings: "palt";
     -webkit-font-smoothing: antialiased;
   }
-
+ 
   /* ===== Top Bar ===== */
   .topbar {
     border-bottom: 1px solid var(--ink);
@@ -79,7 +79,7 @@
     color: var(--ink-muted);
     font-weight: 500;
   }
-
+ 
   /* ===== Tab Navigation ===== */
   .tabs {
     display: flex;
@@ -110,7 +110,7 @@
     color: var(--ink-faint);
   }
   .tab.active .tab-num { color: var(--accent); }
-
+ 
   /* ===== Main ===== */
   main {
     max-width: 1080px;
@@ -123,7 +123,7 @@
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
+ 
   .panel-head { margin-bottom: 48px; }
   .panel-eyebrow {
     font-family: var(--display);
@@ -148,7 +148,7 @@
     line-height: 1.95;
   }
   .panel-lead strong { color: var(--accent); font-weight: 600; }
-
+ 
   /* ===== Overview Panel ===== */
   .ov-grid {
     display: grid;
@@ -200,7 +200,7 @@
   }
   .ov-value { flex: 1; line-height: 1.7; }
   .ov-value small { color: var(--ink-muted); font-size: 11px; }
-
+ 
   .ov-summary h3 {
     font-family: var(--serif);
     font-size: 18px;
@@ -216,7 +216,7 @@
     margin-bottom: 20px;
   }
   .ov-summary strong { color: var(--accent); font-weight: 600; }
-
+ 
   .metric-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -242,7 +242,7 @@
     letter-spacing: 0.05em;
     line-height: 1.5;
   }
-
+ 
   /* ===== Level Gauge ===== */
   .level-block { margin-top: 8px; }
   .level-title {
@@ -313,7 +313,7 @@
     padding: 0 4px;
     line-height: 1.4;
   }
-
+ 
   /* ===== Timeline ===== */
   .timeline { position: relative; padding-left: 40px; }
   .timeline::before {
@@ -401,7 +401,7 @@
     line-height: 1.8;
   }
   .tl-highlight strong { color: var(--accent); }
-
+ 
   /* ===== Achievements ===== */
   .ach-intro {
     background: var(--ink);
@@ -443,7 +443,7 @@
     margin-top: 4px;
     font-family: var(--sans);
   }
-
+ 
   .ach-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -506,7 +506,7 @@
     letter-spacing: 0.03em;
   }
   .ach-card.featured .ach-tool { background: white; }
-
+ 
   /* ===== Challenges ===== */
   .ch-block {
     margin-bottom: 28px;
@@ -626,7 +626,7 @@
     color: var(--ink-muted);
   }
   .pat-cost { font-weight: 600; color: var(--ink); font-size: 11px; }
-
+ 
   /* ===== Next Steps ===== */
   .ns-banner {
     background: linear-gradient(135deg, #14213a 0%, #1a4d6b 100%);
@@ -655,7 +655,7 @@
     line-height: 1.9;
     max-width: 760px;
   }
-
+ 
   .ns-section-title {
     font-family: var(--serif);
     font-size: 18px;
@@ -674,7 +674,7 @@
     color: var(--ink-muted);
     font-weight: 400;
   }
-
+ 
   .roadmap {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -728,7 +728,7 @@
     letter-spacing: 0.05em;
   }
   .rm-stage.active { background: var(--cream); }
-
+ 
   .homework {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -766,7 +766,7 @@
     color: var(--ink-muted);
     line-height: 1.75;
   }
-
+ 
   .tools-intro {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -795,7 +795,7 @@
     color: var(--ink-soft);
     line-height: 1.85;
   }
-
+ 
   /* ===== Footer ===== */
   footer {
     border-top: 1px solid var(--line);
@@ -816,7 +816,7 @@
     letter-spacing: 0.1em;
     line-height: 1.8;
   }
-
+ 
   /* ===== Responsive ===== */
   @media (max-width: 900px) {
     .topbar-inner, main { padding-left: 24px; padding-right: 24px; }
@@ -833,26 +833,27 @@
 </style>
 </head>
 <body>
-
+ 
   <!-- ===== Top Bar with Tabs ===== -->
   <div class="topbar">
     <div class="topbar-inner">
       <div class="topbar-meta">
         <div class="brand">AIBL <span>Progress Portal</span></div>
-        <div class="topbar-status">政本 紗耶 様 · 中級編 · 更新 2026.04.21</div>
+        <div class="topbar-status">政本 紗耶 様 · 中級編 · 更新 2026.05.26</div>
       </div>
       <nav class="tabs">
         <div class="tab active" data-tab="overview"><span class="tab-num">01</span>概要</div>
         <div class="tab" data-tab="journey"><span class="tab-num">02</span>歩みの記録</div>
-        <div class="tab" data-tab="achievements"><span class="tab-num">03</span>実績マップ</div>
-        <div class="tab" data-tab="challenges"><span class="tab-num">04</span>課題と解決策</div>
-        <div class="tab" data-tab="next"><span class="tab-num">05</span>次のステップ</div>
+        <div class="tab" data-tab="latest"><span class="tab-num">03</span>最新MTG 5/26</div>
+        <div class="tab" data-tab="achievements"><span class="tab-num">04</span>実績マップ</div>
+        <div class="tab" data-tab="challenges"><span class="tab-num">05</span>課題と解決策</div>
+        <div class="tab" data-tab="next"><span class="tab-num">06</span>次のステップ</div>
       </nav>
     </div>
   </div>
-
+ 
   <main>
-
+ 
     <!-- ============ Panel 1: Overview ============ -->
     <section class="panel active" id="overview">
       <div class="panel-head">
@@ -862,7 +863,7 @@
           銀座クラブを経営する政本様は、AIBL受講生の中でも<strong>突出した自走力</strong>を持つクライアントです。2025年11月の初級研修開始から半年で、GASによる業務アプリの自作・契約フローの自動化・成績管理サイトの構築まで到達。現在は<strong>Claude Code・自律型AIによるさらなる高度化</strong>のフェーズに入っています。
         </p>
       </div>
-
+ 
       <div class="ov-grid">
         <div class="ov-profile">
           <div class="ov-name-en">Masamoto Saya</div>
@@ -872,27 +873,27 @@
           <div class="ov-row"><div class="ov-label">経験</div><div class="ov-value">ママ歴 15年／業界歴 20年</div></div>
           <div class="ov-row"><div class="ov-label">契約</div><div class="ov-value">AIBL 中級編</div></div>
           <div class="ov-row"><div class="ov-label">研修</div><div class="ov-value">初級 2025/11/19<br>中級 2026/01/28</div></div>
-          <div class="ov-row"><div class="ov-label">FU回数</div><div class="ov-value">3回 <small>（2/27・3/25・4/21）</small></div></div>
+          <div class="ov-row"><div class="ov-label">FU回数</div><div class="ov-value">4回 <small>（2/27・3/25・4/21・5/26）</small></div></div>
           <div class="ov-row"><div class="ov-label">使用AI</div><div class="ov-value">Gemini・ChatGPT・Claude<br><small>用途で使い分け</small></div></div>
         </div>
-
+ 
         <div class="ov-summary">
           <h3>担当所感とポジション</h3>
           <p>
             政本様は単なる「効率化」を超え、<strong>業務構造そのものをシステムとして再設計</strong>する段階に到達しています。GASでタイムカード・報酬反映・契約締結フロー・成績アクセスサイトまで自作しており、すでに<strong>社内ポータルサイトに近い仕組み</strong>を保有。担当・阿部からも「AI・スプレッドシート・業務連携への理解が深く、自走力が高い」との評価があります。
           </p>
           <p>
-            一方で、活用の高度化に伴い<strong>長時間PC作業による身体負担</strong>や、<strong>Claude Code・自律型AIの環境構築イメージの不足</strong>という新たな課題も浮上。次の打ち手は「自律型AIへ一足飛び」ではなく、Claude Codeを起点に着実に理解を積む方針が4/21に確認されました。
+            一方で、活用の高度化に伴い<strong>長時間PC作業による身体負担</strong>という課題も浮上。直近の5/26では、阿部から共有された「Claudeでウェブサイトを作る」活用法に強く反応し、<strong>「やりたいことが出てきた」</strong>と自ら次の一歩を発見。まずは情報提供型サイト（自分専用の料理サイト）の制作から着手し、徐々にClaude Codeへと広げていく方針が定まりました。
           </p>
-
+ 
           <div class="metric-row">
-            <div class="metric"><div class="metric-num">6</div><div class="metric-label">自作した<br>業務システム</div></div>
+            <div class="metric"><div class="metric-num">7</div><div class="metric-label">自作した<br>業務システム</div></div>
             <div class="metric"><div class="metric-num">Lv.6</div><div class="metric-label">AI活用<br>到達レベル</div></div>
             <div class="metric"><div class="metric-num">3</div><div class="metric-label">使い分ける<br>AIツール</div></div>
           </div>
         </div>
       </div>
-
+ 
       <div class="level-block">
         <div class="level-title">AI活用レベル ─ 6段階評価</div>
         <div class="level-sub">4/21時点で最上位のLv.6（自動化設計）に到達。次は自律型AIによる「常時稼働の業務代行」が視野に。</div>
@@ -914,7 +915,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- ============ Panel 2: Journey ============ -->
     <section class="panel" id="journey">
       <div class="panel-head">
@@ -924,7 +925,7 @@
           初級研修から3回のフォローアップMTGまで、政本様のAI活用がどう進化してきたかの軌跡。回を追うごとに<strong>「教わる」から「自ら設計する」へ</strong>と重心が移っているのが分かります。
         </p>
       </div>
-
+ 
       <div class="timeline">
         <div class="tl-item milestone">
           <div class="tl-dot"></div>
@@ -932,14 +933,14 @@
           <div class="tl-title">初級編 ─ ChatGPT基礎</div>
           <div class="tl-body">生成AIの基礎を習得。この時点ですでに発注メール・売上照合メールなど一部業務の自動化を実践済みの状態で受講開始。</div>
         </div>
-
+ 
         <div class="tl-item milestone">
           <div class="tl-dot"></div>
           <div class="tl-date">2026 · 01 · 28<span class="tl-tag">研修</span></div>
           <div class="tl-title">中級編 ─ 実務応用</div>
           <div class="tl-body">プロンプト設計・業務応用を学習。メインツールがGeminiであることを踏まえ、Gemini中心の活用へ移行。操作説明9割＋プロンプトアドバイザー共有。</div>
         </div>
-
+ 
         <div class="tl-item">
           <div class="tl-dot"></div>
           <div class="tl-date">2026 · 02 · 27<span class="tl-tag">FU MTG #1</span></div>
@@ -953,7 +954,7 @@
           </div>
           <div class="tl-highlight"><strong>決定：</strong>自動化希望業務の優先順位リスト作成。単体ツール対応／連携型の分類整理。半自動化も許容する方針。</div>
         </div>
-
+ 
         <div class="tl-item">
           <div class="tl-dot"></div>
           <div class="tl-date">2026 · 03 · 25<span class="tl-tag">FU MTG #2</span></div>
@@ -968,10 +969,10 @@
           </div>
           <div class="tl-highlight"><strong>決定：</strong>Claudeの活用を有力候補として進める。特にデスクトップアプリ版を前提に検討。月1回の定例MTGを継続。</div>
         </div>
-
-        <div class="tl-item latest">
+ 
+        <div class="tl-item milestone">
           <div class="tl-dot"></div>
-          <div class="tl-date">2026 · 04 · 21<span class="tl-tag now">最新 · FU MTG #3</span></div>
+          <div class="tl-date">2026 · 04 · 21<span class="tl-tag">FU MTG #3</span></div>
           <div class="tl-title">Claude Code・自律型AIへの方向づけ</div>
           <div class="tl-body">
             上田氏も参加し、AI活用の上位フェーズを議論。政本様がGASで「ポータルサイト相当」の仕組みを既に保有していることが判明。
@@ -984,16 +985,201 @@
           </div>
           <div class="tl-highlight"><strong>決定：</strong>いきなり自律型AIに進むのではなく、まずClaude Codeを起点に理解と実践を進める。GitHub・Obsidianを導入し作業ログ基盤を整える。</div>
         </div>
-
+ 
+        <div class="tl-item latest">
+          <div class="tl-dot"></div>
+          <div class="tl-date">2026 · 05 · 26<span class="tl-tag now">最新 · FU MTG #4</span></div>
+          <div class="tl-title">Claudeでのウェブサイト構築という新しい武器</div>
+          <div class="tl-body">
+            阿部より「政本様専用の進捗サイト（＝このサイト）」を初共有。そこから、Claudeでサイトを作る活用法へと話が大きく展開。
+            <ul>
+              <li>GW前にClaude Codeでポスを構築するも、2週間の旅行で一度リセット</li>
+              <li>「何ができるか分からず、やりたいことが浮かばない」という悩みを共有</li>
+              <li>Claudeプロジェクト機能で顧客・キャスト別の管理ができると判明</li>
+              <li>チャットで作る情報提供サイトと、Claude Codeで作るアクション型サイトの使い分けを整理</li>
+              <li>レシピサイト・物件探しサイト・業務診断ツールの実例で「できること」を体感</li>
+            </ul>
+          </div>
+          <div class="tl-highlight"><strong>決定：</strong>「やりたいことが出てきた」と政本様。まず自分専用の料理サイトをClaudeで作ることから着手。進捗サイトの構成はキャスト管理にも応用できると気づきを得た。詳細は「最新MTG 5/26」タブへ。</div>
+        </div>
+ 
         <div class="tl-item">
           <div class="tl-dot" style="border-style:dashed; border-color:var(--ink-faint);"></div>
-          <div class="tl-date">次回予定<span class="tl-tag">FU MTG #4</span></div>
-          <div class="tl-title">Claude Code実践の振り返り</div>
-          <div class="tl-body">Claude Codeを触った結果の振り返り、GitHub/Obsidian導入状況の確認、やりたいことリストの優先順位付け、開発テーマを1つ決めて着手。</div>
+          <div class="tl-date">2026 · 06 · 22<span class="tl-tag">次回 · FU MTG #5</span></div>
+          <div class="tl-title">料理サイト制作の振り返りとClaude Code</div>
+          <div class="tl-body">月曜 11:00〜12:00。自作した料理サイトの振り返り、公開方法（GitHub・Vercel）の確認、Claudeプロジェクト環境づくり、そしてClaude Codeでのアクション型サイトへの展開を議論予定。</div>
         </div>
       </div>
     </section>
-
+ 
+    <!-- ============ Panel: 5/26 Latest MTG Report ============ -->
+    <section class="panel" id="latest">
+      <style>
+        #latest .rep-meta { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); margin-bottom: 44px; }
+        #latest .rep-meta-item { padding: 22px 24px; border-right: 1px solid var(--line); }
+        #latest .rep-meta-item:last-child { border-right: none; }
+        #latest .rep-meta-label { font-family: var(--display); font-style: italic; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.08em; margin-bottom: 6px; }
+        #latest .rep-meta-value { font-family: var(--serif); font-size: 15px; font-weight: 600; line-height: 1.5; }
+        #latest .rep-sec-title { font-family: var(--serif); font-size: 19px; font-weight: 600; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line); display: flex; align-items: baseline; gap: 14px; }
+        #latest .rep-sec-title .en { font-family: var(--display); font-style: italic; font-size: 13px; color: var(--ink-muted); font-weight: 400; }
+        #latest .progress3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 52px; }
+        #latest .pg-card { background: var(--cream); padding: 22px; border-top: 2px solid var(--accent); }
+        #latest .pg-card.warn { border-top-color: var(--warn); }
+        #latest .pg-step { font-family: var(--display); font-style: italic; font-size: 13px; color: var(--accent); margin-bottom: 8px; }
+        #latest .pg-card.warn .pg-step { color: var(--warn); }
+        #latest .pg-card h4 { font-family: var(--serif); font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+        #latest .pg-card p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.85; }
+        #latest .learn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 52px; }
+        #latest .learn-card { border: 1px solid var(--line); padding: 24px; position: relative; }
+        #latest .learn-card.key { border-color: var(--accent); background: var(--accent-soft); }
+        #latest .learn-no { font-family: var(--display); font-style: italic; font-size: 24px; color: var(--ink-faint); line-height: 1; margin-bottom: 8px; }
+        #latest .learn-card.key .learn-no { color: var(--accent); }
+        #latest .learn-card h4 { font-family: var(--serif); font-size: 16px; font-weight: 600; margin-bottom: 10px; line-height: 1.5; }
+        #latest .learn-card p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.85; }
+        #latest .learn-tag { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 3px; margin-top: 14px; font-weight: 500; letter-spacing: 0.03em; }
+        #latest .lt-chat { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
+        #latest .lt-code { background: var(--purple-soft); color: var(--purple); }
+        #latest .lt-tip { background: var(--ok-soft); color: var(--ok); }
+        #latest .insight { background: var(--ink); color: white; padding: 36px 40px; margin-bottom: 44px; }
+        #latest .insight-eyebrow { font-family: var(--display); font-style: italic; font-size: 13px; opacity: 0.75; letter-spacing: 0.08em; margin-bottom: 10px; }
+        #latest .insight h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.5; margin-bottom: 16px; }
+        #latest .insight-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+        #latest .ip-item { font-size: 13px; line-height: 1.8; opacity: 0.92; padding-left: 18px; position: relative; }
+        #latest .ip-item::before { content: "›"; position: absolute; left: 0; color: #8fb8cf; font-weight: 600; }
+        #latest .ip-item strong { color: white; font-weight: 600; }
+        #latest .compare { border: 1px solid var(--line); }
+        #latest .compare-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; }
+        #latest .compare-row.head { background: var(--cream); font-weight: 600; }
+        #latest .compare-cell { padding: 14px 18px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); font-size: 12.5px; line-height: 1.7; }
+        #latest .compare-cell:last-child { border-right: none; }
+        #latest .compare-row:last-child .compare-cell { border-bottom: none; }
+        #latest .compare-cell .lead { font-weight: 600; color: var(--accent); }
+        @media (max-width: 900px) {
+          #latest .rep-meta, #latest .progress3, #latest .learn-grid, #latest .insight-points { grid-template-columns: 1fr; }
+          #latest .rep-meta-item { border-right: none; border-bottom: 1px solid var(--line); }
+          #latest .compare-row { grid-template-columns: 1fr; }
+        }
+      </style>
+ 
+      <div class="panel-head">
+        <div class="panel-eyebrow">Session Report — May 26</div>
+        <h1 class="panel-title">最新MTG 5/26 レポート</h1>
+        <p class="panel-lead">
+          今回は、阿部から<strong>「政本様専用の進捗サイト（＝このサイト）」を初めて共有</strong>した回です。そこから「Claudeでウェブサイトを作る」という新しい武器の話へと発展し、政本様自身が<strong>「やりたいことが出てきた」</strong>と次の一歩を見つけたセッションになりました。
+        </p>
+      </div>
+ 
+      <div class="rep-meta">
+        <div class="rep-meta-item">
+          <div class="rep-meta-label">SESSION DATE</div>
+          <div class="rep-meta-value">2026年5月26日（月）<br>11:00〜12:00</div>
+        </div>
+        <div class="rep-meta-item">
+          <div class="rep-meta-label">FACILITATOR</div>
+          <div class="rep-meta-value">阿部 裕太</div>
+        </div>
+        <div class="rep-meta-item">
+          <div class="rep-meta-label">THEME</div>
+          <div class="rep-meta-value">Claudeでのサイト構築と<br>プロジェクト活用</div>
+        </div>
+      </div>
+ 
+      <div class="rep-sec-title">前回からの進捗 <span class="en">— progress check</span></div>
+      <div class="progress3">
+        <div class="pg-card">
+          <div class="pg-step">01</div>
+          <h4>Claude Codeでポスを構築</h4>
+          <p>GW前は腰を痛めるほど没頭し、給与計算や日常業務を連携させたポス（POS）を制作。「指示に従うだけで定型作業が完了する」状態を目指していた。</p>
+        </div>
+        <div class="pg-card warn">
+          <div class="pg-step">02</div>
+          <h4>旅行で一度リセット</h4>
+          <p>GW中に2週間の旅行へ。PCに触れられず、それまでの勢いが一度止まってしまった。ポスは中核ツールとして、改めてじっくり作っていく方針に。</p>
+        </div>
+        <div class="pg-card warn">
+          <div class="pg-step">03</div>
+          <h4>「やりたいことが浮かばない」</h4>
+          <p>「何ができるか分からないから、やりたいことが浮かんでこない」という率直な悩みを共有。これが今回の話の出発点となった。</p>
+        </div>
+      </div>
+ 
+      <div class="rep-sec-title">今回の学びと発見 <span class="en">— key takeaways</span></div>
+      <div class="learn-grid">
+        <div class="learn-card key">
+          <div class="learn-no">01</div>
+          <h4>この進捗サイトの仕組み</h4>
+          <p>このサイトはすべてClaudeで構築されている。毎月のMTG文字起こしをClaudeにアップロードすることで自動的に内容が更新される仕組み。月次の振り返り用としてブックマーク推奨。</p>
+          <span class="learn-tag lt-chat">Claude チャット</span>
+        </div>
+        <div class="learn-card key">
+          <div class="learn-no">02</div>
+          <h4>プロジェクトで顧客・キャスト別に管理</h4>
+          <p>Claudeの「プロジェクト」機能で、チャットを顧客名ごとに分けて管理できる。文字起こしをアップすればHTMLサイトが更新される。GPTsやGeminiのGemと同じ発想。キャスト管理にそのまま応用可能。</p>
+          <span class="learn-tag lt-chat">Claude チャット</span>
+        </div>
+        <div class="learn-card">
+          <div class="learn-no">03</div>
+          <h4>チャット と Claude Code の使い分け</h4>
+          <p>情報を見せるだけのサイトは「チャット」で即作成できる。一方、ログイン・データ入力・管理画面など、相手にアクションしてもらうサイトは「Claude Code」が必要になる。</p>
+          <span class="learn-tag lt-code">使い分け</span>
+        </div>
+        <div class="learn-card">
+          <div class="learn-no">04</div>
+          <h4>実例：レシピサイト</h4>
+          <p>料理を複数選ぶと買い物リストが自動生成され、人数に応じて分量がスケールするサイトを約15分で構築（阿部の私的事例）。薄味など味付けの好みも反映できる。政本様の現行スプレッドシート運用を一気に置き換えられる。</p>
+          <span class="learn-tag lt-chat">Claude チャット</span>
+        </div>
+        <div class="learn-card">
+          <div class="learn-no">05</div>
+          <h4>実例：物件探しサイト</h4>
+          <p>ChatGPTのDeep Research（深い調査機能）で「2026年5月時点・公開中の物件のみ」と条件を絞って情報収集→Claudeでサイト化。初期費用シミュレーターも自動で付いてくる。古い情報をつかまないコツも共有。</p>
+          <span class="learn-tag lt-tip">Deep Research活用</span>
+        </div>
+        <div class="learn-card">
+          <div class="learn-no">06</div>
+          <h4>実例：業務診断ツール（管理画面付き）</h4>
+          <p>利用者が業務を入力するとAI活用提案レポートが出る診断ツール。回答を集計する管理画面付き。診断画面＋管理画面の2階層はClaude Codeで構築（約4時間）。外注なら30〜50万円相当の規模。</p>
+          <span class="learn-tag lt-code">Claude Code</span>
+        </div>
+      </div>
+ 
+      <div class="insight">
+        <div class="insight-eyebrow">Realization & Decision</div>
+        <h3>「やりたいことが出てきました。まず自分の料理サイトを作ります。」</h3>
+        <div class="insight-points">
+          <div class="ip-item"><strong>気づき①</strong>　現行のスプレッドシート運用が「アナログに感じてきた」。Claudeでのサイト化で大幅に進化できる。</div>
+          <div class="ip-item"><strong>気づき②</strong>　この進捗サイトの構成（概要／歩み／実績／課題／次のステップ）は、そのままキャスト（女の子）の管理にも使える。</div>
+          <div class="ip-item"><strong>決定①</strong>　まず情報提供型のサイト＝自分専用の料理サイトをClaudeで作ることから着手する。</div>
+          <div class="ip-item"><strong>決定②</strong>　阿部のHTMLデータを参考に、自分仕様にカスタマイズする形で相談しながら進める。</div>
+        </div>
+      </div>
+ 
+      <div class="rep-sec-title">GAS と Claude、どう使い分ける？ <span class="en">— GAS vs Claude</span></div>
+      <div class="compare">
+        <div class="compare-row head">
+          <div class="compare-cell">観点</div>
+          <div class="compare-cell">GAS（今の運用）</div>
+          <div class="compare-cell">Claude</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell lead">情報の更新しやすさ</div>
+          <div class="compare-cell"><span style="color:var(--ok);">◎</span> スプレッドシート入力が自動反映され手軽</div>
+          <div class="compare-cell"><span style="color:var(--warn);">△</span> 入力を教え直して再公開が必要</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell lead">構成・デザインの相談</div>
+          <div class="compare-cell"><span style="color:var(--warn);">△</span> 自力で組む必要がある</div>
+          <div class="compare-cell"><span style="color:var(--ok);">◎</span> すぐ相談でき、視覚的に提案してくれる</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell lead">機能追加・サイト改修</div>
+          <div class="compare-cell"><span style="color:var(--warn);">△</span> コーディングの手間が大きい</div>
+          <div class="compare-cell"><span style="color:var(--ok);">◎</span> 「PDF保存ボタン追加して」等で即実装</div>
+        </div>
+      </div>
+ 
+    </section>
+ 
     <!-- ============ Panel 3: Achievements ============ -->
     <section class="panel" id="achievements">
       <div class="panel-head">
@@ -1003,16 +1189,24 @@
           政本様がこれまでに自作・運用している仕組みの一覧。<strong>単発の効率化ではなく、相互に連携した業務システム群</strong>として機能しており、これらを束ねると実質的にポータルサイトを形成しています。
         </p>
       </div>
-
+ 
       <div class="ach-intro">
         <div class="ach-intro-text">
           <h3>すでに「ポータルサイト」の素地が完成</h3>
-          <p>タイムカード・報酬・契約・成績管理・顧客リストが連動。AIでさらに高度化できる土台が整っている、というのが4/21の総括でした。</p>
+          <p>タイムカード・報酬・契約・成績管理・顧客リストが連動し、さらに5/26時点ではClaude Codeでポス（統合業務システム）を構築中。AIでさらに高度化できる土台が整っています。</p>
         </div>
-        <div class="ach-intro-badge">6<small>SYSTEMS BUILT</small></div>
+        <div class="ach-intro-badge">7<small>SYSTEMS BUILT</small></div>
       </div>
-
+ 
       <div class="ach-grid">
+        <div class="ach-card featured">
+          <div class="ach-card-status status-build">構築中</div>
+          <div class="ach-card-cat">automation · Claude Code</div>
+          <h4>ポス（統合業務システム）</h4>
+          <p>5/26時点の最新作。Claude Codeで給与計算と日常業務を連携させた中核システムを構築中。「指示に従うだけで定型作業が完了する」状態を目指す。管理者専用部分はタブにパスワードを設定して運用。今後の高度化の母艦となる存在。</p>
+          <div class="ach-tools"><span class="ach-tool">Claude Code</span><span class="ach-tool">給与計算</span><span class="ach-tool">権限管理</span></div>
+        </div>
+ 
         <div class="ach-card featured">
           <div class="ach-card-status status-live">運用中</div>
           <div class="ach-card-cat">automation · GAS</div>
@@ -1020,7 +1214,7 @@
           <p>出退勤時に写真を撮影・保存し、時刻をスプレッドシートへ自動記録。記録先は政本様のみ編集可の権限設計で、出勤時間の改ざん防止を実現。同伴・アフターをボタンで記録し報酬シートへ反映する仕組みも運用。</p>
           <div class="ach-tools"><span class="ach-tool">GAS</span><span class="ach-tool">スプレッドシート</span><span class="ach-tool">権限設計</span></div>
         </div>
-
+ 
         <div class="ach-card featured">
           <div class="ach-card-status status-live">運用中</div>
           <div class="ach-card-cat">workflow · GAS</div>
@@ -1028,7 +1222,7 @@
           <p>フォーム入力・書類アップロード・業務委託契約の締結までを一連の流れとして整備。紙ベースだった契約業務をデジタル完結させている。</p>
           <div class="ach-tools"><span class="ach-tool">フォーム</span><span class="ach-tool">書類管理</span><span class="ach-tool">契約自動化</span></div>
         </div>
-
+ 
         <div class="ach-card featured">
           <div class="ach-card-status status-live">運用中</div>
           <div class="ach-card-cat">web app · GAS</div>
@@ -1036,7 +1230,7 @@
           <p>パスワード認証により、スタッフ本人が自分の成績にアクセスできるWebサイトを構築・運用。顧客リストや名刺発注なども反映され、ポータルサイトに近い仕組みに発展している。</p>
           <div class="ach-tools"><span class="ach-tool">認証機能</span><span class="ach-tool">成績管理</span><span class="ach-tool">顧客リスト</span></div>
         </div>
-
+ 
         <div class="ach-card">
           <div class="ach-card-status status-live">運用中</div>
           <div class="ach-card-cat">education</div>
@@ -1044,7 +1238,7 @@
           <p>Googleスライド＋AI原稿生成＋音声ナレーションで15〜20分の教育動画を制作・運用。「一番やりたかったことが実現できた」と高評価。体験入店者への説明工数を削減。</p>
           <div class="ach-tools"><span class="ach-tool">Googleスライド</span><span class="ach-tool">AI原稿</span><span class="ach-tool">音声合成</span></div>
         </div>
-
+ 
         <div class="ach-card">
           <div class="ach-card-status status-live">運用中</div>
           <div class="ach-card-cat">operation</div>
@@ -1052,7 +1246,7 @@
           <p>スプレッドシートで顧客情報を一元管理し、ボタン操作でスタッフごとに約30名分の連絡対象を自動抽出。連絡業務の属人性を解消。</p>
           <div class="ach-tools"><span class="ach-tool">スプレッドシート</span><span class="ach-tool">自動抽出</span></div>
         </div>
-
+ 
         <div class="ach-card">
           <div class="ach-card-status status-live">運用中</div>
           <div class="ach-card-cat">operation</div>
@@ -1062,7 +1256,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- ============ Panel 4: Challenges ============ -->
     <section class="panel" id="challenges">
       <div class="panel-head">
@@ -1072,7 +1266,7 @@
           現時点で残る課題を、難易度別の3パターンで整理。<strong>★☆☆＝今日から試せる／★★☆＝1〜2週間でセットアップ／★★★＝エンジニア伴走が必要</strong>の目安です。自走力の高い政本様には、中級（おすすめ）の案から提案するのが現実的です。
         </p>
       </div>
-
+ 
       <!-- Challenge: Shift -->
       <div class="ch-block">
         <div class="ch-head">
@@ -1108,7 +1302,7 @@
           </div>
         </div>
       </div>
-
+ 
       <!-- Challenge: CSV -->
       <div class="ch-block">
         <div class="ch-head">
@@ -1144,7 +1338,7 @@
           </div>
         </div>
       </div>
-
+ 
       <!-- Challenge: Body burden (NEW from 4/21) -->
       <div class="ch-block">
         <div class="ch-head">
@@ -1180,7 +1374,7 @@
           </div>
         </div>
       </div>
-
+ 
       <!-- Challenge: LINE -->
       <div class="ch-block">
         <div class="ch-head">
@@ -1216,7 +1410,7 @@
           </div>
         </div>
       </div>
-
+ 
       <!-- Challenge: Staff literacy -->
       <div class="ch-block">
         <div class="ch-head">
@@ -1253,122 +1447,122 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- ============ Panel 5: Next Steps ============ -->
     <section class="panel" id="next">
       <div class="panel-head">
         <div class="panel-eyebrow">The Road Ahead</div>
         <h1 class="panel-title">次のステップ</h1>
         <p class="panel-lead">
-          4/21のMTGで定まった方針は明快です。<strong>いきなり自律型AIへ飛ばず、まずClaude Codeを起点に「どう動くか・何が必要か」を体得する</strong>。そのための環境基盤としてGitHubとObsidianを整え、小さく試しながら理解を深めていきます。
+          5/26のMTGで方針がさらに具体化しました。<strong>いきなり難しいことに進まず、まず「Claudeのチャットで情報提供型サイトを作ってみる」</strong>ところから。料理サイトを第一歩に、徐々に公開方法やプロジェクト環境、そしてClaude Codeへと広げていきます。
         </p>
       </div>
-
+ 
       <div class="ns-banner">
-        <div class="ns-banner-eyebrow">Direction confirmed on 2026.04.21</div>
-        <h3>「自律型AIへ一足飛び」ではなく、Claude Codeから着実に。</h3>
+        <div class="ns-banner-eyebrow">Direction refined on 2026.05.26</div>
+        <h3>まず「作ってみる」。情報提供型サイトから、徐々にClaude Codeへ。</h3>
         <p>
-          人間がPCでできることは、適切な環境と指示があればAIでも実現可能。ただし自律型AIほど「プロンプト不要」ではなく、むしろ目的・条件・禁止事項を明確にする力が重要になる。だからこそ、まずClaude Codeで「触れる範囲・触れない範囲」「権限設計」「保存先設計」を理解する段階を踏みます。
+          何事も、整理した情報をメモ・スプレッドシート・ウェブサイトのどれで持つかで、見やすさも理解も変わる。Claudeなら構成・デザインの相談から機能追加まで対話で進められる。だからこそ、まずは身近なテーマ（料理サイト）を題材にウェブサイト化を体験し、「できること」の感覚をつかむことが次の一歩です。
         </p>
       </div>
-
+ 
       <div class="ns-section-title">3段階の成長ロードマップ <span class="en">— growth roadmap</span></div>
       <div class="roadmap">
         <div class="rm-stage active">
           <div class="rm-now">いまここ</div>
           <div class="rm-phase">Phase 1 — 現在〜</div>
-          <h4>Claude Code を理解する</h4>
+          <h4>まず作ってみる（チャット）</h4>
           <ul>
-            <li>やりたいことを明文化する</li>
-            <li>専用フォルダ・環境を分けて安全に試す</li>
-            <li>条件設定・制約条件を明示する練習</li>
-            <li>「Claude Codeだけでどこまでできるか」を検証</li>
+            <li>自分専用の料理サイトを作る</li>
+            <li>阿部のHTMLを参考に自分仕様へ</li>
+            <li>PDF保存ボタン等を追加依頼</li>
+            <li>「情報提供型サイト」の感覚をつかむ</li>
           </ul>
         </div>
         <div class="rm-stage">
-          <div class="rm-phase">Phase 2 — 数ヶ月後</div>
-          <h4>環境を整え、連携する</h4>
+          <div class="rm-phase">Phase 2 — 次の段階</div>
+          <h4>仕組み化して効率を上げる</h4>
           <ul>
-            <li>GitHubで開発物をクラウド管理</li>
-            <li>Obsidianで作業ログ・記憶を保存</li>
-            <li>実行AIと相談AIを分けて2画面運用</li>
-            <li>1つの開発テーマを決めて作り込む</li>
+            <li>プロジェクト＋カスタム指示で相談環境を作る</li>
+            <li>顧客・キャストごとのチャット管理</li>
+            <li>公開方法（GitHub・Vercel）を習得</li>
+            <li>進捗サイト形式をキャスト管理へ応用</li>
           </ul>
         </div>
         <div class="rm-stage">
           <div class="rm-phase">Phase 3 — 将来構想</div>
-          <h4>自律型AIで常時稼働</h4>
+          <h4>アクション型・本格システムへ</h4>
           <ul>
-            <li>Mac mini等で24時間稼働の業務代行</li>
-            <li>権限設計のもと一連の業務を委任</li>
-            <li>AIBLポータル・e-learning構想との連携</li>
+            <li>Claude Codeでログイン・入力・管理画面付きサイト</li>
+            <li>ポスを中核に業務を統合</li>
+            <li>自律型AIによる常時稼働</li>
             <li>身体負担の軽減と「任せる経営」へ</li>
           </ul>
         </div>
       </div>
-
+ 
       <div class="ns-section-title">次回までの宿題 <span class="en">— homework for 政本様</span></div>
       <div class="homework">
         <div class="hw-card">
           <div class="hw-check">✓</div>
           <div class="hw-body">
-            <h4>やりたいことリストの整理</h4>
-            <p>業務効率化・開発で実現したいことを棚卸しして書き出す。次回はこれに優先順位をつける。</p>
+            <h4>自分専用の料理サイトを作る</h4>
+            <p>まず情報提供型のHTMLサイトを1つ作ってみる。薄味の好みや作りたい献立をClaudeに伝え、買い物リスト機能なども相談しながら実装する。</p>
           </div>
         </div>
         <div class="hw-card">
           <div class="hw-check">✓</div>
           <div class="hw-body">
-            <h4>GitHub の導入</h4>
-            <p>開発物やフォルダのクラウド管理先として導入。継続開発の保存基盤を整える。</p>
+            <h4>阿部のHTMLを参考にカスタマイズ</h4>
+            <p>共有されたHTMLデータをClaudeに添付し「これを参考に自分仕様で作りたい」と相談。Claudeが不足点をヒアリングしながら仕上げてくれる。</p>
           </div>
         </div>
         <div class="hw-card">
           <div class="hw-check">✓</div>
           <div class="hw-body">
-            <h4>Obsidian の導入</h4>
-            <p>作業ログ・進行状況を保存し、AIに継続的な記憶を持たせるための基盤として導入。</p>
+            <h4>公開方法を試す（GitHub・Vercel）</h4>
+            <p>作ったサイトを自分やスタッフが使える形に公開する手順を試す。詰まったら次回MTGまたはClaudeに相談すればよい。</p>
           </div>
         </div>
         <div class="hw-card">
           <div class="hw-check">✓</div>
           <div class="hw-body">
-            <h4>Claude Code を実際に触る</h4>
-            <p>まず動かしてみて、詰まった点・困りごとを洗い出しておく。次回MTGで一緒に解決する。</p>
+            <h4>プロジェクト環境を作る</h4>
+            <p>「Claudeに教えてもらう」ためのプロジェクト＋カスタム指示を用意。指示文が書けなければClaude自身に作ってもらえばOK。</p>
           </div>
         </div>
       </div>
-
+ 
       <div class="ns-section-title">新しく覚える周辺ツール <span class="en">— supporting tools</span></div>
       <div class="tools-intro">
         <div class="tool-explain">
+          <div class="te-name">Claudeプロジェクト</div>
+          <div class="te-role">相談できる専用環境</div>
+          <p>用途ごとにチャットをまとめ、カスタム指示（事前の役割設定）を入れておける機能。「ウェブサイト相談専用」「キャスト管理専用」など目的別に作れる。<small style="color:var(--ink-muted)">※ChatGPTのGPTs・GeminiのGemと同じ発想</small></p>
+        </div>
+        <div class="tool-explain">
+          <div class="te-name">GitHub / Vercel</div>
+          <div class="te-role">サイトの公開・保存</div>
+          <p>作ったウェブサイトを自分やスタッフが使える形でインターネット上に公開するための仕組み。やり方を一度覚えれば難しくない。<small style="color:var(--ink-muted)">※サイトを世に出すための土台</small></p>
+        </div>
+        <div class="tool-explain">
           <div class="te-name">Claude Code</div>
-          <div class="te-role">起点となる開発ツール</div>
-          <p>コード生成・修正、API連携や外部ツール連携など技術的な実装向き。「人間がPCでできること」を指示で再現する出発点。エンジニアの利用者も多い。</p>
-        </div>
-        <div class="tool-explain">
-          <div class="te-name">GitHub</div>
-          <div class="te-role">クラウド保存・バージョン管理</div>
-          <p>開発したものやフォルダをクラウドで管理する場所。フォルダ移動で動かなくなる事故を防ぎ、継続開発の土台になる。<small style="color:var(--ink-muted)">※ソフトウェアの保管庫のようなもの</small></p>
-        </div>
-        <div class="tool-explain">
-          <div class="te-name">Obsidian</div>
-          <div class="te-role">作業ログ・AIの記憶</div>
-          <p>作業ログや進行状況をメモとして保存するツール。AIに「過去の経緯」を継続的に持たせるための記憶装置として機能する。<small style="color:var(--ink-muted)">※高機能なメモ帳のようなもの</small></p>
+          <div class="te-role">本格システムの構築</div>
+          <p>ログイン・データ入力・管理画面など、相手にアクションしてもらうサイトを作るときに使う。診断ツールやポスのような本格システム向き。<small style="color:var(--ink-muted)">※チャットの一歩先の開発ツール</small></p>
         </div>
       </div>
     </section>
-
+ 
     <footer>
       <div class="footer-mark">—</div>
       <div class="footer-text">
         AIBL Progress Portal · 政本 紗耶 様<br>
-        Last updated 2026.04.21　·　For internal use only　·　© Grateful Agent Co., Ltd.
+        Last updated 2026.05.26　·　For internal use only　·　© Grateful Agent Co., Ltd.
       </div>
     </footer>
-
+ 
   </main>
-
+ 
 <script>
   document.querySelectorAll('.tab').forEach(function(tab){
     tab.addEventListener('click', function(){
@@ -1381,6 +1575,7 @@
     });
   });
 </script>
-
+ 
 </body>
 </html>
+ 
