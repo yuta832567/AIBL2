@@ -3,1579 +3,1655 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>政本 紗耶 様｜AIBL 進捗ポータル</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<meta name="description" content="政本紗耶様専用のAI伴走ダッシュボード。研修・フォローアップMTG・学習記録を継続して蓄積します。">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f1e3c">
+<title>政本 紗耶様 — AI伴走ダッシュボード | AIBL</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;600&family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --ink: #0f1419;
-    --ink-soft: #3d434a;
-    --ink-muted: #6b7178;
-    --ink-faint: #9ca1a7;
-    --line: #e4e1da;
-    --line-soft: #efece5;
-    --paper: #ffffff;
-    --cream: #faf8f3;
-    --accent: #1a4d6b;
-    --accent-soft: #eaf1f5;
-    --gold: #9a7b3a;
-    --warn: #8b5a13;
-    --warn-soft: #f6ede0;
-    --ok: #2d5016;
-    --ok-soft: #edf3e4;
-    --danger: #8b2635;
-    --danger-soft: #f7e8ea;
-    --purple: #4a3d7a;
-    --purple-soft: #ece9f5;
-    --serif: 'Noto Serif JP', serif;
-    --sans: 'Noto Sans JP', sans-serif;
-    --display: 'Cormorant Garamond', 'Noto Serif JP', serif;
-  }
- 
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.75;
-    font-feature-settings: "palt";
-    -webkit-font-smoothing: antialiased;
-  }
- 
-  /* ===== Top Bar ===== */
-  .topbar {
-    border-bottom: 1px solid var(--ink);
-    background: var(--paper);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .topbar-inner {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 22px 48px 0;
-  }
-  .topbar-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 18px;
-  }
-  .brand {
-    font-family: var(--display);
-    font-size: 22px;
-    font-style: italic;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--ink);
-  }
-  .brand span { color: var(--accent); font-weight: 600; font-style: normal; }
-  .topbar-status {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    font-weight: 500;
-  }
- 
-  /* ===== Tab Navigation ===== */
-  .tabs {
-    display: flex;
-    gap: 0;
-  }
-  .tab {
-    padding: 14px 24px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-muted);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    white-space: nowrap;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-  .tab:hover { color: var(--ink); background: var(--cream); }
-  .tab.active {
-    color: var(--ink);
-    border-bottom-color: var(--ink);
-  }
-  .tab-num {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    color: var(--ink-faint);
-  }
-  .tab.active .tab-num { color: var(--accent); }
- 
-  /* ===== Main ===== */
-  main {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 56px 48px 120px;
-  }
-  .panel { display: none; animation: fade 0.4s ease; }
-  .panel.active { display: block; }
-  @keyframes fade {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
- 
-  .panel-head { margin-bottom: 48px; }
-  .panel-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--ink-muted);
-    letter-spacing: 0.05em;
-    margin-bottom: 8px;
-  }
-  .panel-title {
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-  .panel-lead {
-    font-size: 14px;
-    color: var(--ink-soft);
-    max-width: 720px;
-    line-height: 1.95;
-  }
-  .panel-lead strong { color: var(--accent); font-weight: 600; }
- 
-  /* ===== Overview Panel ===== */
-  .ov-grid {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 48px;
-    margin-bottom: 56px;
-  }
-  .ov-profile {
-    background: var(--cream);
-    border-left: 2px solid var(--ink);
-    padding: 36px 32px;
-    align-self: start;
-  }
-  .ov-name-en {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--ink-muted);
-    margin-bottom: 4px;
-  }
-  .ov-name {
-    font-family: var(--serif);
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .ov-reading {
-    font-size: 12px;
-    color: var(--ink-muted);
-    letter-spacing: 0.15em;
-    margin-bottom: 26px;
-  }
-  .ov-row {
-    display: flex;
-    gap: 14px;
-    padding: 11px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 13px;
-  }
-  .ov-row:last-child { border-bottom: none; }
-  .ov-label {
-    width: 72px;
-    color: var(--ink-muted);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    padding-top: 2px;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-  .ov-value { flex: 1; line-height: 1.7; }
-  .ov-value small { color: var(--ink-muted); font-size: 11px; }
- 
-  .ov-summary h3 {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
-  }
-  .ov-summary p {
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 2;
-    margin-bottom: 20px;
-  }
-  .ov-summary strong { color: var(--accent); font-weight: 600; }
- 
-  .metric-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 28px;
-  }
-  .metric {
-    border: 1px solid var(--line);
-    padding: 20px;
-    text-align: center;
-  }
-  .metric-num {
-    font-family: var(--display);
-    font-size: 38px;
-    font-weight: 500;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .metric-label {
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.05em;
-    line-height: 1.5;
-  }
- 
-  /* ===== Level Gauge ===== */
-  .level-block { margin-top: 8px; }
-  .level-title {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .level-sub {
-    font-size: 13px;
-    color: var(--ink-muted);
-    margin-bottom: 28px;
-  }
-  .level-bar { display: flex; gap: 3px; margin-bottom: 14px; }
-  .level-step {
-    flex: 1;
-    text-align: center;
-    padding: 18px 8px;
-    background: var(--cream);
-    border-bottom: 3px solid var(--line);
-    position: relative;
-  }
-  .level-step.done {
-    background: var(--accent-soft);
-    border-bottom-color: var(--accent);
-  }
-  .level-step.current {
-    background: var(--ink);
-    border-bottom-color: var(--ink);
-  }
-  .level-step.current .level-num,
-  .level-step.current .level-name { color: white; }
-  .level-step.current::after {
-    content: "現在地";
-    position: absolute;
-    top: -26px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--ink);
-    white-space: nowrap;
-    letter-spacing: 0.05em;
-  }
-  .level-num {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 16px;
-    display: block;
-    margin-bottom: 4px;
-    color: var(--accent);
-  }
-  .level-step.done .level-num { color: var(--accent); }
-  .level-name {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--ink-soft);
-  }
-  .level-caption {
-    display: flex;
-    gap: 3px;
-  }
-  .level-cap {
-    flex: 1;
-    text-align: center;
-    font-size: 10px;
-    color: var(--ink-muted);
-    padding: 0 4px;
-    line-height: 1.4;
-  }
- 
-  /* ===== Timeline ===== */
-  .timeline { position: relative; padding-left: 40px; }
-  .timeline::before {
-    content: "";
-    position: absolute;
-    left: 7px;
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: var(--line);
-  }
-  .tl-item {
-    position: relative;
-    margin-bottom: 44px;
-  }
-  .tl-item:last-child { margin-bottom: 0; }
-  .tl-dot {
-    position: absolute;
-    left: -40px;
-    top: 4px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: var(--paper);
-    border: 2px solid var(--accent);
-  }
-  .tl-item.milestone .tl-dot { background: var(--accent); }
-  .tl-item.latest .tl-dot {
-    background: var(--ink);
-    border-color: var(--ink);
-    box-shadow: 0 0 0 4px var(--cream);
-  }
-  .tl-date {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--ink-muted);
-    margin-bottom: 4px;
-  }
-  .tl-tag {
-    display: inline-block;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 3px;
-    margin-left: 10px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    vertical-align: middle;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-family: var(--sans);
-    font-style: normal;
-  }
-  .tl-tag.now { background: var(--ink); color: white; }
-  .tl-title {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .tl-body {
-    font-size: 13.5px;
-    color: var(--ink-soft);
-    line-height: 1.9;
-  }
-  .tl-body ul { list-style: none; margin-top: 8px; }
-  .tl-body li {
-    padding: 3px 0 3px 16px;
-    position: relative;
-    font-size: 13px;
-  }
-  .tl-body li::before {
-    content: "—";
-    position: absolute;
-    left: 0;
-    color: var(--ink-faint);
-  }
-  .tl-highlight {
-    margin-top: 12px;
-    padding: 12px 16px;
-    background: var(--cream);
-    border-left: 2px solid var(--accent);
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    line-height: 1.8;
-  }
-  .tl-highlight strong { color: var(--accent); }
- 
-  /* ===== Achievements ===== */
-  .ach-intro {
-    background: var(--ink);
-    color: white;
-    padding: 32px 40px;
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 32px;
-  }
-  .ach-intro-text { flex: 1; }
-  .ach-intro-text h3 {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .ach-intro-text p {
-    font-size: 13px;
-    opacity: 0.85;
-    line-height: 1.8;
-  }
-  .ach-intro-badge {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 52px;
-    font-weight: 500;
-    line-height: 1;
-    text-align: center;
-    flex-shrink: 0;
-  }
-  .ach-intro-badge small {
-    display: block;
-    font-size: 11px;
-    font-style: normal;
-    opacity: 0.7;
-    letter-spacing: 0.1em;
-    margin-top: 4px;
-    font-family: var(--sans);
-  }
- 
-  .ach-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .ach-card {
-    border: 1px solid var(--line);
-    padding: 24px;
-    position: relative;
-  }
-  .ach-card.featured {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-  }
-  .ach-card-status {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 10px;
-    padding: 3px 9px;
-    border-radius: 3px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-  }
-  .status-live { background: var(--ok-soft); color: var(--ok); }
-  .status-build { background: var(--warn-soft); color: var(--warn); }
-  .ach-card-cat {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 12px;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-    margin-bottom: 6px;
-  }
-  .ach-card h4 {
-    font-family: var(--serif);
-    font-size: 17px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    padding-right: 60px;
-    line-height: 1.5;
-  }
-  .ach-card p {
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    line-height: 1.85;
-  }
-  .ach-tools {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 14px;
-  }
-  .ach-tool {
-    font-size: 10px;
-    padding: 3px 8px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    color: var(--ink-muted);
-    letter-spacing: 0.03em;
-  }
-  .ach-card.featured .ach-tool { background: white; }
- 
-  /* ===== Challenges ===== */
-  .ch-block {
-    margin-bottom: 28px;
-    padding-bottom: 26px;
-    border-bottom: 1px solid var(--line);
-  }
-  .ch-block:last-child { border-bottom: none; }
-  .ch-head {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 18px;
-    align-items: flex-start;
-  }
-  .ch-num {
-    width: 38px;
-    height: 38px;
-    background: var(--cream);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--accent);
-    flex-shrink: 0;
-  }
-  .ch-meta { flex: 1; }
-  .ch-priority {
-    display: inline-block;
-    font-size: 10px;
-    padding: 2px 9px;
-    border-radius: 3px;
-    margin-bottom: 4px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-  }
-  .pr-high { background: var(--danger-soft); color: var(--danger); }
-  .pr-mid { background: var(--warn-soft); color: var(--warn); }
-  .pr-low { background: var(--accent-soft); color: var(--accent); }
-  .pr-body { background: var(--purple-soft); color: var(--purple); }
-  .ch-title {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 600;
-    margin: 2px 0 6px;
-  }
-  .ch-pain {
-    font-size: 12.5px;
-    color: var(--ink-muted);
-    line-height: 1.7;
-  }
-  .ch-patterns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    padding-top: 10px;
-  }
-  .pat {
-    border: 0.5px solid var(--line);
-    padding: 16px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-  .pat.rec { border: 2px solid var(--accent); }
-  .pat-rec-badge {
-    position: absolute;
-    top: -10px;
-    right: 12px;
-    background: var(--accent);
-    color: white;
-    padding: 2px 9px;
-    border-radius: 3px;
-    font-size: 10px;
-    font-weight: 500;
-  }
-  .pat-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-  .pat-stars { font-size: 12px; letter-spacing: 2px; color: var(--ink); font-weight: 600; }
-  .pat-level { font-size: 10px; color: var(--ink-muted); }
-  .pat-name {
-    font-family: var(--serif);
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.5;
-  }
-  .pat-tools { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
-  .pat-chip {
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 3px;
-    font-weight: 500;
-  }
-  .chip-chat { background: var(--accent-soft); color: var(--accent); }
-  .chip-cowork { background: var(--ok-soft); color: var(--ok); }
-  .chip-other { background: var(--cream); color: var(--ink-muted); border: 1px solid var(--line); }
-  .pat-desc {
-    font-size: 12px;
-    color: var(--ink-soft);
-    line-height: 1.8;
-    flex: 1;
-    margin-bottom: 12px;
-  }
-  .pat-foot {
-    border-top: 0.5px solid var(--line);
-    padding-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 10.5px;
-    color: var(--ink-muted);
-  }
-  .pat-cost { font-weight: 600; color: var(--ink); font-size: 11px; }
- 
-  /* ===== Next Steps ===== */
-  .ns-banner {
-    background: linear-gradient(135deg, #14213a 0%, #1a4d6b 100%);
-    color: white;
-    padding: 40px 44px;
-    margin-bottom: 44px;
-  }
-  .ns-banner-eyebrow {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 14px;
-    opacity: 0.75;
-    margin-bottom: 8px;
-    letter-spacing: 0.08em;
-  }
-  .ns-banner h3 {
-    font-family: var(--serif);
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 14px;
-    line-height: 1.4;
-  }
-  .ns-banner p {
-    font-size: 13.5px;
-    opacity: 0.9;
-    line-height: 1.9;
-    max-width: 760px;
-  }
- 
-  .ns-section-title {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-  }
-  .ns-section-title .en {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--ink-muted);
-    font-weight: 400;
-  }
- 
-  .roadmap {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    margin-bottom: 52px;
-    border: 1px solid var(--line);
-  }
-  .rm-stage {
-    padding: 24px;
-    border-right: 1px solid var(--line);
-    position: relative;
-  }
-  .rm-stage:last-child { border-right: none; }
-  .rm-phase {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 13px;
-    color: var(--accent);
-    margin-bottom: 4px;
-  }
-  .rm-stage h4 {
-    font-family: var(--serif);
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-  .rm-stage ul { list-style: none; }
-  .rm-stage li {
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    padding: 5px 0 5px 16px;
-    position: relative;
-    line-height: 1.7;
-  }
-  .rm-stage li::before {
-    content: "›";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .rm-now {
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    background: var(--ink);
-    color: white;
-    font-size: 10px;
-    padding: 3px 10px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-  }
-  .rm-stage.active { background: var(--cream); }
- 
-  .homework {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-bottom: 44px;
-  }
-  .hw-card {
-    border: 1px solid var(--line);
-    padding: 20px 22px;
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-  }
-  .hw-check {
-    width: 22px;
-    height: 22px;
-    border: 1.5px solid var(--accent);
-    border-radius: 4px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: var(--accent);
-  }
-  .hw-body h4 {
-    font-family: var(--serif);
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  .hw-body p {
-    font-size: 12.5px;
-    color: var(--ink-muted);
-    line-height: 1.75;
-  }
- 
-  .tools-intro {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  .tool-explain {
-    background: var(--cream);
-    padding: 22px;
-    border-top: 2px solid var(--accent);
-  }
-  .tool-explain .te-name {
-    font-family: var(--serif);
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .tool-explain .te-role {
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
-    font-weight: 500;
-  }
-  .tool-explain p {
-    font-size: 12px;
-    color: var(--ink-soft);
-    line-height: 1.85;
-  }
- 
-  /* ===== Footer ===== */
-  footer {
-    border-top: 1px solid var(--line);
-    margin-top: 80px;
-    padding-top: 40px;
-    text-align: center;
-  }
-  .footer-mark {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 28px;
-    color: var(--ink-faint);
-    margin-bottom: 12px;
-  }
-  .footer-text {
-    font-size: 11px;
-    color: var(--ink-faint);
-    letter-spacing: 0.1em;
-    line-height: 1.8;
-  }
- 
-  /* ===== Responsive ===== */
-  @media (max-width: 900px) {
-    .topbar-inner, main { padding-left: 24px; padding-right: 24px; }
-    .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .tab { padding: 14px 16px; }
-    .ov-grid { grid-template-columns: 1fr; gap: 32px; }
-    .ach-grid, .ch-patterns, .roadmap, .homework, .tools-intro, .metric-row { grid-template-columns: 1fr; }
-    .roadmap { border: none; }
-    .rm-stage { border-right: none; border-bottom: 1px solid var(--line); }
-    .ach-intro { flex-direction: column; align-items: flex-start; }
-    .panel-title { font-size: 26px; }
-    .level-name, .level-cap { font-size: 9px; }
-  }
+:root {
+  --navy: #0f1e3c;
+  --navy-mid: #1e3a6e;
+  --accent: #e8503a;
+  --accent-soft: #fdf0ed;
+  --teal: #1a7a6e;
+  --teal-light: #e0f4f1;
+  --warm: #f5a623;
+  --warm-light: #fef6e4;
+  --blue: #2c7a9e;
+  --blue-light: #e8f4fa;
+  --purple: #6b4bb5;
+  --purple-light: #f0ebfc;
+  --slate: #4a5568;
+  --muted: #718096;
+  --border: #e8edf3;
+  --border-dk: #c8d3df;
+  --light: #f8fafc;
+  --white: #ffffff;
+  --text: #1a202c;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { overflow-anchor: none; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ═══ HEADER ═══ */
+.site-header {
+  background: var(--navy);
+  padding: 0 48px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.header-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.9);
+}
+.header-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.08em;
+}
+.pdf-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(232,80,58,0.3);
+}
+.pdf-btn:hover { background: #d04a35; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,80,58,0.4); }
+.pdf-btn:active { transform: translateY(0); }
+.pdf-btn-icon { font-size: 13px; }
+
+/* ═══ HERO ═══ */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a3260 60%, #0d3d5a 100%);
+  padding: 64px 48px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 85% 15%, rgba(232,80,58,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 5% 90%, rgba(26,122,110,0.15) 0%, transparent 45%);
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; }
+.hero-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.hero-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 44px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.25;
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+.hero-name em {
+  display: block;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.7);
+  margin-top: 8px;
+  letter-spacing: 0.01em;
+}
+.hero-desc { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 32px; }
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hero-metric-item label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.hero-metric-item span { display: block; font-size: 13px; color: white; font-weight: 500; }
+
+/* ═══ TAB BAR ═══ */
+.tab-wrapper {
+  position: sticky;
+  top: 56px;
+  z-index: 100;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(15,30,60,0.04);
+}
+.tab-hint {
+  background: linear-gradient(90deg, var(--accent) 0%, #e84a2a 100%);
+  color: white;
+  padding: 10px 48px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.04em;
+  position: relative;
+  animation: tabHintPulse 2.5s ease-in-out infinite;
+}
+@keyframes tabHintPulse {
+  0%, 100% { background: linear-gradient(90deg, var(--accent) 0%, #e84a2a 100%); }
+  50% { background: linear-gradient(90deg, #f06045 0%, #ed5538 100%); }
+}
+.tab-hint .arrow { display: inline-block; margin: 0 12px; animation: bounceDown 1.4s ease-in-out infinite; }
+@keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+.tab-hint-close {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.2); border: none; color: white;
+  width: 22px; height: 22px; border-radius: 50%; cursor: pointer; font-size: 12px;
+}
+.tab-bar { display: grid; grid-template-columns: repeat(5, 1fr); max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.tab-btn {
+  background: transparent; border: none; padding: 18px 8px 16px; cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 600;
+  color: var(--muted); position: relative; transition: all 0.25s;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  border-bottom: 3px solid transparent;
+}
+.tab-btn:hover { color: var(--navy); background: var(--light); }
+.tab-btn.active { color: var(--navy); border-bottom-color: var(--accent); }
+.tab-btn .tab-icon { font-size: 18px; }
+.tab-btn .tab-num {
+  font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.15em; color: var(--muted); margin-top: 2px;
+}
+.tab-btn.active .tab-num { color: var(--accent); }
+
+/* ═══ TAB CONTENT ═══ */
+.tab-content { display: none; animation: tabFade 0.35s ease-out; }
+.tab-content.active { display: block; }
+@keyframes tabFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.page-body { max-width: 1000px; margin: 0 auto; padding: 56px 48px 80px; }
+
+/* ═══ SECTION HEAD ═══ */
+.sec-head { margin-bottom: 28px; position: relative; }
+.sec-label {
+  font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.3em; color: var(--accent); margin-bottom: 6px; text-transform: uppercase;
+}
+.sec-title { font-family: 'Noto Serif JP', serif; font-size: 26px; font-weight: 600; color: var(--navy); letter-spacing: 0.01em; }
+.sec-divider { width: 48px; height: 2px; background: var(--accent); margin-top: 12px; }
+.sec-sub { margin-top: 10px; font-size: 13px; color: var(--slate); line-height: 1.85; max-width: 760px; }
+
+.fancy-sep { display: flex; align-items: center; margin: 48px 0 32px; gap: 16px; }
+.fancy-sep::before, .fancy-sep::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.fancy-sep span {
+  font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase;
+}
+
+/* ═══ METRIC CARDS ═══ */
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+.metric-card {
+  background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px;
+  position: relative; border-top: 3px solid var(--accent); opacity: 0; animation: fadeUp 0.6s ease-out forwards;
+}
+.metric-card.c-teal { border-top-color: var(--teal); }
+.metric-card.c-navy { border-top-color: var(--navy-mid); }
+.metric-card.c-warm { border-top-color: var(--warm); }
+.metric-card.c-blue { border-top-color: var(--blue); }
+.metric-card.c-purple { border-top-color: var(--purple); }
+.stagger-1 { animation-delay: 0.05s; } .stagger-2 { animation-delay: 0.15s; }
+.stagger-3 { animation-delay: 0.25s; } .stagger-4 { animation-delay: 0.35s; }
+.stagger-5 { animation-delay: 0.45s; } .stagger-6 { animation-delay: 0.55s; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.metric-num { font-family: 'DM Serif Display', serif; font-size: 36px; font-weight: 400; color: var(--navy); line-height: 1.1; margin-bottom: 6px; }
+.metric-num sub { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 500; color: var(--slate); margin-left: 4px; vertical-align: baseline; }
+.metric-label { font-size: 11px; font-weight: 500; color: var(--slate); line-height: 1.6; }
+
+/* ═══ PROFILE GRID ═══ */
+.profile-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 32px; background: var(--light); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 32px; }
+.profile-div { background: var(--border); }
+.profile-col-ttl { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; }
+.pf-row { display: grid; grid-template-columns: 8px 96px 1fr; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+.pf-row:last-child { border-bottom: none; }
+.pf-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-top: 8px; }
+.pf-lbl { font-size: 11px; font-weight: 600; color: var(--muted); }
+.pf-val { font-size: 13px; color: var(--text); font-weight: 500; }
+.pf-val a { color: var(--blue); }
+.pill { display: inline-block; font-size: 11px; font-weight: 600; background: white; border: 1px solid var(--border-dk); color: var(--navy); padding: 4px 10px; border-radius: 12px; margin: 0 4px 4px 0; }
+.pill.p-teal { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+.pill.p-coral { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.pill.p-warm { border-color: var(--warm); color: #854F0B; background: var(--warm-light); }
+.pill.p-blue { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.pill.p-purple { border-color: var(--purple); color: var(--purple); background: var(--purple-light); }
+.highlight-box { background: white; border: 1.5px solid var(--accent); border-radius: 12px; padding: 18px 20px; font-size: 12px; line-height: 1.85; color: var(--slate); }
+
+/* ═══ CAREER PATH ═══ */
+.career-path { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; margin-bottom: 32px; }
+.career-step { background: var(--light); border: 1.5px solid var(--border-dk); border-radius: 10px; padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--navy); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.career-step small { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); font-family: 'Montserrat', sans-serif; }
+.career-step.now { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.career-arr { color: var(--accent); font-weight: 700; font-size: 16px; }
+
+/* ═══ NEEDS GRID ═══ */
+.needs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 36px; }
+.need-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.need-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(15,30,60,0.07); }
+.need-num { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; }
+.need-ttl { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.45; margin-bottom: 10px; position: relative; z-index: 1; }
+.need-body { font-size: 12px; color: var(--slate); line-height: 1.85; position: relative; z-index: 1; }
+.need-bg-icon { position: absolute; right: -10px; bottom: -16px; font-size: 72px; opacity: 0.06; z-index: 0; }
+
+/* ═══ ACCORDION ═══ */
+.accordion { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; overflow: hidden; transition: box-shadow 0.2s; }
+.accordion:hover { box-shadow: 0 2px 8px rgba(15,30,60,0.06); }
+.acc-head { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(90deg, white, var(--light)); user-select: none; transition: background 0.2s; }
+.acc-head:hover { background: var(--light); }
+.acc-head-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+.acc-num { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; background: var(--navy); color: white; padding: 4px 8px; border-radius: 4px; letter-spacing: 0.08em; min-width: 36px; text-align: center; }
+.acc-num.c-coral { background: var(--accent); }
+.acc-num.c-teal { background: var(--teal); }
+.acc-num.c-warm { background: var(--warm); color: var(--navy); }
+.acc-num.c-blue { background: var(--blue); }
+.acc-num.c-purple { background: var(--purple); }
+.acc-ttl { font-size: 14px; font-weight: 600; color: var(--navy); flex: 1; }
+.acc-tag { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 10px; background: var(--light); color: var(--muted); letter-spacing: 0.02em; }
+.acc-tag.t-active { background: var(--teal-light); color: var(--teal); }
+.acc-tag.t-warn { background: var(--accent-soft); color: var(--accent); }
+.acc-tag.t-done { background: var(--teal-light); color: var(--teal); }
+.acc-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); font-weight: 700; transition: transform 0.3s; flex-shrink: 0; }
+.accordion.open .acc-icon { transform: rotate(45deg); }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.accordion.open .acc-body { max-height: 3000px; }
+.acc-body-inner { padding: 8px 20px 22px; border-top: 1px dashed var(--border); font-size: 13px; color: var(--slate); line-height: 1.9; }
+.acc-body-inner ul { padding-left: 20px; margin-top: 6px; }
+.acc-body-inner li { margin-bottom: 5px; }
+.acc-body-inner strong { color: var(--navy); }
+
+/* ═══ TIMELINE ═══ */
+.tl-wrap { position: relative; padding-left: 56px; margin-bottom: 40px; }
+.tl-rail { position: absolute; left: 20px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(180deg, var(--teal), var(--blue), var(--warm), var(--border-dk)); }
+.tl-entry { position: relative; margin-bottom: 24px; }
+.tl-pin { position: absolute; left: -48px; top: 14px; width: 36px; height: 36px; border-radius: 50%; background: white; border: 3px solid var(--accent); display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; color: var(--accent); z-index: 1; }
+.tl-pin.p-done { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+.tl-pin.p-train { border-color: var(--blue); color: var(--blue); }
+.tl-pin.p-fup { border-color: var(--accent); color: var(--accent); }
+.tl-pin.p-monthly { border-color: var(--warm); color: #854F0B; }
+.tl-pin.p-future { border-color: var(--border-dk); color: var(--muted); background: var(--light); }
+.tl-card { background: white; border: 1.5px solid var(--border); border-radius: 12px; padding: 18px 22px; border-top: 3px solid var(--accent); position: relative; }
+.tl-card.t-done { border-top-color: var(--teal); background: linear-gradient(135deg, var(--teal-light), white); }
+.tl-card.t-train { border-top-color: var(--blue); }
+.tl-card.t-fup { border-top-color: var(--accent); }
+.tl-card.t-monthly { border-top-color: var(--warm); }
+.tl-card.t-future { border-top-color: var(--border-dk); background: var(--light); }
+.tl-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 12px; }
+.tl-date { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 4px; }
+.tl-date.today { color: var(--teal); font-weight: 800; }
+.tl-ttl { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.tl-phase { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); flex-shrink: 0; letter-spacing: 0.04em; }
+.tl-phase.t-done { background: var(--teal); color: white; }
+.tl-phase.t-train { background: var(--blue-light); color: var(--blue); }
+.tl-phase.t-monthly { background: var(--warm-light); color: #854F0B; }
+.tl-phase.t-future { background: var(--light); color: var(--muted); }
+.tl-body { font-size: 13px; color: var(--slate); line-height: 1.85; margin-top: 6px; }
+.tl-body ul { padding-left: 18px; margin-top: 6px; }
+.tl-body li { margin-bottom: 4px; }
+.tl-body strong { color: var(--navy); }
+.tl-tags { margin-top: 12px; }
+.tl-tag { display: inline-block; font-size: 10px; font-weight: 600; background: var(--light); color: var(--slate); padding: 3px 8px; border-radius: 8px; margin: 0 4px 4px 0; border: 1px solid var(--border); }
+
+/* ═══ SKILL BARS ═══ */
+.skill-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 22px; padding: 14px 18px; background: var(--light); border-radius: 10px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--slate); font-weight: 500; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.skill-section { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
+.skill-sec-ttl { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.skill-row { display: grid; grid-template-columns: 240px 1fr 64px; gap: 14px; align-items: center; margin-bottom: 12px; }
+.skill-row:last-child { margin-bottom: 0; }
+.skill-lbl { font-size: 12px; font-weight: 500; color: var(--text); }
+.skill-bar-bg { height: 10px; background: var(--light); border-radius: 5px; overflow: hidden; position: relative; }
+.skill-bar-fill { height: 100%; border-radius: 5px; width: 0; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.fill-hi { background: linear-gradient(90deg, var(--teal), #2da78d); }
+.fill-md { background: linear-gradient(90deg, var(--blue), #3a90b3); }
+.fill-lo { background: linear-gradient(90deg, var(--accent), #f06045); }
+.fill-xs { background: linear-gradient(90deg, #aab, #889); }
+.skill-pct { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--slate); text-align: right; }
+.skill-delta { font-size: 10px; font-weight: 700; color: var(--teal); }
+
+/* ═══ TIP TOOLTIP ═══ */
+.tip { position: relative; border-bottom: 1px dotted var(--blue); cursor: help; color: var(--blue); font-weight: 600; }
+.tip:hover::after {
+  content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: white; padding: 8px 12px; border-radius: 6px; font-size: 11px; font-weight: 400;
+  z-index: 100; box-shadow: 0 6px 16px rgba(15,30,60,0.2); white-space: normal; width: max-content; max-width: 260px; line-height: 1.6;
+}
+.tip:hover::before { content: ''; position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--navy); z-index: 100; }
+
+/* ═══ USE-WHICH CARDS ═══ */
+.use-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 32px; }
+.use-card { border-radius: 14px; padding: 22px; border: 1.5px solid var(--border); position: relative; overflow:hidden; }
+.use-card.t1 { border-top: 4px solid var(--blue); background: linear-gradient(135deg, var(--blue-light), white); }
+.use-card.t2 { border-top: 4px solid var(--teal); background: linear-gradient(135deg, var(--teal-light), white); }
+.use-badge { font-family:'Montserrat',sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; margin-bottom: 10px; display:inline-block; padding: 4px 10px; border-radius: 8px; }
+.use-card.t1 .use-badge { background: var(--blue); color: white; }
+.use-card.t2 .use-badge { background: var(--teal); color: white; }
+.use-card h4 { font-size: 15px; color: var(--navy); margin-bottom: 8px; }
+.use-card ul { padding-left: 18px; font-size: 12px; color: var(--slate); line-height: 1.9; }
+.use-card li strong { color: var(--navy); }
+
+/* ═══ THREE-TOOL FIGURE ═══ */
+.model-fig { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+.model-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 22px; background: white; position: relative; }
+.model-card.t-chat { border-top: 4px solid var(--blue); }
+.model-card.t-cowork { border-top: 4px solid var(--teal); }
+.model-card.t-code { border-top: 4px solid var(--purple); }
+.model-h { display:flex; align-items:center; gap: 10px; margin-bottom: 14px; }
+.model-icon { font-size: 24px; }
+.model-name { font-size: 16px; font-weight: 700; color: var(--navy); }
+.model-name small { display:block; font-size: 11px; font-weight: 500; color: var(--muted); }
+.model-foot { margin-top: 12px; font-size: 11.5px; color: var(--slate); line-height: 1.75; background: var(--light); padding: 10px 12px; border-radius: 8px; }
+.model-card ul { padding-left: 16px; font-size: 12px; color: var(--slate); line-height: 1.85; }
+.model-card li strong { color: var(--navy); }
+
+/* ═══ PATTERN GRID (3パターン) ═══ */
+.pat-block { margin-bottom: 22px; }
+.pat-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+.pat-circle { width: 40px; height: 40px; border-radius: 50%; background: var(--light); border: 1.5px solid var(--border-dk); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--accent); flex-shrink: 0; }
+.pat-meta { flex: 1; }
+.pat-prio { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 8px; margin-bottom: 4px; letter-spacing: 0.04em; }
+.prio-high { background: var(--accent-soft); color: var(--accent); }
+.prio-mid { background: var(--warm-light); color: #854F0B; }
+.prio-low { background: var(--blue-light); color: var(--blue); }
+.prio-new { background: var(--purple-light); color: var(--purple); }
+.pat-ttl { font-size: 15px; font-weight: 700; color: var(--navy); margin: 2px 0 4px; }
+.pat-pain { font-size: 11.5px; color: var(--muted); line-height: 1.7; }
+.pat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.pat-card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; position: relative; display: flex; flex-direction: column; background: white; }
+.pat-card.rec { border: 2px solid var(--teal); }
+.pat-rec-badge { position: absolute; top: -9px; right: 12px; background: var(--teal); color: white; padding: 2px 9px; border-radius: 8px; font-size: 10px; font-weight: 700; }
+.pat-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.pat-stars { font-size: 12px; letter-spacing: 2px; color: var(--accent); font-weight: 700; }
+.pat-level { font-size: 10px; color: var(--muted); }
+.pat-name { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.5; }
+.pat-tools { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.pat-chip { font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: 600; }
+.pc-blue { background: var(--blue-light); color: var(--blue); }
+.pc-teal { background: var(--teal-light); color: var(--teal); }
+.pc-other { background: var(--light); color: var(--muted); border: 1px solid var(--border); }
+.pat-desc { font-size: 11.5px; color: var(--slate); line-height: 1.8; flex: 1; margin-bottom: 10px; }
+.pat-foot { border-top: 1px dashed var(--border); padding-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: var(--muted); }
+.pat-cost { font-weight: 700; color: var(--navy); font-size: 11px; }
+
+/* ═══ ROADMAP PHASES ═══ */
+.roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+.rm-card { border: 1px solid var(--border); border-radius: 14px; padding: 22px; position: relative; background: white; }
+.rm-card.now { border-color: var(--accent); background: linear-gradient(135deg, var(--accent-soft), white); }
+.rm-now-badge { position: absolute; top: -10px; left: 18px; background: var(--accent); color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 8px; letter-spacing: 0.04em; }
+.rm-phase { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 6px; text-transform: uppercase; }
+.rm-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.rm-card ul { padding-left: 16px; font-size: 12px; color: var(--slate); line-height: 1.85; }
+.rm-card li strong { color: var(--navy); }
+
+/* ═══ HOMEWORK ═══ */
+.hw-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 32px; }
+.hw-card { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; background: white; }
+.hw-check { width: 24px; height: 24px; border: 1.5px solid var(--accent); border-radius: 6px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--accent); }
+.hw-body h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.hw-body p { font-size: 12px; color: var(--slate); line-height: 1.75; }
+
+/* ═══ MATRIX (BEFORE/AFTER) ═══ */
+.matrix-wrap { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 14px; }
+.matrix-head { display: grid; grid-template-columns: 1fr 32px 1fr; gap: 16px; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 2px solid var(--accent); }
+.matrix-head span { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: var(--navy); text-transform: uppercase; }
+.matrix-head span:nth-child(2) { text-align: center; }
+.matrix-row { display: grid; grid-template-columns: 1fr 32px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--border); align-items: center; font-size: 12px; }
+.matrix-row:last-child { border-bottom: none; }
+.mx-from { color: var(--muted); }
+.mx-arr { text-align: center; color: var(--accent); font-weight: 700; }
+.mx-to { color: var(--navy); font-weight: 600; }
+
+/* ═══ INFO CALLOUT ═══ */
+.callout { background: var(--light); border-left: 3px solid var(--accent); border-radius: 6px; padding: 14px 18px; font-size: 12.5px; color: var(--slate); line-height: 1.85; margin-bottom: 24px; }
+.callout strong { color: var(--navy); }
+.callout.teal { border-left-color: var(--teal); }
+.callout.blue { border-left-color: var(--blue); }
+.callout.warm { border-left-color: var(--warm); }
+.callout.purple { border-left-color: var(--purple); }
+
+.log-link { display: inline-block; color: var(--blue); text-decoration: none; border-bottom: 1px solid transparent; font-weight: 600; word-break: break-all; }
+.log-link:hover { border-bottom-color: var(--blue); }
+
+/* ═══ FILTER BAR ═══ */
+.filter-bar { background: linear-gradient(180deg, var(--light), white); border: 1.5px solid var(--border-dk); border-radius: 14px; padding: 18px 20px; margin-bottom: 28px; position: relative; }
+.filter-bar-top { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; margin-bottom: 14px; }
+.filter-search { position: relative; }
+.filter-search input { width: 100%; padding: 10px 14px 10px 40px; border: 1.5px solid var(--border-dk); border-radius: 8px; font-size: 13px; font-family: inherit; background: white; color: var(--text); transition: all 0.2s; }
+.filter-search input::placeholder { color: var(--muted); }
+.filter-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232,80,58,0.1); }
+.filter-search::before { content: '🔍'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; opacity: 0.55; }
+.filter-clear { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: var(--border); color: var(--slate); border: none; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; font-size: 11px; font-weight: 700; display: none; align-items: center; justify-content: center; }
+.filter-clear.show { display: flex; }
+.filter-clear:hover { background: var(--muted); color: white; }
+.filter-stats { font-size: 11px; color: var(--muted); font-weight: 600; white-space: nowrap; letter-spacing: 0.02em; }
+.filter-stats strong { color: var(--accent); font-family: 'Montserrat', sans-serif; font-size: 16px; margin-right: 3px; font-weight: 700; }
+.filter-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; color: var(--muted); margin-right: 4px; text-transform: uppercase; }
+.chip { background: white; border: 1.5px solid var(--border-dk); color: var(--slate); padding: 6px 12px; border-radius: 16px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; display: inline-flex; align-items: center; gap: 4px; }
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+.chip-count { display: inline-block; font-size: 9px; font-family: 'Montserrat', sans-serif; font-weight: 700; opacity: 0.75; padding: 1px 5px; background: rgba(0,0,0,0.06); border-radius: 8px; min-width: 16px; text-align: center; }
+.chip.active .chip-count { background: rgba(255,255,255,0.25); }
+.subsection { margin-bottom: 32px; transition: opacity 0.3s; }
+.subsec-head { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.subsec-head .subsec-icon { font-size: 16px; }
+.subsec-head .subsec-count { margin-left: auto; font-size: 10px; font-weight: 600; color: var(--muted); background: var(--light); padding: 3px 8px; border-radius: 10px; letter-spacing: 0.02em; }
+.filter-empty { display: none; padding: 48px 24px; text-align: center; background: var(--light); border: 1.5px dashed var(--border-dk); border-radius: 14px; margin: 16px 0; }
+.filter-empty.show { display: block; }
+.filter-empty-icon { font-size: 36px; margin-bottom: 10px; opacity: 0.4; }
+.filter-empty-ttl { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.filter-empty-desc { font-size: 11px; color: var(--muted); }
+.filter-empty-reset { margin-top: 14px; background: white; border: 1.5px solid var(--accent); color: var(--accent); padding: 8px 18px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.filter-empty-reset:hover { background: var(--accent); color: white; }
+
+/* ═══ EMPTY STATE ═══ */
+.empty-state { background: linear-gradient(135deg, var(--light), white); border: 2px dashed var(--border-dk); border-radius: 14px; padding: 32px 24px; text-align: center; margin-bottom: 16px; }
+.empty-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.5; }
+.empty-ttl { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.empty-desc { font-size: 11px; color: var(--muted); }
+
+/* ═══ FOOTER ═══ */
+.site-footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 48px; text-align: center; font-size: 11px; letter-spacing: 0.04em; }
+.site-footer strong { color: white; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  body { font-size: 13px; }
+  .site-header { padding: 0 16px; }
+  .header-sub { display: none; }
+  .hero { padding: 40px 22px 36px; }
+  .hero-name { font-size: 28px; }
+  .hero-name em { font-size: 16px; }
+  .hero-metrics { grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; padding-top: 24px; }
+  .tab-hint { padding: 8px 16px; font-size: 11px; }
+  .tab-bar { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; padding: 0 8px; }
+  .tab-bar::-webkit-scrollbar { height: 3px; }
+  .tab-bar::-webkit-scrollbar-thumb { background: var(--border-dk); }
+  .tab-btn { flex: 0 0 auto; min-width: 140px; padding: 12px 8px 10px; font-size: 11px; }
+  .tab-btn .tab-icon { font-size: 16px; }
+  .tab-btn .tab-num { font-size: 8px; }
+  .page-body { padding: 36px 20px 60px; }
+  .sec-title { font-size: 21px; }
+  .metric-row { grid-template-columns: repeat(2, 1fr); }
+  .profile-grid { grid-template-columns: 1fr; gap: 20px; }
+  .profile-div { display: none; }
+  .needs-grid, .use-grid, .model-fig, .pat-cards, .roadmap, .hw-grid { grid-template-columns: 1fr; }
+  .skill-row { grid-template-columns: 140px 1fr 50px; gap: 8px; }
+  .career-path { font-size: 11px; }
+  .matrix-head, .matrix-row { grid-template-columns: 1fr 24px 1fr; gap: 8px; }
+}
+@media print {
+  .tab-wrapper, .pdf-btn, .tab-hint { display: none !important; }
+  .tab-content { display: block !important; page-break-before: always; }
+  .tab-content:first-of-type { page-break-before: auto; }
+  .accordion .acc-body { max-height: none !important; }
+  .hero { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+.tab-btn:focus-visible, .chip:focus-visible, .acc-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skill-bar-fill { transition: none !important; }
+}
 </style>
 </head>
 <body>
- 
-  <!-- ===== Top Bar with Tabs ===== -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="topbar-meta">
-        <div class="brand">AIBL <span>Progress Portal</span></div>
-        <div class="topbar-status">政本 紗耶 様 · 中級編 · 更新 2026.05.26</div>
-      </div>
-      <nav class="tabs">
-        <div class="tab active" data-tab="overview"><span class="tab-num">01</span>概要</div>
-        <div class="tab" data-tab="journey"><span class="tab-num">02</span>歩みの記録</div>
-        <div class="tab" data-tab="latest"><span class="tab-num">03</span>最新MTG 5/26</div>
-        <div class="tab" data-tab="achievements"><span class="tab-num">04</span>実績マップ</div>
-        <div class="tab" data-tab="challenges"><span class="tab-num">05</span>課題と解決策</div>
-        <div class="tab" data-tab="next"><span class="tab-num">06</span>次のステップ</div>
-      </nav>
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-header">
+  <div class="header-logo">AIBL ／ AI BUSINESS LABO</div>
+  <div style="display:flex; align-items:center; gap:14px;">
+    <div class="header-sub">Client Dashboard — OLIVE GINZA</div>
+    <button class="pdf-btn" onclick="exportPDF()" aria-label="PDFとして保存・印刷">
+      <span class="pdf-btn-icon" aria-hidden="true">📄</span><span>PDF出力 / 印刷</span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">AI Learning &amp; Practice Dashboard</div>
+    <div class="hero-name">政本 紗耶 様<br><em>AI活用 伴走ダッシュボード</em></div>
+    <div class="hero-desc">OLIVE GINZA ／ 銀座クラブ × 生成AI の実践記録</div>
+
+    <div style="margin-top:28px; padding:16px 22px; background:rgba(255,255,255,0.05); border-left:3px solid var(--accent); border-radius:6px; backdrop-filter:blur(8px);">
+      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:17px; color:rgba(255,255,255,0.92); line-height:1.6;">「AIで“何ができるか”を知り、業務効率化からウェブサイト構築・自社専用システムまで、自分のお店に段階的に落とし込みたい。」</div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.55); margin-top:6px; font-family:'Montserrat',sans-serif; letter-spacing:0.06em;">— これまでのMTGで語られた方向性を要約（最終更新 2026年5月26日）</div>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="hero-metric-item"><label>Store</label><span>OLIVE GINZA（銀座クラブ）</span></div>
+      <div class="hero-metric-item"><label>Role</label><span>ママ（経営者）</span></div>
+      <div class="hero-metric-item"><label>担当講師</label><span>阿部 裕太</span></div>
+      <div class="hero-metric-item"><label>Next Session</label><span>2026年6月22日（月）11:00〜</span></div>
     </div>
   </div>
- 
-  <main>
- 
-    <!-- ============ Panel 1: Overview ============ -->
-    <section class="panel active" id="overview">
-      <div class="panel-head">
-        <div class="panel-eyebrow">Overview</div>
-        <h1 class="panel-title">概要</h1>
-        <p class="panel-lead">
-          銀座クラブを経営する政本様は、AIBL受講生の中でも<strong>突出した自走力</strong>を持つクライアントです。2025年11月の初級研修開始から半年で、GASによる業務アプリの自作・契約フローの自動化・成績管理サイトの構築まで到達。現在は<strong>Claude Code・自律型AIによるさらなる高度化</strong>のフェーズに入っています。
-        </p>
+</div>
+
+<!-- ═══════════ TAB BAR ═══════════ -->
+<div class="tab-wrapper">
+  <div class="tab-hint" id="tabHint">
+    <span class="arrow">▼</span>
+    下の<strong>5つのタブ</strong>をクリックすると、ページを切り替えられます
+    <span class="arrow">▼</span>
+    <button class="tab-hint-close" onclick="document.getElementById('tabHint').style.display='none'" aria-label="閉じる">✕</button>
+  </div>
+  <div class="tab-bar" role="tablist" aria-label="ダッシュボードのセクション切替">
+    <button id="tab1-btn" class="tab-btn active" onclick="switchTab('tab1',this)" role="tab" aria-selected="true" aria-controls="tab1">
+      <span class="tab-icon" aria-hidden="true">👤</span> 概要・プロフィール <span class="tab-num">P.1</span>
+    </button>
+    <button id="tab2-btn" class="tab-btn" onclick="switchTab('tab2',this)" role="tab" aria-selected="false" aria-controls="tab2">
+      <span class="tab-icon" aria-hidden="true">🎯</span> 課題・解決策 <span class="tab-num">P.2</span>
+    </button>
+    <button id="tab3-btn" class="tab-btn" onclick="switchTab('tab3',this)" role="tab" aria-selected="false" aria-controls="tab3">
+      <span class="tab-icon" aria-hidden="true">🛠️</span> 実績・Claude活用 <span class="tab-num">P.3</span>
+    </button>
+    <button id="tab4-btn" class="tab-btn" onclick="switchTab('tab4',this)" role="tab" aria-selected="false" aria-controls="tab4">
+      <span class="tab-icon" aria-hidden="true">🗺️</span> ロードマップ <span class="tab-num">P.4</span>
+    </button>
+    <button id="tab5-btn" class="tab-btn" onclick="switchTab('tab5',this)" role="tab" aria-selected="false" aria-controls="tab5">
+      <span class="tab-icon" aria-hidden="true">📅</span> 研修・MTG記録 <span class="tab-num">P.5</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ TAB 1: 概要・プロフィール ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab1" class="tab-content active" role="tabpanel" aria-labelledby="tab1-btn">
+<div class="page-body">
+
+  <!-- METRICS -->
+  <div class="sec-head">
+    <div class="sec-label">Overview</div>
+    <div class="sec-title">現状サマリー</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">政本様は、<strong>銀座クラブのママ（経営者）として業界歴20年</strong>の経験を持ち、AIBL受講生の中でも<strong>突出した自走力</strong>をお持ちです。<span class="tip" data-tip="Googleの表計算サービス。Excelに近いがクラウド上で動く">Googleスプレッドシート</span>と<span class="tip" data-tip="Google Apps Script。Googleサービスを自動化するためのプログラム">GAS</span>で業務システムを自作されており、現在は<strong>Claudeでのウェブサイト構築</strong>という新しい武器を手にしつつある段階です。</div>
+  </div>
+  <div class="metric-row">
+    <div class="metric-card stagger-1">
+      <div class="metric-num">約<span class="counter" data-target="20">0</span><sub>年</sub></div>
+      <div class="metric-label">銀座クラブ業界経験<br>ママ歴15年・業界歴20年</div>
+    </div>
+    <div class="metric-card c-teal stagger-2">
+      <div class="metric-num">Lv.<span class="counter" data-target="6">0</span><sub>/6</sub></div>
+      <div class="metric-label">AI活用到達レベル<br>最上位の自動化設計に到達</div>
+    </div>
+    <div class="metric-card c-blue stagger-3">
+      <div class="metric-num"><span class="counter" data-target="7">0</span><sub>件</sub></div>
+      <div class="metric-label">自作した業務システム<br>タイムカード・契約・ポス 等</div>
+    </div>
+    <div class="metric-card c-warm stagger-4">
+      <div class="metric-num"><span class="counter" data-target="4">0</span><sub>回</sub></div>
+      <div class="metric-label">フォローアップ＋月次MTG<br>FUP 2/27・3/25／月次 4/21・5/26</div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="sec-head">
+    <div class="sec-label">Profile</div>
+    <div class="sec-title">受講者プロフィール</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="profile-grid">
+    <div class="profile-col">
+      <div class="profile-col-ttl">基本情報</div>
+      <div class="pf-row"><div class="pf-dot"></div><div class="pf-lbl">氏名</div><div class="pf-val">政本 紗耶 様（まさもと さや）</div></div>
+      <div class="pf-row"><div class="pf-dot"></div><div class="pf-lbl">店舗</div><div class="pf-val">OLIVE GINZA（銀座クラブ）</div></div>
+      <div class="pf-row"><div class="pf-dot"></div><div class="pf-lbl">店舗URL</div><div class="pf-val"><a href="https://olive-ginza.com/" target="_blank" rel="noopener noreferrer" class="log-link">https://olive-ginza.com/</a></div></div>
+      <div class="pf-row"><div class="pf-dot"></div><div class="pf-lbl">業界</div><div class="pf-val">銀座クラブ（ママ歴15年・業界歴20年）</div></div>
+      <div class="pf-row"><div class="pf-dot"></div><div class="pf-lbl">役割</div><div class="pf-val">ママ（経営者）</div></div>
+      <div class="pf-row"><div class="pf-dot"></div><div class="pf-lbl">主な担当</div><div class="pf-val">月末締め作業 ／ 黒服への業務指示・教育 ／ お客様対応のアドバイス ／ 体験入店者へのマニュアル説明 ／ シフト作成 ／ 在庫・発注管理</div></div>
+      <div class="pf-row"><div class="pf-dot"></div><div class="pf-lbl">契約</div><div class="pf-val">AIBL 中級編</div></div>
+    </div>
+    <div class="profile-div"></div>
+    <div class="profile-col">
+      <div class="profile-col-ttl">強み・現在地</div>
+      <div style="margin-bottom:16px; line-height:2.2;">
+        <span class="pill p-coral">銀座クラブ 業界20年</span>
+        <span class="pill p-coral">経営者視点</span>
+        <span class="pill p-teal">GASで業務システム自作</span>
+        <span class="pill p-teal">スプレッドシート連携に精通</span>
+        <span class="pill p-blue">Gemini 日常活用</span>
+        <span class="pill p-blue">教育動画を自作</span>
+        <span class="pill p-purple">Claude Code でポス構築中</span>
+        <span class="pill p-warm">自走力が高い</span>
       </div>
- 
-      <div class="ov-grid">
-        <div class="ov-profile">
-          <div class="ov-name-en">Masamoto Saya</div>
-          <div class="ov-name">政本 紗耶 様</div>
-          <div class="ov-reading">まさもと さや</div>
-          <div class="ov-row"><div class="ov-label">業界</div><div class="ov-value">銀座クラブ <small>OLIVE GINZA</small></div></div>
-          <div class="ov-row"><div class="ov-label">経験</div><div class="ov-value">ママ歴 15年／業界歴 20年</div></div>
-          <div class="ov-row"><div class="ov-label">契約</div><div class="ov-value">AIBL 中級編</div></div>
-          <div class="ov-row"><div class="ov-label">研修</div><div class="ov-value">初級 2025/11/19<br>中級 2026/01/28</div></div>
-          <div class="ov-row"><div class="ov-label">FU回数</div><div class="ov-value">4回 <small>（2/27・3/25・4/21・5/26）</small></div></div>
-          <div class="ov-row"><div class="ov-label">使用AI</div><div class="ov-value">Gemini・ChatGPT・Claude<br><small>用途で使い分け</small></div></div>
-        </div>
- 
-        <div class="ov-summary">
-          <h3>担当所感とポジション</h3>
-          <p>
-            政本様は単なる「効率化」を超え、<strong>業務構造そのものをシステムとして再設計</strong>する段階に到達しています。GASでタイムカード・報酬反映・契約締結フロー・成績アクセスサイトまで自作しており、すでに<strong>社内ポータルサイトに近い仕組み</strong>を保有。担当・阿部からも「AI・スプレッドシート・業務連携への理解が深く、自走力が高い」との評価があります。
-          </p>
-          <p>
-            一方で、活用の高度化に伴い<strong>長時間PC作業による身体負担</strong>という課題も浮上。直近の5/26では、阿部から共有された「Claudeでウェブサイトを作る」活用法に強く反応し、<strong>「やりたいことが出てきた」</strong>と自ら次の一歩を発見。まずは情報提供型サイト（自分専用の料理サイト）の制作から着手し、徐々にClaude Codeへと広げていく方針が定まりました。
-          </p>
- 
-          <div class="metric-row">
-            <div class="metric"><div class="metric-num">7</div><div class="metric-label">自作した<br>業務システム</div></div>
-            <div class="metric"><div class="metric-num">Lv.6</div><div class="metric-label">AI活用<br>到達レベル</div></div>
-            <div class="metric"><div class="metric-num">3</div><div class="metric-label">使い分ける<br>AIツール</div></div>
-          </div>
-        </div>
+      <div class="highlight-box">
+        💡 <strong style="color:var(--navy)">政本様の特徴：</strong><br>
+        単なる「効率化」を超え、<strong>業務構造そのものをシステムとして再設計</strong>する段階に到達。GASでタイムカード・報酬反映・契約締結フロー・成績アクセスサイトまで自作し、すでに<strong>ポータルサイトに近い仕組み</strong>を保有されています。担当・阿部からも<strong>「AI・スプレッドシート・業務連携への理解が深く、自走力が高い」</strong>との評価。次のテーマは、Claudeでのウェブサイト構築を起点に、相手にアクションしてもらう本格システムへと広げていくことです。
       </div>
- 
-      <div class="level-block">
-        <div class="level-title">AI活用レベル ─ 6段階評価</div>
-        <div class="level-sub">4/21時点で最上位のLv.6（自動化設計）に到達。次は自律型AIによる「常時稼働の業務代行」が視野に。</div>
-        <div class="level-bar">
-          <div class="level-step done"><span class="level-num">Lv.1</span><span class="level-name">触れる</span></div>
-          <div class="level-step done"><span class="level-num">Lv.2</span><span class="level-name">効率化</span></div>
-          <div class="level-step done"><span class="level-num">Lv.3</span><span class="level-name">アプリ連携</span></div>
-          <div class="level-step done"><span class="level-num">Lv.4</span><span class="level-name">ボット制作</span></div>
-          <div class="level-step done"><span class="level-num">Lv.5</span><span class="level-name">複数AI統合</span></div>
-          <div class="level-step current"><span class="level-num">Lv.6</span><span class="level-name">自動化設計</span></div>
-        </div>
-        <div class="level-caption">
-          <div class="level-cap">完全クリア</div>
-          <div class="level-cap">完全クリア</div>
-          <div class="level-cap">完全クリア</div>
-          <div class="level-cap">GAS自作</div>
-          <div class="level-cap">用途別併用</div>
-          <div class="level-cap">到達・進行中</div>
-        </div>
+    </div>
+  </div>
+
+  <!-- AI LEVEL -->
+  <div class="sec-head">
+    <div class="sec-label">AI Maturity</div>
+    <div class="sec-title">AI活用レベル（6段階評価）</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">5/26時点で最上位の<strong>Lv.6（自動化設計）</strong>に到達。次は自律型AIによる「常時稼働の業務代行」が視野に入っています。</div>
+  </div>
+  <div class="career-path">
+    <div class="career-step"><small>Lv.1</small>触れる</div>
+    <span class="career-arr">→</span>
+    <div class="career-step"><small>Lv.2</small>効率化</div>
+    <span class="career-arr">→</span>
+    <div class="career-step"><small>Lv.3</small>アプリ連携</div>
+    <span class="career-arr">→</span>
+    <div class="career-step"><small>Lv.4</small>ボット制作</div>
+    <span class="career-arr">→</span>
+    <div class="career-step"><small>Lv.5</small>複数AI統合</div>
+    <span class="career-arr">→</span>
+    <div class="career-step now"><small>現在 Lv.6</small>自動化設計</div>
+  </div>
+
+  <!-- AI USAGE STATUS -->
+  <div class="sec-head">
+    <div class="sec-label">AI Usage</div>
+    <div class="sec-title">現在のAI活用状況</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">これまでのMTGで伺った内容を整理しています。専門用語には<span class="tip" data-tip="このように下線の付いた言葉にマウスを乗せる（スマホはタップ）と、やさしい解説が表示されます">点線の注釈</span>を付けています。</div>
+  </div>
+  <div class="needs-grid">
+    <div class="need-card stagger-1">
+      <div class="need-num">MAIN TOOL</div>
+      <div class="need-ttl">複数のAIを用途で使い分け</div>
+      <div class="need-body">メインは<strong>Gemini</strong>。加えて<strong>ChatGPT・Claude</strong>も活用し、作業内容によって使い分けています。「1つのツールに限定しない」姿勢は、5/26のMTGでも推奨された使い方です。</div>
+      <div class="need-bg-icon">🤖</div>
+    </div>
+    <div class="need-card stagger-2">
+      <div class="need-num">STRENGTH</div>
+      <div class="need-ttl">GASで業務を自動化済み</div>
+      <div class="need-body"><span class="tip" data-tip="Google Apps Script。Googleサービスを自動化するためのプログラム">GAS</span>でタイムカード・報酬反映・契約締結フロー・成績アクセスサイトを自作。<strong>パスワード認証付きの管理画面</strong>まで作り込んでいます。</div>
+      <div class="need-bg-icon">⚙️</div>
+    </div>
+    <div class="need-card stagger-3">
+      <div class="need-num">ACHIEVEMENT</div>
+      <div class="need-ttl">教育動画の自動制作を実現</div>
+      <div class="need-body">Googleスライド＋AI原稿＋音声ナレーションで教育動画を制作・運用。「一番やりたかったことが実現できた」と高評価。体験入店者への説明工数を削減。</div>
+      <div class="need-bg-icon">🎬</div>
+    </div>
+    <div class="need-card stagger-4">
+      <div class="need-num">NEW DIRECTION</div>
+      <div class="need-ttl">Claudeでのサイト構築へ</div>
+      <div class="need-body">5/26のMTGで「Claudeでウェブサイトを作る」活用法に強く反応。<strong>「やりたいことが出てきた」</strong>と、自分専用の料理サイト制作という次の一歩を発見されました。</div>
+      <div class="need-bg-icon">🌐</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ TAB 2: 課題・解決策 ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab2" class="tab-content" role="tabpanel" aria-labelledby="tab2-btn">
+<div class="page-body">
+
+  <div class="sec-head">
+    <div class="sec-label">Challenges &amp; Solutions</div>
+    <div class="sec-title">課題と解決策</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">現時点で残る課題を、難易度別の3パターンで整理しています。<strong>★☆☆＝今日から試せる ／ ★★☆＝1〜2週間でセットアップ ／ ★★★＝エンジニア伴走が必要</strong>の目安です。自走力の高い政本様には、<strong>中級（おすすめ）</strong>の案から提案するのが現実的です。</div>
+  </div>
+
+  <div class="callout teal">
+    💡 <strong>注目ポイント：</strong> 課題①〜③のおすすめ案はすべて<strong>Cowork（コワーク）</strong>で共通しています。Claude Maxを契約してCoworkをセットアップするだけで、3つの主要課題が一気に解決できる射程に入ります。ここが投資対効果の最も高いレバレッジポイントです。
+  </div>
+
+  <!-- Challenge 01 -->
+  <div class="pat-block">
+    <div class="pat-head">
+      <div class="pat-circle">01</div>
+      <div class="pat-meta">
+        <span class="pat-prio prio-high">最優先</span>
+        <div class="pat-ttl">シフト作成の半自動化</div>
+        <div class="pat-pain">2週目までしか作れない／氏名が不安定／休み希望日への誤配置／<span class="tip" data-tip="売上貢献度や優先度を点数化して、その合計で判断する仕組み">スコアリング</span>が反映されない</div>
       </div>
-    </section>
- 
-    <!-- ============ Panel 2: Journey ============ -->
-    <section class="panel" id="journey">
-      <div class="panel-head">
-        <div class="panel-eyebrow">The Journey</div>
-        <h1 class="panel-title">歩みの記録</h1>
-        <p class="panel-lead">
-          初級研修から3回のフォローアップMTGまで、政本様のAI活用がどう進化してきたかの軌跡。回を追うごとに<strong>「教わる」から「自ら設計する」へ</strong>と重心が移っているのが分かります。
-        </p>
+    </div>
+    <div class="pat-cards">
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
+        <div class="pat-name">今日から手動で試す</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude.ai</span></div>
+        <div class="pat-desc">希望日・売上ランク・優先順位を表にまとめて貼り付け。即座にシフト案が生成される。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
       </div>
- 
-      <div class="timeline">
-        <div class="tl-item milestone">
-          <div class="tl-dot"></div>
-          <div class="tl-date">2025 · 11 · 19<span class="tl-tag">研修</span></div>
-          <div class="tl-title">初級編 ─ ChatGPT基礎</div>
-          <div class="tl-body">生成AIの基礎を習得。この時点ですでに発注メール・売上照合メールなど一部業務の自動化を実践済みの状態で受講開始。</div>
-        </div>
- 
-        <div class="tl-item milestone">
-          <div class="tl-dot"></div>
-          <div class="tl-date">2026 · 01 · 28<span class="tl-tag">研修</span></div>
-          <div class="tl-title">中級編 ─ 実務応用</div>
-          <div class="tl-body">プロンプト設計・業務応用を学習。メインツールがGeminiであることを踏まえ、Gemini中心の活用へ移行。操作説明9割＋プロンプトアドバイザー共有。</div>
-        </div>
- 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-date">2026 · 02 · 27<span class="tl-tag">FU MTG #1</span></div>
-          <div class="tl-title">自動化したい業務の棚卸し</div>
-          <div class="tl-body">
-            すでに達成済みの成果と、残る課題を整理。
-            <ul>
-              <li>達成：教育動画化、顧客連絡の仕組み化</li>
-              <li>課題：シフト作成、スプレッドシート自動化、LINE自動返信、スタッフ教育</li>
-            </ul>
-          </div>
-          <div class="tl-highlight"><strong>決定：</strong>自動化希望業務の優先順位リスト作成。単体ツール対応／連携型の分類整理。半自動化も許容する方針。</div>
-        </div>
- 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-date">2026 · 03 · 25<span class="tl-tag">FU MTG #2</span></div>
-          <div class="tl-title">エージェント型AIへの気づき</div>
-          <div class="tl-body">
-            タイムカードWebアプリの自作を共有。Geminiのスプレッドシート自動入力の限界を確認し、エージェント型ツールの必要性を整理。
-            <ul>
-              <li>Geminiチャット単体では複数工程の安定実行が困難</li>
-              <li>ChatGPTエージェントモード・Claudeを検証対象に</li>
-              <li>Claudeの3モード（チャット／Cowork／Code）を整理</li>
-            </ul>
-          </div>
-          <div class="tl-highlight"><strong>決定：</strong>Claudeの活用を有力候補として進める。特にデスクトップアプリ版を前提に検討。月1回の定例MTGを継続。</div>
-        </div>
- 
-        <div class="tl-item milestone">
-          <div class="tl-dot"></div>
-          <div class="tl-date">2026 · 04 · 21<span class="tl-tag">FU MTG #3</span></div>
-          <div class="tl-title">Claude Code・自律型AIへの方向づけ</div>
-          <div class="tl-body">
-            上田氏も参加し、AI活用の上位フェーズを議論。政本様がGASで「ポータルサイト相当」の仕組みを既に保有していることが判明。
-            <ul>
-              <li>GASでタイムカード・報酬反映・契約締結フローを運用中</li>
-              <li>パスワード認証付きの成績アクセスサイトも稼働</li>
-              <li>上田氏より自律型AI・AIBLポータル・e-learning構想を共有</li>
-              <li>環境整備（GitHub・Obsidian・専用フォルダ・権限設計）の重要性を確認</li>
-            </ul>
-          </div>
-          <div class="tl-highlight"><strong>決定：</strong>いきなり自律型AIに進むのではなく、まずClaude Codeを起点に理解と実践を進める。GitHub・Obsidianを導入し作業ログ基盤を整える。</div>
-        </div>
- 
-        <div class="tl-item latest">
-          <div class="tl-dot"></div>
-          <div class="tl-date">2026 · 05 · 26<span class="tl-tag now">最新 · FU MTG #4</span></div>
-          <div class="tl-title">Claudeでのウェブサイト構築という新しい武器</div>
-          <div class="tl-body">
-            阿部より「政本様専用の進捗サイト（＝このサイト）」を初共有。そこから、Claudeでサイトを作る活用法へと話が大きく展開。
-            <ul>
-              <li>GW前にClaude Codeでポスを構築するも、2週間の旅行で一度リセット</li>
-              <li>「何ができるか分からず、やりたいことが浮かばない」という悩みを共有</li>
-              <li>Claudeプロジェクト機能で顧客・キャスト別の管理ができると判明</li>
-              <li>チャットで作る情報提供サイトと、Claude Codeで作るアクション型サイトの使い分けを整理</li>
-              <li>レシピサイト・物件探しサイト・業務診断ツールの実例で「できること」を体感</li>
-            </ul>
-          </div>
-          <div class="tl-highlight"><strong>決定：</strong>「やりたいことが出てきた」と政本様。まず自分専用の料理サイトをClaudeで作ることから着手。進捗サイトの構成はキャスト管理にも応用できると気づきを得た。詳細は「最新MTG 5/26」タブへ。</div>
-        </div>
- 
-        <div class="tl-item">
-          <div class="tl-dot" style="border-style:dashed; border-color:var(--ink-faint);"></div>
-          <div class="tl-date">2026 · 06 · 22<span class="tl-tag">次回 · FU MTG #5</span></div>
-          <div class="tl-title">料理サイト制作の振り返りとClaude Code</div>
-          <div class="tl-body">月曜 11:00〜12:00。自作した料理サイトの振り返り、公開方法（GitHub・Vercel）の確認、Claudeプロジェクト環境づくり、そしてClaude Codeでのアクション型サイトへの展開を議論予定。</div>
-        </div>
+      <div class="pat-card rec">
+        <span class="pat-rec-badge">おすすめ</span>
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">Coworkで毎月自動化</div>
+        <div class="pat-tools"><span class="pat-chip pc-teal">Cowork</span></div>
+        <div class="pat-desc">フォームで希望収集→所定フォルダ保存→Coworkが毎月自動でシフト案を出力。</div>
+        <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
       </div>
-    </section>
- 
-    <!-- ============ Panel: 5/26 Latest MTG Report ============ -->
-    <section class="panel" id="latest">
-      <style>
-        #latest .rep-meta { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); margin-bottom: 44px; }
-        #latest .rep-meta-item { padding: 22px 24px; border-right: 1px solid var(--line); }
-        #latest .rep-meta-item:last-child { border-right: none; }
-        #latest .rep-meta-label { font-family: var(--display); font-style: italic; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.08em; margin-bottom: 6px; }
-        #latest .rep-meta-value { font-family: var(--serif); font-size: 15px; font-weight: 600; line-height: 1.5; }
-        #latest .rep-sec-title { font-family: var(--serif); font-size: 19px; font-weight: 600; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line); display: flex; align-items: baseline; gap: 14px; }
-        #latest .rep-sec-title .en { font-family: var(--display); font-style: italic; font-size: 13px; color: var(--ink-muted); font-weight: 400; }
-        #latest .progress3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 52px; }
-        #latest .pg-card { background: var(--cream); padding: 22px; border-top: 2px solid var(--accent); }
-        #latest .pg-card.warn { border-top-color: var(--warn); }
-        #latest .pg-step { font-family: var(--display); font-style: italic; font-size: 13px; color: var(--accent); margin-bottom: 8px; }
-        #latest .pg-card.warn .pg-step { color: var(--warn); }
-        #latest .pg-card h4 { font-family: var(--serif); font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-        #latest .pg-card p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.85; }
-        #latest .learn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 52px; }
-        #latest .learn-card { border: 1px solid var(--line); padding: 24px; position: relative; }
-        #latest .learn-card.key { border-color: var(--accent); background: var(--accent-soft); }
-        #latest .learn-no { font-family: var(--display); font-style: italic; font-size: 24px; color: var(--ink-faint); line-height: 1; margin-bottom: 8px; }
-        #latest .learn-card.key .learn-no { color: var(--accent); }
-        #latest .learn-card h4 { font-family: var(--serif); font-size: 16px; font-weight: 600; margin-bottom: 10px; line-height: 1.5; }
-        #latest .learn-card p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.85; }
-        #latest .learn-tag { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 3px; margin-top: 14px; font-weight: 500; letter-spacing: 0.03em; }
-        #latest .lt-chat { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
-        #latest .lt-code { background: var(--purple-soft); color: var(--purple); }
-        #latest .lt-tip { background: var(--ok-soft); color: var(--ok); }
-        #latest .insight { background: var(--ink); color: white; padding: 36px 40px; margin-bottom: 44px; }
-        #latest .insight-eyebrow { font-family: var(--display); font-style: italic; font-size: 13px; opacity: 0.75; letter-spacing: 0.08em; margin-bottom: 10px; }
-        #latest .insight h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.5; margin-bottom: 16px; }
-        #latest .insight-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
-        #latest .ip-item { font-size: 13px; line-height: 1.8; opacity: 0.92; padding-left: 18px; position: relative; }
-        #latest .ip-item::before { content: "›"; position: absolute; left: 0; color: #8fb8cf; font-weight: 600; }
-        #latest .ip-item strong { color: white; font-weight: 600; }
-        #latest .compare { border: 1px solid var(--line); }
-        #latest .compare-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; }
-        #latest .compare-row.head { background: var(--cream); font-weight: 600; }
-        #latest .compare-cell { padding: 14px 18px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); font-size: 12.5px; line-height: 1.7; }
-        #latest .compare-cell:last-child { border-right: none; }
-        #latest .compare-row:last-child .compare-cell { border-bottom: none; }
-        #latest .compare-cell .lead { font-weight: 600; color: var(--accent); }
-        @media (max-width: 900px) {
-          #latest .rep-meta, #latest .progress3, #latest .learn-grid, #latest .insight-points { grid-template-columns: 1fr; }
-          #latest .rep-meta-item { border-right: none; border-bottom: 1px solid var(--line); }
-          #latest .compare-row { grid-template-columns: 1fr; }
-        }
-      </style>
- 
-      <div class="panel-head">
-        <div class="panel-eyebrow">Session Report — May 26</div>
-        <h1 class="panel-title">最新MTG 5/26 レポート</h1>
-        <p class="panel-lead">
-          今回は、阿部から<strong>「政本様専用の進捗サイト（＝このサイト）」を初めて共有</strong>した回です。そこから「Claudeでウェブサイトを作る」という新しい武器の話へと発展し、政本様自身が<strong>「やりたいことが出てきた」</strong>と次の一歩を見つけたセッションになりました。
-        </p>
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
+        <div class="pat-name">Claude Codeでフル自動化</div>
+        <div class="pat-tools"><span class="pat-chip pc-other">Claude Code</span></div>
+        <div class="pat-desc">スコアリングロジックをコード化し、フォーム〜出力までAPI連携。精度を極限まで高める。</div>
+        <div class="pat-foot"><span class="pat-cost">¥15,000/月〜</span><span>要伴走</span></div>
       </div>
- 
-      <div class="rep-meta">
-        <div class="rep-meta-item">
-          <div class="rep-meta-label">SESSION DATE</div>
-          <div class="rep-meta-value">2026年5月26日（月）<br>11:00〜12:00</div>
-        </div>
-        <div class="rep-meta-item">
-          <div class="rep-meta-label">FACILITATOR</div>
-          <div class="rep-meta-value">阿部 裕太</div>
-        </div>
-        <div class="rep-meta-item">
-          <div class="rep-meta-label">THEME</div>
-          <div class="rep-meta-value">Claudeでのサイト構築と<br>プロジェクト活用</div>
-        </div>
+    </div>
+  </div>
+
+  <!-- Challenge 02 -->
+  <div class="pat-block">
+    <div class="pat-head">
+      <div class="pat-circle">02</div>
+      <div class="pat-meta">
+        <span class="pat-prio prio-high">最優先</span>
+        <div class="pat-ttl">月次売上・人件費のスプレッドシート自動入力</div>
+        <div class="pat-pain">POSからのデータ転記を手動で実施／Geminiでの自動入力が途中で停止中</div>
       </div>
- 
-      <div class="rep-sec-title">前回からの進捗 <span class="en">— progress check</span></div>
-      <div class="progress3">
-        <div class="pg-card">
-          <div class="pg-step">01</div>
-          <h4>Claude Codeでポスを構築</h4>
-          <p>GW前は腰を痛めるほど没頭し、給与計算や日常業務を連携させたポス（POS）を制作。「指示に従うだけで定型作業が完了する」状態を目指していた。</p>
-        </div>
-        <div class="pg-card warn">
-          <div class="pg-step">02</div>
-          <h4>旅行で一度リセット</h4>
-          <p>GW中に2週間の旅行へ。PCに触れられず、それまでの勢いが一度止まってしまった。ポスは中核ツールとして、改めてじっくり作っていく方針に。</p>
-        </div>
-        <div class="pg-card warn">
-          <div class="pg-step">03</div>
-          <h4>「やりたいことが浮かばない」</h4>
-          <p>「何ができるか分からないから、やりたいことが浮かんでこない」という率直な悩みを共有。これが今回の話の出発点となった。</p>
-        </div>
+    </div>
+    <div class="pat-cards">
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
+        <div class="pat-name">毎月CSVアップロード</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude.ai</span></div>
+        <div class="pat-desc"><span class="tip" data-tip="表データを保存するファイル形式。Excelやレジから書き出せる">CSV</span>をClaudeにアップ→Excelテンプレに整形→DLするだけ。月1回の運用なら十分。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
       </div>
- 
-      <div class="rep-sec-title">今回の学びと発見 <span class="en">— key takeaways</span></div>
-      <div class="learn-grid">
-        <div class="learn-card key">
-          <div class="learn-no">01</div>
-          <h4>この進捗サイトの仕組み</h4>
-          <p>このサイトはすべてClaudeで構築されている。毎月のMTG文字起こしをClaudeにアップロードすることで自動的に内容が更新される仕組み。月次の振り返り用としてブックマーク推奨。</p>
-          <span class="learn-tag lt-chat">Claude チャット</span>
-        </div>
-        <div class="learn-card key">
-          <div class="learn-no">02</div>
-          <h4>プロジェクトで顧客・キャスト別に管理</h4>
-          <p>Claudeの「プロジェクト」機能で、チャットを顧客名ごとに分けて管理できる。文字起こしをアップすればHTMLサイトが更新される。GPTsやGeminiのGemと同じ発想。キャスト管理にそのまま応用可能。</p>
-          <span class="learn-tag lt-chat">Claude チャット</span>
-        </div>
-        <div class="learn-card">
-          <div class="learn-no">03</div>
-          <h4>チャット と Claude Code の使い分け</h4>
-          <p>情報を見せるだけのサイトは「チャット」で即作成できる。一方、ログイン・データ入力・管理画面など、相手にアクションしてもらうサイトは「Claude Code」が必要になる。</p>
-          <span class="learn-tag lt-code">使い分け</span>
-        </div>
-        <div class="learn-card">
-          <div class="learn-no">04</div>
-          <h4>実例：レシピサイト</h4>
-          <p>料理を複数選ぶと買い物リストが自動生成され、人数に応じて分量がスケールするサイトを約15分で構築（阿部の私的事例）。薄味など味付けの好みも反映できる。政本様の現行スプレッドシート運用を一気に置き換えられる。</p>
-          <span class="learn-tag lt-chat">Claude チャット</span>
-        </div>
-        <div class="learn-card">
-          <div class="learn-no">05</div>
-          <h4>実例：物件探しサイト</h4>
-          <p>ChatGPTのDeep Research（深い調査機能）で「2026年5月時点・公開中の物件のみ」と条件を絞って情報収集→Claudeでサイト化。初期費用シミュレーターも自動で付いてくる。古い情報をつかまないコツも共有。</p>
-          <span class="learn-tag lt-tip">Deep Research活用</span>
-        </div>
-        <div class="learn-card">
-          <div class="learn-no">06</div>
-          <h4>実例：業務診断ツール（管理画面付き）</h4>
-          <p>利用者が業務を入力するとAI活用提案レポートが出る診断ツール。回答を集計する管理画面付き。診断画面＋管理画面の2階層はClaude Codeで構築（約4時間）。外注なら30〜50万円相当の規模。</p>
-          <span class="learn-tag lt-code">Claude Code</span>
-        </div>
+      <div class="pat-card rec">
+        <span class="pat-rec-badge">おすすめ</span>
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">Coworkでフォルダ監視</div>
+        <div class="pat-tools"><span class="pat-chip pc-teal">Cowork</span></div>
+        <div class="pat-desc">所定フォルダにCSVを置くだけで自動転記→保存まで完結。月次定例化が可能。</div>
+        <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
       </div>
- 
-      <div class="insight">
-        <div class="insight-eyebrow">Realization & Decision</div>
-        <h3>「やりたいことが出てきました。まず自分の料理サイトを作ります。」</h3>
-        <div class="insight-points">
-          <div class="ip-item"><strong>気づき①</strong>　現行のスプレッドシート運用が「アナログに感じてきた」。Claudeでのサイト化で大幅に進化できる。</div>
-          <div class="ip-item"><strong>気づき②</strong>　この進捗サイトの構成（概要／歩み／実績／課題／次のステップ）は、そのままキャスト（女の子）の管理にも使える。</div>
-          <div class="ip-item"><strong>決定①</strong>　まず情報提供型のサイト＝自分専用の料理サイトをClaudeで作ることから着手する。</div>
-          <div class="ip-item"><strong>決定②</strong>　阿部のHTMLデータを参考に、自分仕様にカスタマイズする形で相談しながら進める。</div>
-        </div>
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
+        <div class="pat-name">ブラウザ完結型</div>
+        <div class="pat-tools"><span class="pat-chip pc-other">ChatGPT Agent</span></div>
+        <div class="pat-desc"><span class="tip" data-tip="AIが自分でブラウザを操作して作業を進める機能">エージェントモード</span>でPOSログイン〜転記まで一気通貫。クレジット消費に注意。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000/月〜</span><span>ChatGPT Plus</span></div>
       </div>
- 
-      <div class="rep-sec-title">GAS と Claude、どう使い分ける？ <span class="en">— GAS vs Claude</span></div>
-      <div class="compare">
-        <div class="compare-row head">
-          <div class="compare-cell">観点</div>
-          <div class="compare-cell">GAS（今の運用）</div>
-          <div class="compare-cell">Claude</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell lead">情報の更新しやすさ</div>
-          <div class="compare-cell"><span style="color:var(--ok);">◎</span> スプレッドシート入力が自動反映され手軽</div>
-          <div class="compare-cell"><span style="color:var(--warn);">△</span> 入力を教え直して再公開が必要</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell lead">構成・デザインの相談</div>
-          <div class="compare-cell"><span style="color:var(--warn);">△</span> 自力で組む必要がある</div>
-          <div class="compare-cell"><span style="color:var(--ok);">◎</span> すぐ相談でき、視覚的に提案してくれる</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell lead">機能追加・サイト改修</div>
-          <div class="compare-cell"><span style="color:var(--warn);">△</span> コーディングの手間が大きい</div>
-          <div class="compare-cell"><span style="color:var(--ok);">◎</span> 「PDF保存ボタン追加して」等で即実装</div>
-        </div>
+    </div>
+  </div>
+
+  <!-- Challenge 03 -->
+  <div class="pat-block">
+    <div class="pat-head">
+      <div class="pat-circle">03</div>
+      <div class="pat-meta">
+        <span class="pat-prio prio-new">5/26 新規</span>
+        <div class="pat-ttl">情報提供型サイトの内製（料理サイト等）</div>
+        <div class="pat-pain">現行のスプレッドシート運用を進化させたい／入店説明やマニュアルもサイト化したい</div>
       </div>
- 
-    </section>
- 
-    <!-- ============ Panel 3: Achievements ============ -->
-    <section class="panel" id="achievements">
-      <div class="panel-head">
-        <div class="panel-eyebrow">Achievements</div>
-        <h1 class="panel-title">実績マップ</h1>
-        <p class="panel-lead">
-          政本様がこれまでに自作・運用している仕組みの一覧。<strong>単発の効率化ではなく、相互に連携した業務システム群</strong>として機能しており、これらを束ねると実質的にポータルサイトを形成しています。
-        </p>
+    </div>
+    <div class="pat-cards">
+      <div class="pat-card rec">
+        <span class="pat-rec-badge">おすすめ</span>
+        <div class="pat-card-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
+        <div class="pat-name">チャットでサイトを作る</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude.ai</span></div>
+        <div class="pat-desc">「こういうサイトを作りたい」と相談するだけでHTMLサイトが完成。情報提供型ならチャットで即作成できる。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
       </div>
- 
-      <div class="ach-intro">
-        <div class="ach-intro-text">
-          <h3>すでに「ポータルサイト」の素地が完成</h3>
-          <p>タイムカード・報酬・契約・成績管理・顧客リストが連動し、さらに5/26時点ではClaude Codeでポス（統合業務システム）を構築中。AIでさらに高度化できる土台が整っています。</p>
-        </div>
-        <div class="ach-intro-badge">7<small>SYSTEMS BUILT</small></div>
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">参考HTMLを自分仕様に</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude.ai</span></div>
+        <div class="pat-desc">阿部のHTMLデータを添付し「これを参考に自分仕様で作りたい」と相談。Claudeが不足点をヒアリングしながら仕上げる。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
       </div>
- 
-      <div class="ach-grid">
-        <div class="ach-card featured">
-          <div class="ach-card-status status-build">構築中</div>
-          <div class="ach-card-cat">automation · Claude Code</div>
-          <h4>ポス（統合業務システム）</h4>
-          <p>5/26時点の最新作。Claude Codeで給与計算と日常業務を連携させた中核システムを構築中。「指示に従うだけで定型作業が完了する」状態を目指す。管理者専用部分はタブにパスワードを設定して運用。今後の高度化の母艦となる存在。</p>
-          <div class="ach-tools"><span class="ach-tool">Claude Code</span><span class="ach-tool">給与計算</span><span class="ach-tool">権限管理</span></div>
-        </div>
- 
-        <div class="ach-card featured">
-          <div class="ach-card-status status-live">運用中</div>
-          <div class="ach-card-cat">automation · GAS</div>
-          <h4>タイムカードWebアプリ</h4>
-          <p>出退勤時に写真を撮影・保存し、時刻をスプレッドシートへ自動記録。記録先は政本様のみ編集可の権限設計で、出勤時間の改ざん防止を実現。同伴・アフターをボタンで記録し報酬シートへ反映する仕組みも運用。</p>
-          <div class="ach-tools"><span class="ach-tool">GAS</span><span class="ach-tool">スプレッドシート</span><span class="ach-tool">権限設計</span></div>
-        </div>
- 
-        <div class="ach-card featured">
-          <div class="ach-card-status status-live">運用中</div>
-          <div class="ach-card-cat">workflow · GAS</div>
-          <h4>契約書締結フロー</h4>
-          <p>フォーム入力・書類アップロード・業務委託契約の締結までを一連の流れとして整備。紙ベースだった契約業務をデジタル完結させている。</p>
-          <div class="ach-tools"><span class="ach-tool">フォーム</span><span class="ach-tool">書類管理</span><span class="ach-tool">契約自動化</span></div>
-        </div>
- 
-        <div class="ach-card featured">
-          <div class="ach-card-status status-live">運用中</div>
-          <div class="ach-card-cat">web app · GAS</div>
-          <h4>成績アクセスWebサイト</h4>
-          <p>パスワード認証により、スタッフ本人が自分の成績にアクセスできるWebサイトを構築・運用。顧客リストや名刺発注なども反映され、ポータルサイトに近い仕組みに発展している。</p>
-          <div class="ach-tools"><span class="ach-tool">認証機能</span><span class="ach-tool">成績管理</span><span class="ach-tool">顧客リスト</span></div>
-        </div>
- 
-        <div class="ach-card">
-          <div class="ach-card-status status-live">運用中</div>
-          <div class="ach-card-cat">education</div>
-          <h4>教育動画の自動制作</h4>
-          <p>Googleスライド＋AI原稿生成＋音声ナレーションで15〜20分の教育動画を制作・運用。「一番やりたかったことが実現できた」と高評価。体験入店者への説明工数を削減。</p>
-          <div class="ach-tools"><span class="ach-tool">Googleスライド</span><span class="ach-tool">AI原稿</span><span class="ach-tool">音声合成</span></div>
-        </div>
- 
-        <div class="ach-card">
-          <div class="ach-card-status status-live">運用中</div>
-          <div class="ach-card-cat">operation</div>
-          <h4>顧客連絡の仕組み化</h4>
-          <p>スプレッドシートで顧客情報を一元管理し、ボタン操作でスタッフごとに約30名分の連絡対象を自動抽出。連絡業務の属人性を解消。</p>
-          <div class="ach-tools"><span class="ach-tool">スプレッドシート</span><span class="ach-tool">自動抽出</span></div>
-        </div>
- 
-        <div class="ach-card">
-          <div class="ach-card-status status-live">運用中</div>
-          <div class="ach-card-cat">operation</div>
-          <h4>発注・売上照合メール</h4>
-          <p>お酒の発注連絡・売上照合メールの送信を自動化済み。AIBL受講開始以前から取り組んでいた、最初期の自動化事例。</p>
-          <div class="ach-tools"><span class="ach-tool">メール自動化</span><span class="ach-tool">在庫管理</span></div>
-        </div>
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">公開して使えるように</div>
+        <div class="pat-tools"><span class="pat-chip pc-other">GitHub</span><span class="pat-chip pc-other">Vercel</span></div>
+        <div class="pat-desc">作ったサイトを自分やスタッフが使える形で公開。<span class="tip" data-tip="作ったウェブサイトをインターネット上に置いて、誰でも見られるようにするサービス">GitHub・Vercel</span>を使えば一度覚えれば簡単。</div>
+        <div class="pat-foot"><span class="pat-cost">無料〜</span><span>公開ツール</span></div>
       </div>
-    </section>
- 
-    <!-- ============ Panel 4: Challenges ============ -->
-    <section class="panel" id="challenges">
-      <div class="panel-head">
-        <div class="panel-eyebrow">Challenges & Solutions</div>
-        <h1 class="panel-title">課題と解決策</h1>
-        <p class="panel-lead">
-          現時点で残る課題を、難易度別の3パターンで整理。<strong>★☆☆＝今日から試せる／★★☆＝1〜2週間でセットアップ／★★★＝エンジニア伴走が必要</strong>の目安です。自走力の高い政本様には、中級（おすすめ）の案から提案するのが現実的です。
-        </p>
+    </div>
+  </div>
+
+  <!-- Challenge 04 -->
+  <div class="pat-block">
+    <div class="pat-head">
+      <div class="pat-circle">04</div>
+      <div class="pat-meta">
+        <span class="pat-prio prio-mid">優先</span>
+        <div class="pat-ttl">長時間PC作業による身体負担の軽減</div>
+        <div class="pat-pain">AI活用が進む一方で作業時間が増加／手元の操作を減らし「任せる」方向へ</div>
       </div>
- 
-      <!-- Challenge: Shift -->
-      <div class="ch-block">
-        <div class="ch-head">
-          <div class="ch-num">01</div>
-          <div class="ch-meta">
-            <span class="ch-priority pr-high">最優先</span>
-            <div class="ch-title">シフト作成の半自動化</div>
-            <div class="ch-pain">2週目までしか作れない／氏名が不安定／休み希望日への誤配置／スコアリングが反映されない</div>
-          </div>
-        </div>
-        <div class="ch-patterns">
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
-            <div class="pat-name">今日から手動で試す</div>
-            <div class="pat-tools"><span class="pat-chip chip-chat">Claude.ai</span></div>
-            <div class="pat-desc">希望日・売上ランク・優先順位を表にまとめて貼り付け。即座にシフト案が生成される。</div>
-            <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
-          </div>
-          <div class="pat rec">
-            <span class="pat-rec-badge">おすすめ</span>
-            <div class="pat-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
-            <div class="pat-name">Coworkで毎月自動化</div>
-            <div class="pat-tools"><span class="pat-chip chip-cowork">Cowork</span></div>
-            <div class="pat-desc">フォームで希望収集→所定フォルダ保存→Coworkが毎月自動でシフト案を出力。</div>
-            <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
-          </div>
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
-            <div class="pat-name">Claude Codeでフル自動化</div>
-            <div class="pat-tools"><span class="pat-chip chip-other">Claude Code</span></div>
-            <div class="pat-desc">スコアリングロジックをコード化し、フォーム〜出力までAPI連携。精度を極限まで高める。</div>
-            <div class="pat-foot"><span class="pat-cost">¥15,000/月〜</span><span>要伴走</span></div>
-          </div>
-        </div>
+    </div>
+    <div class="pat-cards">
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
+        <div class="pat-name">スマホからPCへ指示</div>
+        <div class="pat-tools"><span class="pat-chip pc-teal">Cowork</span></div>
+        <div class="pat-desc"><span class="tip" data-tip="スマホから指示を送り、PC側で作業を進めてもらう機能">ディスパッチ機能</span>でスマホから指示を送り、PC側で作業を進行。PC前に座る時間を削減。</div>
+        <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
       </div>
- 
-      <!-- Challenge: CSV -->
-      <div class="ch-block">
-        <div class="ch-head">
-          <div class="ch-num">02</div>
-          <div class="ch-meta">
-            <span class="ch-priority pr-high">最優先</span>
-            <div class="ch-title">月次売上・人件費のスプレッドシート自動入力</div>
-            <div class="ch-pain">POSからのデータ転記を手動で実施／Geminiでの自動入力が途中で停止中</div>
-          </div>
-        </div>
-        <div class="ch-patterns">
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
-            <div class="pat-name">毎月CSVアップロード</div>
-            <div class="pat-tools"><span class="pat-chip chip-chat">Claude.ai</span></div>
-            <div class="pat-desc">CSVをClaudeにアップ→Excelテンプレに整形→DLするだけ。月1回の運用なら十分。</div>
-            <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
-          </div>
-          <div class="pat rec">
-            <span class="pat-rec-badge">おすすめ</span>
-            <div class="pat-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
-            <div class="pat-name">Coworkでフォルダ監視</div>
-            <div class="pat-tools"><span class="pat-chip chip-cowork">Cowork</span></div>
-            <div class="pat-desc">所定フォルダにCSVを置くだけで自動転記→保存まで完結。月次定例化が可能。</div>
-            <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
-          </div>
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
-            <div class="pat-name">ブラウザ完結型</div>
-            <div class="pat-tools"><span class="pat-chip chip-other">ChatGPT Agent</span></div>
-            <div class="pat-desc">エージェントモードでPOSログイン〜転記まで一気通貫。クレジット消費に注意。</div>
-            <div class="pat-foot"><span class="pat-cost">¥3,000/月〜</span><span>ChatGPT Plus</span></div>
-          </div>
-        </div>
+      <div class="pat-card rec">
+        <span class="pat-rec-badge">おすすめ</span>
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">定期タスクで自動実行</div>
+        <div class="pat-tools"><span class="pat-chip pc-teal">Cowork</span></div>
+        <div class="pat-desc">毎日決まった時間に情報収集・保存・集計を自動実行。手を動かす作業自体をなくす。</div>
+        <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
       </div>
- 
-      <!-- Challenge: Body burden (NEW from 4/21) -->
-      <div class="ch-block">
-        <div class="ch-head">
-          <div class="ch-num">03</div>
-          <div class="ch-meta">
-            <span class="ch-priority pr-body">4/21 新規</span>
-            <div class="ch-title">長時間PC作業による身体負担の軽減</div>
-            <div class="ch-pain">AI活用が進む一方で作業時間が増加／手元の操作を減らし「任せる」方向へ</div>
-          </div>
-        </div>
-        <div class="ch-patterns">
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
-            <div class="pat-name">スマホからPCへ指示</div>
-            <div class="pat-tools"><span class="pat-chip chip-cowork">Cowork</span></div>
-            <div class="pat-desc">ディスパッチ機能でスマホから指示を送り、PC側で作業を進行。PC前に座る時間を削減。</div>
-            <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
-          </div>
-          <div class="pat rec">
-            <span class="pat-rec-badge">おすすめ</span>
-            <div class="pat-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
-            <div class="pat-name">定期タスクで自動実行</div>
-            <div class="pat-tools"><span class="pat-chip chip-cowork">Cowork</span></div>
-            <div class="pat-desc">毎日決まった時間に情報収集・保存・集計を自動実行。手を動かす作業自体をなくす。</div>
-            <div class="pat-foot"><span class="pat-cost">¥15,000/月</span><span>Claude Max</span></div>
-          </div>
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
-            <div class="pat-name">自律型AIで常時稼働</div>
-            <div class="pat-tools"><span class="pat-chip chip-other">自律型AI</span><span class="pat-chip chip-other">Mac mini</span></div>
-            <div class="pat-desc">Mac miniで24時間稼働の業務代行。将来構想。まずClaude Codeで土台を作ってから。</div>
-            <div class="pat-foot"><span class="pat-cost">要設計</span><span>将来フェーズ</span></div>
-          </div>
-        </div>
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
+        <div class="pat-name">自律型AIで常時稼働</div>
+        <div class="pat-tools"><span class="pat-chip pc-other">自律型AI</span><span class="pat-chip pc-other">Mac mini</span></div>
+        <div class="pat-desc">Mac miniで24時間稼働の業務代行。将来構想。まずClaude Codeで土台を作ってから。</div>
+        <div class="pat-foot"><span class="pat-cost">要設計</span><span>将来フェーズ</span></div>
       </div>
- 
-      <!-- Challenge: LINE -->
-      <div class="ch-block">
-        <div class="ch-head">
-          <div class="ch-num">04</div>
-          <div class="ch-meta">
-            <span class="ch-priority pr-mid">優先</span>
-            <div class="ch-title">LINE問い合わせの自動返信（10パターン）</div>
-            <div class="ch-pain">スタッフ・顧客からの定型質問への返信業務／返信パターンを標準化したい</div>
-          </div>
-        </div>
-        <div class="ch-patterns">
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
-            <div class="pat-name">Claude補助で半自動</div>
-            <div class="pat-tools"><span class="pat-chip chip-chat">Claude.ai</span></div>
-            <div class="pat-desc">対応時にClaudeで返信ドラフトを生成→人が確認して送信。即日開始できる。</div>
-            <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
-          </div>
-          <div class="pat rec">
-            <span class="pat-rec-badge">おすすめ</span>
-            <div class="pat-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
-            <div class="pat-name">Difyでノーコード実装</div>
-            <div class="pat-tools"><span class="pat-chip chip-other">Dify</span><span class="pat-chip chip-other">LINE公式</span></div>
-            <div class="pat-desc">LINE公式アカウントとDifyを接続し10パターンの自動返信を構築。コード不要。</div>
-            <div class="pat-foot"><span class="pat-cost">無料〜¥9,000/月</span><span>Dify Cloud</span></div>
-          </div>
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
-            <div class="pat-name">Claude Codeでフル開発</div>
-            <div class="pat-tools"><span class="pat-chip chip-other">Claude Code</span></div>
-            <div class="pat-desc">LINE Messaging APIと連携するボットを開発。顧客DB連携も可能だが工数大。</div>
-            <div class="pat-foot"><span class="pat-cost">¥30,000/月〜</span><span>サーバー費別</span></div>
-          </div>
-        </div>
+    </div>
+  </div>
+
+  <!-- Challenge 05 -->
+  <div class="pat-block">
+    <div class="pat-head">
+      <div class="pat-circle">05</div>
+      <div class="pat-meta">
+        <span class="pat-prio prio-mid">優先</span>
+        <div class="pat-ttl">LINE問い合わせの自動返信（10パターン）</div>
+        <div class="pat-pain">スタッフ・顧客からの定型質問への返信業務／返信パターンを標準化したい</div>
       </div>
- 
-      <!-- Challenge: Staff literacy -->
-      <div class="ch-block">
-        <div class="ch-head">
-          <div class="ch-num">05</div>
-          <div class="ch-meta">
-            <span class="ch-priority pr-low">継続課題</span>
-            <div class="ch-title">スタッフ全体のAIリテラシー底上げ</div>
-            <div class="ch-pain">政本様一人に負担集中／黒服・スタッフのAI活用が進まない</div>
-          </div>
-        </div>
-        <div class="ch-patterns">
-          <div class="pat rec">
-            <span class="pat-rec-badge">おすすめ</span>
-            <div class="pat-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
-            <div class="pat-name">既存動画化フロー拡張</div>
-            <div class="pat-tools"><span class="pat-chip chip-chat">Claude.ai</span></div>
-            <div class="pat-desc">スタッフ向けAI活用ガイドを作成→運用中の動画化フローで教育動画に。追加コストほぼゼロ。</div>
-            <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>政本様のみ</span></div>
-          </div>
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
-            <div class="pat-name">プロンプト集を配布</div>
-            <div class="pat-tools"><span class="pat-chip chip-chat">Claude</span><span class="pat-chip chip-other">Docs</span></div>
-            <div class="pat-desc">業務シーン別に「コピペで使える」プロンプト集を作成しスタッフ別に配布。</div>
-            <div class="pat-foot"><span class="pat-cost">¥3,000×人数</span><span>各Pro契約</span></div>
-          </div>
-          <div class="pat">
-            <div class="pat-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
-            <div class="pat-name">Claude Team プラン導入</div>
-            <div class="pat-tools"><span class="pat-chip chip-chat">Claude Team</span></div>
-            <div class="pat-desc">店舗で統一のTeamプランを契約。全員が同じ知識ベースにアクセスでき管理も一元化。</div>
-            <div class="pat-foot"><span class="pat-cost">¥4,500/人/月</span><span>Team契約</span></div>
-          </div>
-        </div>
+    </div>
+    <div class="pat-cards">
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
+        <div class="pat-name">Claude補助で半自動</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude.ai</span></div>
+        <div class="pat-desc">対応時にClaudeで返信ドラフトを生成→人が確認して送信。即日開始できる。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>Claude Pro</span></div>
       </div>
-    </section>
- 
-    <!-- ============ Panel 5: Next Steps ============ -->
-    <section class="panel" id="next">
-      <div class="panel-head">
-        <div class="panel-eyebrow">The Road Ahead</div>
-        <h1 class="panel-title">次のステップ</h1>
-        <p class="panel-lead">
-          5/26のMTGで方針がさらに具体化しました。<strong>いきなり難しいことに進まず、まず「Claudeのチャットで情報提供型サイトを作ってみる」</strong>ところから。料理サイトを第一歩に、徐々に公開方法やプロジェクト環境、そしてClaude Codeへと広げていきます。
-        </p>
+      <div class="pat-card rec">
+        <span class="pat-rec-badge">おすすめ</span>
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">Difyでノーコード実装</div>
+        <div class="pat-tools"><span class="pat-chip pc-other">Dify</span><span class="pat-chip pc-other">LINE公式</span></div>
+        <div class="pat-desc">LINE公式アカウントと<span class="tip" data-tip="コードを書かずにAIチャットボットを作れるツール。LINE連携に標準対応">Dify</span>を接続し10パターンの自動返信を構築。コード不要。</div>
+        <div class="pat-foot"><span class="pat-cost">無料〜¥9,000/月</span><span>Dify Cloud</span></div>
       </div>
- 
-      <div class="ns-banner">
-        <div class="ns-banner-eyebrow">Direction refined on 2026.05.26</div>
-        <h3>まず「作ってみる」。情報提供型サイトから、徐々にClaude Codeへ。</h3>
-        <p>
-          何事も、整理した情報をメモ・スプレッドシート・ウェブサイトのどれで持つかで、見やすさも理解も変わる。Claudeなら構成・デザインの相談から機能追加まで対話で進められる。だからこそ、まずは身近なテーマ（料理サイト）を題材にウェブサイト化を体験し、「できること」の感覚をつかむことが次の一歩です。
-        </p>
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★★</span><span class="pat-level">上級</span></div>
+        <div class="pat-name">Claude Codeでフル開発</div>
+        <div class="pat-tools"><span class="pat-chip pc-other">Claude Code</span></div>
+        <div class="pat-desc"><span class="tip" data-tip="LINEと外部システムを連携させるための公式の仕組み">LINE Messaging API</span>と連携するボットを開発。顧客DB連携も可能だが工数大。</div>
+        <div class="pat-foot"><span class="pat-cost">¥30,000/月〜</span><span>サーバー費別</span></div>
       </div>
- 
-      <div class="ns-section-title">3段階の成長ロードマップ <span class="en">— growth roadmap</span></div>
-      <div class="roadmap">
-        <div class="rm-stage active">
-          <div class="rm-now">いまここ</div>
-          <div class="rm-phase">Phase 1 — 現在〜</div>
-          <h4>まず作ってみる（チャット）</h4>
-          <ul>
-            <li>自分専用の料理サイトを作る</li>
-            <li>阿部のHTMLを参考に自分仕様へ</li>
-            <li>PDF保存ボタン等を追加依頼</li>
-            <li>「情報提供型サイト」の感覚をつかむ</li>
-          </ul>
-        </div>
-        <div class="rm-stage">
-          <div class="rm-phase">Phase 2 — 次の段階</div>
-          <h4>仕組み化して効率を上げる</h4>
-          <ul>
-            <li>プロジェクト＋カスタム指示で相談環境を作る</li>
-            <li>顧客・キャストごとのチャット管理</li>
-            <li>公開方法（GitHub・Vercel）を習得</li>
-            <li>進捗サイト形式をキャスト管理へ応用</li>
-          </ul>
-        </div>
-        <div class="rm-stage">
-          <div class="rm-phase">Phase 3 — 将来構想</div>
-          <h4>アクション型・本格システムへ</h4>
-          <ul>
-            <li>Claude Codeでログイン・入力・管理画面付きサイト</li>
-            <li>ポスを中核に業務を統合</li>
-            <li>自律型AIによる常時稼働</li>
-            <li>身体負担の軽減と「任せる経営」へ</li>
-          </ul>
-        </div>
+    </div>
+  </div>
+
+  <!-- Challenge 06 -->
+  <div class="pat-block">
+    <div class="pat-head">
+      <div class="pat-circle">06</div>
+      <div class="pat-meta">
+        <span class="pat-prio prio-low">継続課題</span>
+        <div class="pat-ttl">スタッフ全体のAIリテラシー底上げ</div>
+        <div class="pat-pain">政本様一人に負担集中／黒服・スタッフのAI活用が進まない</div>
       </div>
- 
-      <div class="ns-section-title">次回までの宿題 <span class="en">— homework for 政本様</span></div>
-      <div class="homework">
-        <div class="hw-card">
-          <div class="hw-check">✓</div>
-          <div class="hw-body">
-            <h4>自分専用の料理サイトを作る</h4>
-            <p>まず情報提供型のHTMLサイトを1つ作ってみる。薄味の好みや作りたい献立をClaudeに伝え、買い物リスト機能なども相談しながら実装する。</p>
-          </div>
-        </div>
-        <div class="hw-card">
-          <div class="hw-check">✓</div>
-          <div class="hw-body">
-            <h4>阿部のHTMLを参考にカスタマイズ</h4>
-            <p>共有されたHTMLデータをClaudeに添付し「これを参考に自分仕様で作りたい」と相談。Claudeが不足点をヒアリングしながら仕上げてくれる。</p>
-          </div>
-        </div>
-        <div class="hw-card">
-          <div class="hw-check">✓</div>
-          <div class="hw-body">
-            <h4>公開方法を試す（GitHub・Vercel）</h4>
-            <p>作ったサイトを自分やスタッフが使える形に公開する手順を試す。詰まったら次回MTGまたはClaudeに相談すればよい。</p>
-          </div>
-        </div>
-        <div class="hw-card">
-          <div class="hw-check">✓</div>
-          <div class="hw-body">
-            <h4>プロジェクト環境を作る</h4>
-            <p>「Claudeに教えてもらう」ためのプロジェクト＋カスタム指示を用意。指示文が書けなければClaude自身に作ってもらえばOK。</p>
-          </div>
-        </div>
+    </div>
+    <div class="pat-cards">
+      <div class="pat-card rec">
+        <span class="pat-rec-badge">おすすめ</span>
+        <div class="pat-card-top"><span class="pat-stars">★☆☆</span><span class="pat-level">初級</span></div>
+        <div class="pat-name">既存動画化フロー拡張</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude.ai</span></div>
+        <div class="pat-desc">スタッフ向けAI活用ガイドを作成→運用中の動画化フローで教育動画に。追加コストほぼゼロ。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000/月</span><span>政本様のみ</span></div>
       </div>
- 
-      <div class="ns-section-title">新しく覚える周辺ツール <span class="en">— supporting tools</span></div>
-      <div class="tools-intro">
-        <div class="tool-explain">
-          <div class="te-name">Claudeプロジェクト</div>
-          <div class="te-role">相談できる専用環境</div>
-          <p>用途ごとにチャットをまとめ、カスタム指示（事前の役割設定）を入れておける機能。「ウェブサイト相談専用」「キャスト管理専用」など目的別に作れる。<small style="color:var(--ink-muted)">※ChatGPTのGPTs・GeminiのGemと同じ発想</small></p>
-        </div>
-        <div class="tool-explain">
-          <div class="te-name">GitHub / Vercel</div>
-          <div class="te-role">サイトの公開・保存</div>
-          <p>作ったウェブサイトを自分やスタッフが使える形でインターネット上に公開するための仕組み。やり方を一度覚えれば難しくない。<small style="color:var(--ink-muted)">※サイトを世に出すための土台</small></p>
-        </div>
-        <div class="tool-explain">
-          <div class="te-name">Claude Code</div>
-          <div class="te-role">本格システムの構築</div>
-          <p>ログイン・データ入力・管理画面など、相手にアクションしてもらうサイトを作るときに使う。診断ツールやポスのような本格システム向き。<small style="color:var(--ink-muted)">※チャットの一歩先の開発ツール</small></p>
-        </div>
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">プロンプト集を配布</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude</span><span class="pat-chip pc-other">Docs</span></div>
+        <div class="pat-desc">業務シーン別に「コピペで使える」プロンプト集を作成しスタッフ別に配布。</div>
+        <div class="pat-foot"><span class="pat-cost">¥3,000×人数</span><span>各Pro契約</span></div>
       </div>
-    </section>
- 
-    <footer>
-      <div class="footer-mark">—</div>
-      <div class="footer-text">
-        AIBL Progress Portal · 政本 紗耶 様<br>
-        Last updated 2026.05.26　·　For internal use only　·　© Grateful Agent Co., Ltd.
+      <div class="pat-card">
+        <div class="pat-card-top"><span class="pat-stars">★★☆</span><span class="pat-level">中級</span></div>
+        <div class="pat-name">Claude Team プラン導入</div>
+        <div class="pat-tools"><span class="pat-chip pc-blue">Claude Team</span></div>
+        <div class="pat-desc">店舗で統一のTeamプランを契約。全員が同じ知識ベースにアクセスでき管理も一元化。</div>
+        <div class="pat-foot"><span class="pat-cost">¥4,500/人/月</span><span>Team契約</span></div>
       </div>
-    </footer>
- 
-  </main>
- 
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ TAB 3: 実績・Claude活用 ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab3" class="tab-content" role="tabpanel" aria-labelledby="tab3-btn">
+<div class="page-body">
+
+  <div class="sec-head">
+    <div class="sec-label">Achievements</div>
+    <div class="sec-title">これまでの実績マップ</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">政本様が自作・運用している仕組みの一覧です。単発の効率化ではなく、相互に連携した<strong>業務システム群</strong>として機能しており、これらを束ねると実質的にポータルサイトを形成しています。</div>
+  </div>
+
+  <div class="callout">
+    🏆 <strong>すでに「ポータルサイト」の素地が完成。</strong> タイムカード・報酬・契約・成績管理・顧客リストが連動し、さらに5/26時点ではClaude Codeで<strong>ポス（統合業務システム）</strong>を構築中。AIでさらに高度化できる土台が整っています。
+  </div>
+
+  <!-- SKILL BARS -->
+  <div class="skill-legend">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--teal)"></span>習得済み・運用中（70%+）</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>実践中（40〜70%）</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>これから（〜40%）</div>
+  </div>
+  <div class="skill-section">
+    <div class="skill-sec-ttl">業務システム構築スキル</div>
+    <div class="skill-row">
+      <div class="skill-lbl">GAS・スプレッドシート連携</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill fill-hi" data-width="90"></div></div>
+      <div class="skill-pct">90%</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-lbl">複数AIの使い分け</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill fill-hi" data-width="80"></div></div>
+      <div class="skill-pct">80%</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-lbl">教育コンテンツの自動化</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill fill-hi" data-width="78"></div></div>
+      <div class="skill-pct">78%</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-lbl">Claudeでのサイト構築</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill fill-md" data-width="45"></div></div>
+      <div class="skill-pct">45% <span class="skill-delta">▲ NEW</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-lbl">Claude Code（本格システム）</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill fill-lo" data-width="35"></div></div>
+      <div class="skill-pct">35%</div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-lbl">公開・運用（GitHub/Vercel）</div>
+      <div class="skill-bar-bg"><div class="skill-bar-fill fill-lo" data-width="20"></div></div>
+      <div class="skill-pct">20%</div>
+    </div>
+  </div>
+
+  <div class="fancy-sep"><span>Systems Built ／ 自作システム 7件</span></div>
+
+  <div class="needs-grid">
+    <div class="need-card stagger-1">
+      <div class="need-num">NEW · CLAUDE CODE</div>
+      <div class="need-ttl">ポス（統合業務システム）<span style="font-size:10px; color:var(--accent); margin-left:6px;">構築中</span></div>
+      <div class="need-body">5/26時点の最新作。Claude Codeで給与計算と日常業務を連携させた中核システムを構築中。「指示に従うだけで定型作業が完了する」状態を目指す。管理者専用部分はタブにパスワードを設定して運用。</div>
+      <div class="need-bg-icon">💻</div>
+    </div>
+    <div class="need-card stagger-2">
+      <div class="need-num">GAS · 運用中</div>
+      <div class="need-ttl">タイムカードWebアプリ</div>
+      <div class="need-body">出退勤時に写真を撮影・保存し、時刻をスプレッドシートへ自動記録。記録先は政本様のみ編集可の権限設計で、出勤時間の改ざん防止を実現。同伴・アフターをボタンで記録し報酬シートへ反映する仕組みも運用。</div>
+      <div class="need-bg-icon">⏱️</div>
+    </div>
+    <div class="need-card stagger-3">
+      <div class="need-num">GAS · 運用中</div>
+      <div class="need-ttl">契約書締結フロー</div>
+      <div class="need-body">フォーム入力・書類アップロード・業務委託契約の締結までを一連の流れとして整備。紙ベースだった契約業務をデジタル完結させている。</div>
+      <div class="need-bg-icon">📝</div>
+    </div>
+    <div class="need-card stagger-4">
+      <div class="need-num">GAS · 運用中</div>
+      <div class="need-ttl">成績アクセスWebサイト</div>
+      <div class="need-body">パスワード認証により、スタッフ本人が自分の成績にアクセスできるWebサイトを構築・運用。顧客リストや名刺発注なども反映され、ポータルサイトに近い仕組みに発展している。</div>
+      <div class="need-bg-icon">🔐</div>
+    </div>
+    <div class="need-card stagger-5">
+      <div class="need-num">運用中</div>
+      <div class="need-ttl">教育動画の自動制作</div>
+      <div class="need-body">Googleスライド＋AI原稿生成＋音声ナレーションで15〜20分の教育動画を制作・運用。「一番やりたかったことが実現できた」と高評価。体験入店者への説明工数を削減。</div>
+      <div class="need-bg-icon">🎬</div>
+    </div>
+    <div class="need-card stagger-6">
+      <div class="need-num">運用中</div>
+      <div class="need-ttl">顧客連絡の仕組み化／発注メール</div>
+      <div class="need-body">スプレッドシートで顧客情報を一元管理し、ボタン操作でスタッフごとに約30名分の連絡対象を自動抽出。お酒の発注連絡・売上照合メールの送信も自動化済み（最初期の自動化事例）。</div>
+      <div class="need-bg-icon">📧</div>
+    </div>
+  </div>
+
+  <div class="fancy-sep"><span>How to Use Claude ／ Claudeの使い分け</span></div>
+
+  <div class="sec-head">
+    <div class="sec-label">Claude Mode</div>
+    <div class="sec-title">Claudeの3つのモード</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">5/26のMTGで整理した使い分けです。やりたいことに応じて呼び分けることで、Claudeを最大限に活かせます。</div>
+  </div>
+  <div class="model-fig">
+    <div class="model-card t-chat">
+      <div class="model-h"><span class="model-icon">💬</span><div><div class="model-name">チャット</div><span style="font-size:11px; color:var(--muted)">単発の質問・作成</span></div></div>
+      <ul>
+        <li>質問・相談・要約・文章作成</li>
+        <li><strong>情報提供型のサイト</strong>もここで即作成</li>
+        <li>料理サイト・入店説明サイトなど</li>
+      </ul>
+      <div class="model-foot">まずはここから。政本様の「料理サイト作り」はチャットで完結します。</div>
+    </div>
+    <div class="model-card t-cowork">
+      <div class="model-h"><span class="model-icon">🗂️</span><div><div class="model-name">Cowork</div><span style="font-size:11px; color:var(--muted)">PC内の複数ステップ業務</span></div></div>
+      <ul>
+        <li>フォルダ内ファイルの自動処理</li>
+        <li><strong>定期タスク</strong>でCSV転記・集計を自動化</li>
+        <li>スマホから指示するディスパッチ機能</li>
+      </ul>
+      <div class="model-foot">シフト・CSV・身体負担の課題は、すべてここが解決の主役です。</div>
+    </div>
+    <div class="model-card t-code">
+      <div class="model-h"><span class="model-icon">⚙️</span><div><div class="model-name">Claude Code</div><span style="font-size:11px; color:var(--muted)">本格システム・連携</span></div></div>
+      <ul>
+        <li>ログイン・データ入力・<strong>管理画面</strong>付きサイト</li>
+        <li>コード生成・API連携・GAS修正相談</li>
+        <li>ポス・診断ツールのような本格システム</li>
+      </ul>
+      <div class="model-foot">相手にアクションしてもらうサイトはここ。政本様のポスもこのモード。</div>
+    </div>
+  </div>
+
+  <div class="use-grid">
+    <div class="use-card t1">
+      <div class="use-badge">情報提供型サイト</div>
+      <h4>こちらから「見せる」だけ</h4>
+      <ul>
+        <li>マニュアル・入店説明・料理レシピなど</li>
+        <li>ログインや入力が不要なシンプルなサイト</li>
+        <li><strong>Claudeチャットで即作成できる</strong></li>
+      </ul>
+    </div>
+    <div class="use-card t2">
+      <div class="use-badge">アクション型サイト</div>
+      <h4>相手に「操作してもらう」</h4>
+      <ul>
+        <li>ログイン・データ入力・申し込みなど</li>
+        <li>結果を集計する<strong>管理画面</strong>が必要</li>
+        <li><strong>Claude Codeで作るのが適切</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">GAS vs Claude</div>
+    <div class="sec-title">GASとClaude、どう使い分ける？</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="matrix-wrap">
+    <div class="matrix-head"><span>GAS（今の運用）</span><span></span><span>Claude</span></div>
+    <div class="matrix-row">
+      <div class="mx-from">◎ 情報更新が自動反映され手軽</div>
+      <div class="mx-arr">情報更新</div>
+      <div class="mx-to">△ 入力を教え直して再公開が必要</div>
+    </div>
+    <div class="matrix-row">
+      <div class="mx-from">△ 自力で組む必要がある</div>
+      <div class="mx-arr">構成・設計</div>
+      <div class="mx-to">◎ すぐ相談でき、視覚的に提案</div>
+    </div>
+    <div class="matrix-row">
+      <div class="mx-from">△ コーディングの手間が大きい</div>
+      <div class="mx-arr">機能追加</div>
+      <div class="mx-to">◎「PDF保存ボタン追加して」で即実装</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ TAB 4: ロードマップ ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab4" class="tab-content" role="tabpanel" aria-labelledby="tab4-btn">
+<div class="page-body">
+
+  <div class="sec-head">
+    <div class="sec-label">Roadmap</div>
+    <div class="sec-title">次のステップ</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">5/26のMTGで方針がさらに具体化しました。<strong>いきなり難しいことに進まず、まず「Claudeのチャットで情報提供型サイトを作ってみる」</strong>ところから。料理サイトを第一歩に、徐々に公開方法やプロジェクト環境、そしてClaude Codeへと広げていきます。</div>
+  </div>
+
+  <div class="callout teal">
+    🧭 <strong>方向づけ（5/26決定）：</strong> 何事も、整理した情報をメモ・スプレッドシート・ウェブサイトのどれで持つかで、見やすさも理解も変わります。Claudeなら構成・デザインの相談から機能追加まで対話で進められるため、まずは身近なテーマ（料理サイト）でウェブサイト化を体験し、「できること」の感覚をつかむことが次の一歩です。
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">3 Phases</div>
+    <div class="sec-title">3段階の成長ロードマップ</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="roadmap">
+    <div class="rm-card now">
+      <span class="rm-now-badge">いまここ</span>
+      <div class="rm-phase">Phase 1 — 現在〜</div>
+      <h4>まず作ってみる（チャット）</h4>
+      <ul>
+        <li>自分専用の料理サイトを作る</li>
+        <li>阿部のHTMLを参考に自分仕様へ</li>
+        <li>PDF保存ボタン等を追加依頼</li>
+        <li>「情報提供型サイト」の感覚をつかむ</li>
+      </ul>
+    </div>
+    <div class="rm-card">
+      <div class="rm-phase">Phase 2 — 次の段階</div>
+      <h4>仕組み化して効率を上げる</h4>
+      <ul>
+        <li>プロジェクト＋カスタム指示で相談環境を作る</li>
+        <li>顧客・キャストごとのチャット管理</li>
+        <li>公開方法（GitHub・Vercel）を習得</li>
+        <li>進捗サイト形式をキャスト管理へ応用</li>
+      </ul>
+    </div>
+    <div class="rm-card">
+      <div class="rm-phase">Phase 3 — 将来構想</div>
+      <h4>アクション型・本格システムへ</h4>
+      <ul>
+        <li>Claude Codeでログイン・入力・管理画面付きサイト</li>
+        <li>ポスを中核に業務を統合</li>
+        <li>自律型AIによる常時稼働</li>
+        <li>身体負担の軽減と「任せる経営」へ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">Homework</div>
+    <div class="sec-title">次回（6/22）までの宿題</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="hw-grid">
+    <div class="hw-card">
+      <div class="hw-check">✓</div>
+      <div class="hw-body">
+        <h4>自分専用の料理サイトを作る</h4>
+        <p>まず情報提供型のHTMLサイトを1つ作ってみる。薄味の好みや作りたい献立をClaudeに伝え、買い物リスト機能なども相談しながら実装する。</p>
+      </div>
+    </div>
+    <div class="hw-card">
+      <div class="hw-check">✓</div>
+      <div class="hw-body">
+        <h4>阿部のHTMLを参考にカスタマイズ</h4>
+        <p>共有されたHTMLデータをClaudeに添付し「これを参考に自分仕様で作りたい」と相談。Claudeが不足点をヒアリングしながら仕上げてくれる。</p>
+      </div>
+    </div>
+    <div class="hw-card">
+      <div class="hw-check">✓</div>
+      <div class="hw-body">
+        <h4>公開方法を試す（GitHub・Vercel）</h4>
+        <p>作ったサイトを自分やスタッフが使える形に公開する手順を試す。詰まったら次回MTGまたはClaudeに相談すればよい。</p>
+      </div>
+    </div>
+    <div class="hw-card">
+      <div class="hw-check">✓</div>
+      <div class="hw-body">
+        <h4>プロジェクト環境を作る</h4>
+        <p>「Claudeに教えてもらう」ためのプロジェクト＋カスタム指示を用意。指示文が書けなければClaude自身に作ってもらえばOK。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">Supporting Tools</div>
+    <div class="sec-title">新しく覚える周辺ツール</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="model-fig">
+    <div class="model-card t-chat">
+      <div class="model-h"><span class="model-icon">🗂️</span><div><div class="model-name">Claudeプロジェクト</div><span style="font-size:11px; color:var(--muted)">相談できる専用環境</span></div></div>
+      <ul>
+        <li>用途ごとにチャットをまとめられる</li>
+        <li>カスタム指示で役割を事前設定</li>
+        <li>顧客・キャスト別の管理に応用</li>
+      </ul>
+      <div class="model-foot">ChatGPTのGPTs・GeminiのGemと同じ発想です。</div>
+    </div>
+    <div class="model-card t-cowork">
+      <div class="model-h"><span class="model-icon">🚀</span><div><div class="model-name">GitHub / Vercel</div><span style="font-size:11px; color:var(--muted)">サイトの公開・保存</span></div></div>
+      <ul>
+        <li>作ったサイトをネット上に公開</li>
+        <li>自分やスタッフが使える形にする</li>
+        <li>一度覚えれば難しくない</li>
+      </ul>
+      <div class="model-foot">サイトを世に出すための土台となるサービスです。</div>
+    </div>
+    <div class="model-card t-code">
+      <div class="model-h"><span class="model-icon">⚙️</span><div><div class="model-name">Claude Code</div><span style="font-size:11px; color:var(--muted)">本格システムの構築</span></div></div>
+      <ul>
+        <li>ログイン・入力・管理画面付きサイト</li>
+        <li>診断ツールやポスのような本格システム</li>
+        <li>チャットの一歩先の開発ツール</li>
+      </ul>
+      <div class="model-foot">相手にアクションしてもらうサイトを作るときに使います。</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ TAB 5: 研修・MTG記録 ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab5" class="tab-content" role="tabpanel" aria-labelledby="tab5-btn">
+<div class="page-body">
+
+  <div class="sec-head">
+    <div class="sec-label">Records &amp; Logs</div>
+    <div class="sec-title">研修・MTG 議事録</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">初級編・中級編の研修から、フォローアップMTG（2回）・月次MTGまでの記録をまとめました。各項目をクリックすると詳細が開きます。今後の月次MTG記録も、ここに順次追加されていきます。</div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" role="search" aria-label="記録のフィルター">
+    <div class="filter-bar-top">
+      <div class="filter-search">
+        <input type="text" id="searchInput" placeholder="キーワード検索（例：シフト、ウェブサイト、ポス…）" oninput="applyFilters()" aria-label="記録内容を検索">
+        <button class="filter-clear" id="filterClear" onclick="clearSearch()" aria-label="検索をクリア">✕</button>
+      </div>
+      <div class="filter-stats" aria-live="polite"><strong id="filterCount">0</strong>件 表示中 ／ <span id="filterTotal">0</span>件中</div>
+    </div>
+    <div class="filter-chips" role="group" aria-label="種別フィルター">
+      <span class="filter-label">種別：</span>
+      <button class="chip active" data-filter="all" onclick="setFilter(this)" aria-pressed="true">すべて <span class="chip-count" data-chip-count="all">0</span></button>
+      <button class="chip" data-filter="training" onclick="setFilter(this)" aria-pressed="false">🎓 研修 <span class="chip-count" data-chip-count="training">0</span></button>
+      <button class="chip" data-filter="fup" onclick="setFilter(this)" aria-pressed="false">💬 FUP <span class="chip-count" data-chip-count="fup">0</span></button>
+      <button class="chip" data-filter="monthly" onclick="setFilter(this)" aria-pressed="false">📅 月次MTG <span class="chip-count" data-chip-count="monthly">0</span></button>
+      <button class="chip" data-filter="pending" onclick="setFilter(this)" aria-pressed="false">⏳ 未記録 <span class="chip-count" data-chip-count="pending">0</span></button>
+    </div>
+  </div>
+
+  <!-- SUBSECTION: 研修 -->
+  <div class="subsection" data-section="training">
+    <h3 class="subsec-head">
+      <span class="subsec-icon" aria-hidden="true">🎓</span>
+      <span>研修（初級編・中級編）</span>
+      <span class="subsec-count" data-subsec-count="training"></span>
+    </h3>
+
+    <div class="callout teal">
+      ✅ <strong>研修フェーズで「機能理解」を完了。</strong> 初級編・中級編を経て、政本様はメインツールであるGeminiを中心にAIの基礎〜実務応用を習得。その後のフォローアップで、より高度な活用へと進んでいます。
+    </div>
+
+    <!-- 初級編 -->
+    <div class="accordion filterable" data-filter-type="training" onclick="toggleAcc(this, event)">
+      <div class="acc-head" aria-expanded="false" tabindex="0">
+        <div class="acc-head-left"><span class="acc-num c-blue">初級</span><span class="acc-ttl">初級編 — 2025年11月19日</span><span class="acc-tag t-done">完了</span></div>
+        <span class="acc-icon">＋</span>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <ul>
+          <li>生成AIの基礎を習得。「機能 → 考え方 → 活用方法」の順で進む研修の第1段階。</li>
+          <li>この時点で既に<strong>発注メール・売上照合メールなど一部業務の自動化を実践済み</strong>の状態で受講開始。</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <!-- 中級編 -->
+    <div class="accordion filterable" data-filter-type="training" onclick="toggleAcc(this, event)">
+      <div class="acc-head" aria-expanded="false" tabindex="0">
+        <div class="acc-head-left"><span class="acc-num c-blue">中級</span><span class="acc-ttl">中級編 — 2026年1月28日</span><span class="acc-tag t-done">完了</span></div>
+        <span class="acc-icon">＋</span>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <ul>
+          <li>プロンプト設計・業務応用を学習。</li>
+          <li>メインツールがGeminiであることを踏まえ、<strong>Gemini中心の活用へ移行</strong>。</li>
+          <li>操作説明9割＋プロンプトアドバイザーを共有。</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SUBSECTION: フォローアップMTG -->
+  <div class="subsection" data-section="fup">
+    <h3 class="subsec-head">
+      <span class="subsec-icon" aria-hidden="true">💬</span>
+      <span>フォローアップMTG（全2回）</span>
+      <span class="subsec-count" data-subsec-count="fup"></span>
+    </h3>
+
+    <!-- FUP1 -->
+    <div class="accordion filterable" data-filter-type="fup" onclick="toggleAcc(this, event)">
+      <div class="acc-head" aria-expanded="false" tabindex="0">
+        <div class="acc-head-left"><span class="acc-num c-coral">FUP①</span><span class="acc-ttl">2/27 — 自動化したい業務の棚卸し</span><span class="acc-tag t-done">完了</span></div>
+        <span class="acc-icon">＋</span>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <ul>
+          <li>すでに達成済みの成果と、残る課題を整理。</li>
+          <li><strong>達成：</strong>教育動画化、顧客連絡の仕組み化。</li>
+          <li><strong>課題：</strong>シフト作成、スプレッドシート自動化、LINE自動返信、スタッフ教育。</li>
+          <li><strong>決定：</strong>自動化希望業務の優先順位リスト作成。単体ツール対応／連携型の分類整理。半自動化も許容する方針。</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <!-- FUP2 -->
+    <div class="accordion filterable" data-filter-type="fup" onclick="toggleAcc(this, event)">
+      <div class="acc-head" aria-expanded="false" tabindex="0">
+        <div class="acc-head-left"><span class="acc-num c-coral">FUP②</span><span class="acc-ttl">3/25 — エージェント型AIへの気づき</span><span class="acc-tag t-done">完了</span></div>
+        <span class="acc-icon">＋</span>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <ul>
+          <li>タイムカードWebアプリの自作を共有。Geminiのスプレッドシート自動入力の限界を確認。</li>
+          <li>Geminiチャット単体では複数工程の安定実行が困難 → <strong>エージェント型ツールの必要性</strong>を整理。</li>
+          <li>ChatGPTエージェントモード・Claudeを検証対象に。</li>
+          <li>Claudeの3モード（チャット／Cowork／Code）を整理。</li>
+          <li><strong>決定：</strong>Claudeの活用を有力候補として進める。特にデスクトップアプリ版を前提に検討。以降は月次MTGとして継続。</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SUBSECTION: 月次MTG -->
+  <div class="subsection" data-section="monthly">
+    <h3 class="subsec-head">
+      <span class="subsec-icon" aria-hidden="true">📅</span>
+      <span>月次MTG（3回目以降）</span>
+      <span class="subsec-count" data-subsec-count="monthly"></span>
+    </h3>
+
+    <!-- 月次① (旧FUP3) -->
+    <div class="accordion filterable" data-filter-type="monthly" onclick="toggleAcc(this, event)">
+      <div class="acc-head" aria-expanded="false" tabindex="0">
+        <div class="acc-head-left"><span class="acc-num c-warm">月次①</span><span class="acc-ttl">4/21 — Claude Code・自律型AIへの方向づけ</span><span class="acc-tag t-done">完了</span></div>
+        <span class="acc-icon">＋</span>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <ul>
+          <li>上田氏も参加し、AI活用の上位フェーズを議論。</li>
+          <li>政本様がGASで「ポータルサイト相当」の仕組みを既に保有していることが判明（タイムカード・報酬反映・契約締結フロー・成績アクセスサイト）。</li>
+          <li>上田氏より自律型AI・AIBLポータル・e-learning構想を共有。</li>
+          <li>環境整備（GitHub・Obsidian・専用フォルダ・権限設計）の重要性を確認。</li>
+          <li><strong>決定：</strong>いきなり自律型AIに進むのではなく、まずClaude Codeを起点に理解と実践を進める。</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <!-- 月次② (旧FUP4) - LATEST -->
+    <div class="accordion open filterable" data-filter-type="monthly" onclick="toggleAcc(this, event)">
+      <div class="acc-head" aria-expanded="true" tabindex="0">
+        <div class="acc-head-left"><span class="acc-num c-warm">月次②</span><span class="acc-ttl">5/26 — Claudeでのウェブサイト構築という新しい武器</span><span class="acc-tag t-warn">最新</span></div>
+        <span class="acc-icon">＋</span>
+      </div>
+      <div class="acc-body"><div class="acc-body-inner">
+        <p style="margin-bottom:8px;"><strong>進捗共有：</strong></p>
+        <ul>
+          <li>GW前にClaude Codeで<strong>ポス</strong>を構築するも、2週間の旅行で一度リセット。</li>
+          <li>Numbers→Googleスプレッドシートへの移行を進行中。</li>
+          <li>「何ができるか分からず、やりたいことが浮かばない」という悩みを共有。</li>
+        </ul>
+        <p style="margin:12px 0 8px;"><strong>今回の学びと発見：</strong></p>
+        <ul>
+          <li><strong>この進捗サイトの仕組み：</strong>すべてClaudeで構築。MTG文字起こしをアップロードすると自動更新される。月次の振り返り用にブックマーク推奨。</li>
+          <li><strong>プロジェクト機能：</strong>顧客・キャスト別にチャットを分けて管理できる（GPTs・Gemと同じ発想）。</li>
+          <li><strong>使い分け：</strong>情報提供型サイトはチャットで即作成、アクション型（ログイン・管理画面）はClaude Codeが必要。</li>
+          <li><strong>実例：</strong>レシピサイト（買い物リスト自動生成・約15分で構築）、物件探しサイト（Deep Research活用）、業務診断ツール（管理画面付き・約4時間／外注なら30〜50万円相当）。</li>
+        </ul>
+        <p style="margin:12px 0 8px;"><strong>決定：</strong></p>
+        <ul>
+          <li>「やりたいことが出てきた」と政本様。まず自分専用の料理サイトをClaudeで作ることから着手。</li>
+          <li>この進捗サイトの構成はキャスト管理にも応用できると気づきを得た。</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SUBSECTION: 今後 -->
+  <div class="subsection" data-section="upcoming">
+    <h3 class="subsec-head">
+      <span class="subsec-icon" aria-hidden="true">⏳</span>
+      <span>今後の記録（順次追加）</span>
+      <span class="subsec-count" data-subsec-count="upcoming"></span>
+    </h3>
+
+    <div class="empty-state filterable" data-filter-type="monthly pending" style="border-color:var(--warm);">
+      <div class="empty-icon" aria-hidden="true">📅</div>
+      <div class="empty-ttl">月次MTG 3回目（6/22 月 11:00〜）以降の記録</div>
+      <div class="empty-desc">料理サイト制作の振り返り・公開方法（GitHub/Vercel）の確認・Claudeプロジェクト環境づくり・Claude Codeへの展開</div>
+    </div>
+    <div class="empty-state filterable" data-filter-type="monthly pending" style="border-color:var(--warm);">
+      <div class="empty-icon" aria-hidden="true">📅</div>
+      <div class="empty-ttl">以降の月次MTGの記録</div>
+      <div class="empty-desc">継続伴走フェーズの議事録が毎月追加されていきます</div>
+    </div>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div class="filter-empty" id="filterEmpty" role="status">
+    <div class="filter-empty-icon" aria-hidden="true">🔍</div>
+    <div class="filter-empty-ttl">該当する記録が見つかりません</div>
+    <div class="filter-empty-desc">検索キーワードまたは種別フィルターを変更してください</div>
+    <button class="filter-empty-reset" onclick="resetFilters()">フィルターをリセット</button>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:24px; padding-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:18px; text-align:left;">
+      <div>
+        <div style="font-family:'Montserrat',sans-serif; font-size:11px; font-weight:800; letter-spacing:0.15em; color:white; margin-bottom:4px;">AI BUSINESS LABO</div>
+        <div style="font-size:10px; opacity:0.7;">株式会社Grateful Agent Corporation</div>
+      </div>
+      <div>
+        <div style="font-size:10px; color:rgba(255,255,255,0.5); letter-spacing:0.1em; margin-bottom:4px;">CLIENT</div>
+        <div style="font-size:12px; color:white;">政本 紗耶 様 ／ OLIVE GINZA</div>
+      </div>
+      <div>
+        <div style="font-size:10px; color:rgba(255,255,255,0.5); letter-spacing:0.1em; margin-bottom:4px;">LAST UPDATED</div>
+        <div style="font-size:12px; color:white;">2026年5月26日</div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      本ページは政本様専用の伴走記録です。研修・MTG後に内容が順次追加・更新されていきます。
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
 <script>
-  document.querySelectorAll('.tab').forEach(function(tab){
-    tab.addEventListener('click', function(){
-      var target = tab.getAttribute('data-tab');
-      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
-      tab.classList.add('active');
-      document.getElementById(target).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+function switchTab(tabId, btn) {
+  const hero = document.querySelector('.hero');
+  const targetY = hero ? hero.offsetHeight : 0;
+  window.scrollTo(0, targetY);
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); b.setAttribute('tabindex','-1'); });
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active'); btn.setAttribute('aria-selected','true'); btn.setAttribute('tabindex','0');
+  void document.getElementById(tabId).offsetHeight;
+  window.scrollTo(0, targetY);
+  animateSkillBars(); animateCounters();
+}
+document.addEventListener('keydown', (e) => {
+  if (!e.target.classList.contains('tab-btn')) return;
+  const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+  const idx = tabs.indexOf(e.target); let next = idx;
+  if (e.key === 'ArrowRight') next = (idx + 1) % tabs.length;
+  else if (e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
+  else if (e.key === 'Home') next = 0;
+  else if (e.key === 'End') next = tabs.length - 1;
+  else return;
+  e.preventDefault(); tabs[next].click(); tabs[next].focus();
+});
+function toggleAcc(el, evt) {
+  const target = evt ? evt.target : (window.event ? window.event.target : null);
+  if (target && (target.closest('a') || target.closest('button'))) return;
+  el.classList.toggle('open');
+  const head = el.querySelector('.acc-head');
+  if (head) head.setAttribute('aria-expanded', el.classList.contains('open'));
+}
+function animateSkillBars() {
+  const activeTab = document.querySelector('.tab-content.active'); if (!activeTab) return;
+  activeTab.querySelectorAll('.skill-bar-fill').forEach(bar => {
+    const w = bar.getAttribute('data-width'); bar.style.width = '0';
+    setTimeout(() => { bar.style.width = w + '%'; }, 200);
+  });
+}
+function animateCounters() {
+  const activeTab = document.querySelector('.tab-content.active'); if (!activeTab) return;
+  activeTab.querySelectorAll('.counter').forEach(counter => {
+    const target = parseInt(counter.getAttribute('data-target'));
+    let current = 0; const step = Math.max(1, Math.ceil(target / 30));
+    counter.textContent = '0';
+    const update = () => {
+      current += step;
+      if (current >= target) { counter.textContent = target; }
+      else { counter.textContent = current; requestAnimationFrame(update); }
+    };
+    setTimeout(update, 200);
+  });
+}
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.accordion.open .acc-head').forEach(head => head.setAttribute('aria-expanded','true'));
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.setAttribute('tabindex', i === 0 ? '0' : '-1'));
+  document.querySelectorAll('.acc-head').forEach(head => {
+    head.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleAcc(head.closest('.accordion'), e); }
     });
   });
+  initFilters(); animateSkillBars(); animateCounters();
+});
+
+// ═══ フィルター機能 ═══
+let currentFilter = 'all';
+function initFilters() {
+  const items = document.querySelectorAll('.filterable');
+  const counts = { all: items.length, training: 0, fup: 0, monthly: 0, pending: 0 };
+  items.forEach(item => {
+    const types = (item.dataset.filterType || '').split(' ');
+    types.forEach(t => { if (counts[t] !== undefined) counts[t]++; });
+  });
+  Object.keys(counts).forEach(key => {
+    const elm = document.querySelector(`[data-chip-count="${key}"]`);
+    if (elm) elm.textContent = counts[key];
+  });
+  document.getElementById('filterTotal').textContent = items.length;
+  applyFilters();
+}
+function setFilter(btn) {
+  document.querySelectorAll('.chip').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed','false'); });
+  btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+  currentFilter = btn.dataset.filter; applyFilters();
+}
+function applyFilters() {
+  const searchEl = document.getElementById('searchInput');
+  const search = searchEl ? searchEl.value.toLowerCase().trim() : '';
+  const clearBtn = document.getElementById('filterClear');
+  if (clearBtn) clearBtn.classList.toggle('show', search.length > 0);
+  const items = document.querySelectorAll('.filterable');
+  let visibleCount = 0; const sectionCounts = {};
+  items.forEach(item => {
+    const types = (item.dataset.filterType || '').split(' ');
+    const text = item.textContent.toLowerCase();
+    const matchType = currentFilter === 'all' || types.includes(currentFilter);
+    const matchSearch = !search || text.includes(search);
+    const visible = matchType && matchSearch;
+    item.style.display = visible ? '' : 'none';
+    if (visible) {
+      visibleCount++;
+      const section = item.closest('.subsection');
+      if (section) { const key = section.dataset.section; sectionCounts[key] = (sectionCounts[key] || 0) + 1; }
+    }
+  });
+  document.querySelectorAll('.subsection').forEach(sec => {
+    const key = sec.dataset.section; const cnt = sectionCounts[key] || 0;
+    sec.style.display = cnt === 0 ? 'none' : '';
+    const cntElm = sec.querySelector(`[data-subsec-count="${key}"]`);
+    if (cntElm) cntElm.textContent = `${cnt}件`;
+  });
+  document.getElementById('filterCount').textContent = visibleCount;
+  document.getElementById('filterEmpty').classList.toggle('show', visibleCount === 0);
+}
+function clearSearch() {
+  const input = document.getElementById('searchInput');
+  if (input) { input.value = ''; input.focus(); applyFilters(); }
+}
+function resetFilters() {
+  const input = document.getElementById('searchInput'); if (input) input.value = '';
+  const allChip = document.querySelector('.chip[data-filter="all"]'); if (allChip) setFilter(allChip);
+}
+
+// ═══ PDF出力 ═══
+function exportPDF() {
+  const beforeStates = [];
+  document.querySelectorAll('.accordion').forEach(acc => { beforeStates.push({ el: acc, wasOpen: acc.classList.contains('open') }); acc.classList.add('open'); });
+  document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+    const w = bar.getAttribute('data-width'); if (w) bar.style.width = w + '%';
+  });
+  document.querySelectorAll('.counter').forEach(c => {
+    const t = c.getAttribute('data-target'); if (t) c.textContent = t;
+  });
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => { beforeStates.forEach(s => { if (!s.wasOpen) s.el.classList.remove('open'); }); }, 500);
+  }, 100);
+}
 </script>
- 
+
 </body>
 </html>
- 
