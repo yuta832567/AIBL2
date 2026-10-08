@@ -505,6 +505,76 @@ body {
 .site-footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 48px; text-align: center; font-size: 11px; letter-spacing: 0.04em; }
 .site-footer strong { color: white; }
 
+/* ═══ PREP MEMO (9月MTG事前メモ) ═══ */
+.prep-banner { background: linear-gradient(135deg, var(--navy), #1a3260); border-radius: 16px; padding: 24px 28px; margin-bottom: 28px; position: relative; overflow: hidden; }
+.prep-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 90% 10%, rgba(232,80,58,0.18) 0%, transparent 55%); }
+.prep-banner-inner { position: relative; z-index: 1; }
+.prep-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.25em; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; }
+.prep-banner h3 { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 600; color: white; margin-bottom: 8px; }
+.prep-banner p { font-size: 12.5px; color: rgba(255,255,255,0.78); line-height: 1.85; }
+.prep-banner .prep-date { display: inline-block; margin-top: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; }
+
+/* アジェンダ・ステップ */
+.agenda-list { counter-reset: ag; margin-bottom: 36px; }
+.agenda-item { display: flex; gap: 16px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 10px; position: relative; border-left: 3px solid var(--accent); transition: box-shadow 0.2s; }
+.agenda-item:hover { box-shadow: 0 3px 10px rgba(15,30,60,0.06); }
+.agenda-item.c-coral { border-left-color: var(--accent); }
+.agenda-item.c-teal { border-left-color: var(--teal); }
+.agenda-item.c-purple { border-left-color: var(--purple); }
+.agenda-item.c-warm { border-left-color: var(--warm); }
+.agenda-item.c-blue { border-left-color: var(--blue); }
+.agenda-item.c-navy { border-left-color: var(--navy-mid); }
+.agenda-num { counter-increment: ag; flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; background: var(--light); color: var(--navy); font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+.agenda-num::before { content: counter(ag); }
+.agenda-body h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.agenda-body p { font-size: 12px; color: var(--slate); line-height: 1.75; }
+.agenda-time { margin-left: auto; font-size: 10px; font-weight: 700; color: var(--muted); font-family: 'Montserrat', sans-serif; white-space: nowrap; align-self: center; }
+
+/* 前回vs今回 2カラム */
+.vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px; }
+.vs-col { border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+.vs-col.last { background: var(--light); }
+.vs-col.now { border: 1.5px solid var(--accent); background: linear-gradient(135deg, var(--accent-soft), white); }
+.vs-col h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.vs-col .vs-cap { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+.vs-row { display: flex; gap: 9px; padding: 8px 0; border-top: 1px dashed var(--border); font-size: 12px; line-height: 1.6; color: var(--slate); }
+.vs-row:first-of-type { border-top: none; }
+.vs-ic { flex-shrink: 0; color: var(--teal); font-weight: 700; }
+.vs-col.now .vs-ic { color: var(--accent); }
+.vs-row strong { color: var(--navy); }
+
+/* 提案 how-to カード */
+.prop-card { border: 1px solid var(--border); border-radius: 14px; padding: 0; margin-bottom: 16px; overflow: hidden; background: white; }
+.prop-card.hot { border: 1.5px solid var(--accent); }
+.prop-head { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; background: linear-gradient(90deg, white, var(--light)); }
+.prop-card.hot .prop-head { background: var(--accent-soft); }
+.prop-ic { width: 40px; height: 40px; border-radius: 10px; background: var(--light); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.prop-card.hot .prop-ic { background: white; color: var(--accent); }
+.prop-head-body { flex: 1; }
+.prop-head-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.prop-head h4 { font-size: 15px; font-weight: 700; color: var(--navy); }
+.prop-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 8px; background: var(--accent); color: white; letter-spacing: 0.04em; }
+.prop-badge.new-info { background: var(--purple); }
+.prop-badge.research { background: var(--teal); }
+.prop-why { font-size: 12px; color: var(--slate); line-height: 1.7; }
+.prop-why strong { color: var(--navy); }
+.prop-steps { padding: 16px 20px 18px; border-top: 1px dashed var(--border); }
+.prop-steps-ttl { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; }
+.prop-steps ol { counter-reset: ps; list-style: none; padding: 0; }
+.prop-steps li { counter-increment: ps; position: relative; padding-left: 30px; margin-bottom: 9px; font-size: 12.5px; color: var(--slate); line-height: 1.7; }
+.prop-steps li::before { content: counter(ps); position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+.prop-steps li strong { color: var(--navy); }
+.prop-foot { margin-top: 10px; font-size: 11px; color: var(--muted); background: var(--light); padding: 8px 12px; border-radius: 8px; line-height: 1.6; }
+.prop-foot strong { color: var(--navy); }
+
+/* 事前インプット */
+.prep-notes { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.prep-note { border-left: 3px solid var(--border-dk); border-radius: 0; padding: 4px 0 4px 16px; }
+.prep-note.key { border-left-color: var(--accent); }
+.prep-note h4 { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.prep-note p { font-size: 12px; color: var(--slate); line-height: 1.7; }
+.prep-note p strong { color: var(--navy); }
+
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 900px) {
   body { font-size: 13px; }
@@ -526,7 +596,10 @@ body {
   .metric-row { grid-template-columns: repeat(2, 1fr); }
   .profile-grid { grid-template-columns: 1fr; gap: 20px; }
   .profile-div { display: none; }
-  .needs-grid, .use-grid, .model-fig, .pat-cards, .roadmap, .hw-grid { grid-template-columns: 1fr; }
+  .needs-grid, .use-grid, .model-fig, .pat-cards, .roadmap, .hw-grid, .vs-grid { grid-template-columns: 1fr; }
+  .prep-banner { padding: 18px 20px; }
+  .prep-banner h3 { font-size: 18px; }
+  .agenda-time { display: none; }
   .skill-row { grid-template-columns: 140px 1fr 50px; gap: 8px; }
   .career-path { font-size: 11px; }
   .matrix-head, .matrix-row { grid-template-columns: 1fr 24px 1fr; gap: 8px; }
@@ -1205,11 +1278,235 @@ body {
     <div class="sec-label">Roadmap</div>
     <div class="sec-title">次のステップ</div>
     <div class="sec-divider"></div>
-    <div class="sec-sub">6/22のMTGで方針がさらに具体化しました。<strong>最初から全部を理解しようとせず、まずClaude Code／ChatGPTを実際に触って「成功体験」を積む</strong>ところから。プロジェクト機能やCoworkでの自動化、公式LINE連携など、やりたいことは相談ベースで一つずつ実現していきます。</div>
+    <div class="sec-sub">8/27のMTGで、着手するテーマが<strong>①POSページの改善</strong>と<strong>②新規事業（美容クリニック）の土台づくり</strong>の2つに定まりました。あれもこれもと広げず、この2つを軸に一歩ずつ前に進めていきます。</div>
   </div>
 
   <div class="callout teal">
-    🧭 <strong>方向づけ（6/22決定）：</strong> 頭の中の構想は、まず「実現できるか？」を<strong>Claude Codeに相談</strong>してみるのが第一歩。「初心者に分かるステップで案内して」と頼めば、API取得などの手順を都度教えてくれます。完璧を目指さず、小さな成功体験を重ねることが、結果的に一番の近道です。
+    🧭 <strong>方向づけ（8/27決定）：</strong> クラブ業務はすでに仕組み化が進んでいるため、改善は時間をかけてOK。<strong>優先は新規事業（美容）の土台づくり</strong>です。構想は「実現できるか？」を<strong>Claude Codeに相談</strong>し、「初心者に分かるステップで案内して」と頼めば手順を都度教えてくれます。完璧を目指さず小さな成功体験を重ねるのが近道です。
+  </div>
+
+  <!-- ═══════════ 9月MTG事前メモ ═══════════ -->
+  <div class="prep-banner">
+    <div class="prep-banner-inner">
+      <div class="prep-eyebrow">Next Meeting Prep ／ 事前メモ</div>
+      <h3>9月28日 定例MTG 事前メモ</h3>
+      <p>前回（8/27）で決まった2つの着手テーマの進捗を起点に、<strong style="color:#fff;">「次に作るものを1つ決める」</strong>のがこの回のゴールです。下記は当日の進め方・提案・事前に押さえておきたい情報の一式です。</p>
+      <span class="prep-date">📅 2026年9月28日（月）11:00〜12:00</span>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">Agenda</div>
+    <div class="sec-title">当日の進め方（6ステップ）</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">進捗の共有から入り、2テーマそれぞれの「次の一手」を固めて、最後に宿題を1つに絞る流れです。</div>
+  </div>
+  <div class="agenda-list">
+    <div class="agenda-item c-navy">
+      <div class="agenda-num"></div>
+      <div class="agenda-body"><h4>前回2テーマの進捗を共有</h4><p>POS改善／美容の土台づくり、それぞれの手ごたえと詰まった点を確認。進んでいなくてもOK、まず現状を言葉にするところから。</p></div>
+      <div class="agenda-time">〜10分</div>
+    </div>
+    <div class="agenda-item c-coral">
+      <div class="agenda-num"></div>
+      <div class="agenda-body"><h4>POS：外注か自作かを中期目線で判断</h4><p>「月3万の外注」も選択肢。日々使うツールにバグが出たときのリスクと、自作の自由度を天秤に。短期でなく中期で考える。</p></div>
+      <div class="agenda-time">〜10分</div>
+    </div>
+    <div class="agenda-item c-coral">
+      <div class="agenda-num"></div>
+      <div class="agenda-body"><h4>POS：ローンチ前の「確認フロー」を決める</h4><p>作るフェーズと確認フェーズは分ける。脆弱性チェック・ボタン遷移・数値連動の確認手順をセットで用意する。</p></div>
+      <div class="agenda-time">〜10分</div>
+    </div>
+    <div class="agenda-item c-teal">
+      <div class="agenda-num"></div>
+      <div class="agenda-body"><h4>美容：API連携できるシステムを決める</h4><p>電子カルテ／予約システムの選定が全ての起点。連携可否で設計が根本的に変わるため、契約前にここを固める。</p></div>
+      <div class="agenda-time">〜15分</div>
+    </div>
+    <div class="agenda-item c-purple">
+      <div class="agenda-num"></div>
+      <div class="agenda-body"><h4>スキルを1つ実際に作ってみる</h4><p>薬事法スキル or 資料作成スキルから。スキルクリエイターに質問に答えるだけで作れる。成功体験を1つ。</p></div>
+      <div class="agenda-time">〜10分</div>
+    </div>
+    <div class="agenda-item c-blue">
+      <div class="agenda-num"></div>
+      <div class="agenda-body"><h4>次回までの宿題を1つに絞る</h4><p>「次に作るもの」を1つだけ決めてクロージング。欲張らず、確実に前進できる粒度に。</p></div>
+      <div class="agenda-time">〜5分</div>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">Last vs Next</div>
+    <div class="sec-title">前回話したこと → 今回決めること</div>
+    <div class="sec-divider"></div>
+  </div>
+  <div class="vs-grid">
+    <div class="vs-col last">
+      <h4>直近（8/27）で話したこと</h4>
+      <div class="vs-cap">前回の決定・共有事項</div>
+      <div class="vs-row"><span class="vs-ic">✓</span><span>着手は<strong>2つに決定</strong>（POS改善＋美容の土台）</span></div>
+      <div class="vs-row"><span class="vs-ic">✓</span><span>POSはメモリの影響で<strong>過去版と同じもの</strong>が再生成</span></div>
+      <div class="vs-row"><span class="vs-ic">✓</span><span><strong>「作る」と「確認」は分ける</strong>／脆弱性チェック必須</span></div>
+      <div class="vs-row"><span class="vs-ic">✓</span><span><strong>スキル機能</strong>を習得（基準登録→メンションで再現）</span></div>
+      <div class="vs-row"><span class="vs-ic">✓</span><span>美容＝<strong>API連携できるシステム契約</strong>が最初の鍵</span></div>
+      <div class="vs-row"><span class="vs-ic">✓</span><span>キャスト定着の<strong>診断フォーム</strong>構想／代表への逃げ道</span></div>
+    </div>
+    <div class="vs-col now">
+      <h4>9月MTGで決めること</h4>
+      <div class="vs-cap">進捗を起点に前へ進める</div>
+      <div class="vs-row"><span class="vs-ic">→</span><span>2テーマの<strong>進捗と手ごたえ</strong>を共有する</span></div>
+      <div class="vs-row"><span class="vs-ic">→</span><span>POS：<strong>外注 vs 自作</strong>を中期目線で判断</span></div>
+      <div class="vs-row"><span class="vs-ic">→</span><span>POS：ローンチ前の<strong>確認フロー</strong>を具体化</span></div>
+      <div class="vs-row"><span class="vs-ic">→</span><span>美容：<strong>どの電子カルテ／予約</strong>を選ぶか</span></div>
+      <div class="vs-row"><span class="vs-ic">→</span><span>スキルを<strong>1つ実際に作る</strong></span></div>
+      <div class="vs-row"><span class="vs-ic">→</span><span>次回までの<strong>宿題を1つ</strong>に絞る</span></div>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">New Proposals</div>
+    <div class="sec-title">今回あらたに提案すること（具体策）</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">前回の議論から一歩踏み込み、<strong>「具体的にどう進めるか」</strong>を手順レベルで整理しました。番号の手順はそのまま当日の説明・宿題にも使えます。</div>
+  </div>
+
+  <!-- 提案1: Plaud × Claude -->
+  <div class="prop-card hot">
+    <div class="prop-head">
+      <div class="prop-ic">🎙️</div>
+      <div class="prop-head-body">
+        <div class="prop-head-top"><h4>Plaud × Claude でカウンセリング分析を自動化</h4><span class="prop-badge new-info">新情報</span></div>
+        <div class="prop-why">前回話に出た録音AI「Plaud」が<strong>2026年7月にMCP対応＋話者自動識別を搭載</strong>。ClaudeやChatGPTから録音データに直接アクセスでき、「書き出して手動アップ」の手間が不要に。カウンセラーの成約率分析・教育が一気に現実的になりました。</div>
+      </div>
+    </div>
+    <div class="prop-steps">
+      <div class="prop-steps-ttl">具体的な進め方</div>
+      <ol>
+        <li><strong>Plaud本体を1台用意</strong>し、カウンセリングを録音（ピンマイク型なら装着、カード型なら机に置く）。</li>
+        <li>録音は自動で<strong>文字起こし＋話者識別</strong>され、Plaudアプリ／クラウドに蓄積される。</li>
+        <li><strong>PlaudとClaudeをMCP連携</strong>（一度設定すれば以降は自動）。アップロード作業が不要になる。</li>
+        <li>Claudeに<strong>「クロージングの強弱・改善点をレポートして」</strong>と依頼。分析結果が自動で返る。</li>
+        <li>自分の評価基準を<strong>スキルに登録</strong>しておけば、毎回同じ観点でフィードバックが得られる（カウンセラー教育に活用）。</li>
+      </ol>
+      <div class="prop-foot">💡 <strong>当日のゴール：</strong>まず1件、既存の録音か短いロールプレイで「録音→Claude分析」を試し、精度を体感する。</div>
+    </div>
+  </div>
+
+  <!-- 提案2: LINE完結型電子カルテ -->
+  <div class="prop-card hot">
+    <div class="prop-head">
+      <div class="prop-ic">📱</div>
+      <div class="prop-head-body">
+        <div class="prop-head-top"><h4>LINE完結型の電子カルテを美容事業の起点に</h4><span class="prop-badge research">調査反映</span></div>
+        <div class="prop-why">美容向け電子カルテには、<strong>LINEで予約〜決済〜カルテ管理まで完結</strong>し、外部システムとのAPI連携を前提とした製品が登場しています。公式LINE運用に慣れた政本様と好相性。前回の「API連携できるものを選ぶ」方針に、具体的な選択肢を与えます。</div>
+      </div>
+    </div>
+    <div class="prop-steps">
+      <div class="prop-steps-ttl">具体的な進め方</div>
+      <ol>
+        <li>候補システムに<strong>「API連携は可能か」を最初に問い合わせる</strong>（連携可否で設計が根本的に変わるため）。</li>
+        <li>自由診療・美容特化型で、<strong>予約・会計・カルテ・LINE連携が揃う製品</strong>を2〜3社ピックアップして比較。</li>
+        <li>各社に<strong>無料デモ・資料請求</strong>を依頼し、画面と費用感を確認（高いところで月10〜20万円規模との前回情報）。</li>
+        <li>API連携できる製品を契約すれば<strong>既存データと繋いで活用</strong>、不可なら自作判断という分岐を明確にする。</li>
+        <li>契約前に<strong>Claudeに候補を一覧化・比較表を作らせる</strong>と検討がスムーズ。</li>
+      </ol>
+      <div class="prop-foot">💡 <strong>注意：</strong>製品名・価格・連携可否は変動します。契約前に必ず各社の最新情報を直接ご確認ください。</div>
+    </div>
+  </div>
+
+  <!-- 提案3: POS確認スキル -->
+  <div class="prop-card">
+    <div class="prop-head">
+      <div class="prop-ic">🛡️</div>
+      <div class="prop-head-body">
+        <div class="prop-head-top"><h4>POSの「ローンチ前チェック」をスキル化する</h4></div>
+        <div class="prop-why">前回確認した脆弱性チェックを毎回やりやすくするため、確認作業そのものをスキルに登録。作り直すたびに<strong>同じ品質でダブルチェック</strong>でき、「作る」と「確認」を自然に分けられます。</div>
+      </div>
+    </div>
+    <div class="prop-steps">
+      <div class="prop-steps-ttl">具体的な進め方</div>
+      <ol>
+        <li>スキルクリエイターに<strong>「ローンチ前チェック用スキルを作りたい」</strong>と依頼。</li>
+        <li>チェック項目を登録：<strong>ボタンの遷移先・数値の連動・入力エラー・表示崩れ・リスク箇所</strong>の洗い出し。</li>
+        <li>POSを更新したら、そのスキルをメンションして<strong>「ローンチできる品質か確認して」</strong>と指示。</li>
+        <li>指摘をリスト化してもらい、<strong>1つずつ潰してから</strong>社内で正式運用。</li>
+      </ol>
+      <div class="prop-foot">💡 <strong>補足：</strong>大事な売上・数字が入るPOSは、開発→チェック→運用確認を経てからローンチを。</div>
+    </div>
+  </div>
+
+  <!-- 提案4: 診断フォーム×既存通知 -->
+  <div class="prop-card">
+    <div class="prop-head">
+      <div class="prop-ic">📋</div>
+      <div class="prop-head-body">
+        <div class="prop-head-top"><h4>キャスト診断フォームを既存の通知網に接続</h4></div>
+        <div class="prop-why">すでにお持ちの<strong>「回答→政本様にメール通知」</strong>の仕組みに診断フォームを繋ぎます。ゼロから作らず既存資産を活かすのが最短。黄色信号でフォロー、赤信号で代表面談という導線に。</div>
+      </div>
+    </div>
+    <div class="prop-steps">
+      <div class="prop-steps-ttl">具体的な進め方</div>
+      <ol>
+        <li>Claudeに<strong>「キャスト向けの悩み診断フォームを作りたい」</strong>と相談（情報提供型なのでチャットで作成可）。</li>
+        <li>質問は<strong>正直に答えやすい設計</strong>に。回答で黄色信号・赤信号を自動判定するルールを組む。</li>
+        <li>回答が入ったら<strong>政本様にメール通知</strong>が届くよう、既存の通知の仕組みに接続。</li>
+        <li>赤信号は<strong>代表と直接つながる面談導線</strong>へ。黒服に相談しづらい子の「逃げ道」になる。</li>
+      </ol>
+      <div class="prop-foot">💡 <strong>効果：</strong>離職前の早期フォローで、新規採用コストより低コストに定着を図れる。</div>
+    </div>
+  </div>
+
+  <!-- 提案5: 半自動+.env を型に -->
+  <div class="prop-card">
+    <div class="prop-head">
+      <div class="prop-ic">🔐</div>
+      <div class="prop-head-body">
+        <div class="prop-head-top"><h4>「半自動＋.env」を今後の開発の共通ルールに</h4></div>
+        <div class="prop-why">前回確認した<strong>金融ログインの半自動化・APIキーの.env格納</strong>を、今後すべての開発の共通ルールに。安全な作り方を毎回ゼロから考えず、決まった型で進められます。</div>
+      </div>
+    </div>
+    <div class="prop-steps">
+      <div class="prop-steps-ttl">具体的な進め方</div>
+      <ol>
+        <li>金融機関・銀行系は<strong>ログインだけ自分で行い</strong>、その後の明細DL等をAIに任せる（半自動）。</li>
+        <li>IDやパスワードは<strong>絶対にAIに渡さない</strong>（AI側も拒否する）。</li>
+        <li>APIキーは<strong>.envファイル（暗号化・AIから見えない）</strong>に格納して組み込む。</li>
+        <li>この2点を<strong>開発時の定型チェック</strong>にしておけば、安全性を毎回担保できる。</li>
+      </ol>
+      <div class="prop-foot">💡 <strong>ポイント：</strong>全自動は難しくても、半自動なら安全に効率化できる、が基本方針。</div>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <div class="sec-label">Context to Know</div>
+    <div class="sec-title">こちら側が理解しておきたい情報</div>
+    <div class="sec-divider"></div>
+    <div class="sec-sub">政本様は自走力が高い方です。前提を押さえておくと、当日の会話の質が上がります。</div>
+  </div>
+  <div class="prep-notes">
+    <div class="prep-note key">
+      <h4>🌟 現在地：すでにLv.6の自走力</h4>
+      <p>GASでタイムカード・報酬・契約・成績サイトを自作済み。<strong>「教える」より「壁打ち相手・確認役」</strong>としての伴走が響きます。基礎説明は不要で、一歩踏み込んだ提案を歓迎される段階です。</p>
+    </div>
+    <div class="prep-note key">
+      <h4>💭 心理面：「情熱が湧かない」悩みへの配慮</h4>
+      <p>前回、考える時間が短すぎて<strong>「愛着が湧かない」</strong>という本音も。新規事業のコンセプトなど“悩むべきところ”はAIに任せきらず、<strong>ご本人が悩む余地を残す</strong>声かけを。効率化と情熱のバランスに配慮を。</p>
+    </div>
+    <div class="prep-note">
+      <h4>🧠 メモリの功罪を前提に</h4>
+      <p>POSが過去版と同じになったのは<strong>メモリが過去データを参照</strong>したため。作り直す時は「過去の設計に引っ張られる可能性」を前提に、明示的にリセット・新方針を伝える必要があります。</p>
+    </div>
+    <div class="prep-note">
+      <h4>📍 クラブ業務はすでに完成度が高い</h4>
+      <p>仕組み化がほぼ完了しているため、クラブ側の改善は<strong>急がず時間をかけてOK</strong>。優先度は新規事業（美容）の土台づくり。ここを取り違えないことが会話の軸になります。</p>
+    </div>
+    <div class="prep-note">
+      <h4>🔌 美容は「API連携の可否」が最重要の分岐</h4>
+      <p>電子カルテ・予約システムは<strong>API連携できるかで設計が根本的に変わる</strong>。連携可なら既存活用、不可なら自作。契約前にここを確認するのが後戻りを防ぐ鍵、と前回整理済み。</p>
+    </div>
+    <div class="prep-note">
+      <h4>💬 連絡は公式LINEでいつでも可</h4>
+      <p>定例MTGは月1回だが、<strong>公式LINEで随時相談OK</strong>の運用。「言語化できることはAIに、言語化しづらいことは私たちに」という役割分担を改めて伝えると安心されます。</p>
+    </div>
   </div>
 
   <div class="sec-head">
